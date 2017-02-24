@@ -9,9 +9,9 @@
             InitializeComponent();
         }
 
-        private void ToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void DesignToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            foreach (var item in _toolStrip.Items)
+            foreach (var item in _designToolStrip.Items)
             {
                 var button = item as ToolStripButton;
                 if (button == null) continue;

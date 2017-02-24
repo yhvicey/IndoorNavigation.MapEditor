@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this._menuStrip = new System.Windows.Forms.MenuStrip();
             this._fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._newMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,25 +54,28 @@
             this._deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this._toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this._tabControl = new System.Windows.Forms.TabControl();
+            this._rightTabControl = new System.Windows.Forms.TabControl();
             this._mapViewTabPage = new System.Windows.Forms.TabPage();
             this._mapView = new System.Windows.Forms.TreeView();
             this._propertyTabPage = new System.Windows.Forms.TabPage();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
+            this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this._panel = new System.Windows.Forms.Panel();
+            this._floorTabControl = new System.Windows.Forms.TabControl();
+            this._designToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this._wallNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this._guideNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this._linkToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
-            this._tableLayoutPanel.SuspendLayout();
-            this._toolStrip.SuspendLayout();
-            this._tabControl.SuspendLayout();
+            this._rightTabControl.SuspendLayout();
             this._mapViewTabPage.SuspendLayout();
             this._propertyTabPage.SuspendLayout();
+            this._tableLayoutPanel.SuspendLayout();
+            this._panel.SuspendLayout();
+            this._floorTabControl.SuspendLayout();
+            this._designToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _menuStrip
@@ -271,99 +273,19 @@
             this._statusLabel.Size = new System.Drawing.Size(39, 17);
             this._statusLabel.Text = "Ready";
             // 
-            // _tableLayoutPanel
+            // _rightTabControl
             // 
-            this._tableLayoutPanel.ColumnCount = 2;
-            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this._tableLayoutPanel.Controls.Add(this._toolStrip, 0, 0);
-            this._tableLayoutPanel.Controls.Add(this._tabControl, 1, 0);
-            this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tableLayoutPanel.Location = new System.Drawing.Point(0, 24);
-            this._tableLayoutPanel.Name = "_tableLayoutPanel";
-            this._tableLayoutPanel.RowCount = 1;
-            this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanel.Size = new System.Drawing.Size(1008, 683);
-            this._tableLayoutPanel.TabIndex = 4;
-            // 
-            // _toolStrip
-            // 
-            this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3,
-            this.toolStripButton4,
-            this.toolStripButton5});
-            this._toolStrip.Location = new System.Drawing.Point(0, 0);
-            this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(808, 25);
-            this._toolStrip.TabIndex = 3;
-            this._toolStrip.Text = "toolStrip1";
-            this._toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip_ItemClicked);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.CheckOnClick = true;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.CheckOnClick = true;
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.CheckOnClick = true;
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.CheckOnClick = true;
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton5.Text = "toolStripButton5";
-            // 
-            // _tabControl
-            // 
-            this._tabControl.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this._tabControl.Controls.Add(this._mapViewTabPage);
-            this._tabControl.Controls.Add(this._propertyTabPage);
-            this._tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tabControl.Location = new System.Drawing.Point(811, 3);
-            this._tabControl.Multiline = true;
-            this._tabControl.Name = "_tabControl";
-            this._tabControl.SelectedIndex = 0;
-            this._tabControl.Size = new System.Drawing.Size(194, 677);
-            this._tabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
-            this._tabControl.TabIndex = 0;
+            this._rightTabControl.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this._rightTabControl.Controls.Add(this._mapViewTabPage);
+            this._rightTabControl.Controls.Add(this._propertyTabPage);
+            this._rightTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rightTabControl.Location = new System.Drawing.Point(811, 3);
+            this._rightTabControl.Multiline = true;
+            this._rightTabControl.Name = "_rightTabControl";
+            this._rightTabControl.SelectedIndex = 0;
+            this._rightTabControl.Size = new System.Drawing.Size(194, 677);
+            this._rightTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            this._rightTabControl.TabIndex = 0;
             // 
             // _mapViewTabPage
             // 
@@ -404,6 +326,93 @@
             this._propertyGrid.Size = new System.Drawing.Size(161, 663);
             this._propertyGrid.TabIndex = 0;
             // 
+            // _tableLayoutPanel
+            // 
+            this._tableLayoutPanel.ColumnCount = 2;
+            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this._tableLayoutPanel.Controls.Add(this._rightTabControl, 1, 0);
+            this._tableLayoutPanel.Controls.Add(this._panel, 0, 0);
+            this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._tableLayoutPanel.Location = new System.Drawing.Point(0, 24);
+            this._tableLayoutPanel.Name = "_tableLayoutPanel";
+            this._tableLayoutPanel.RowCount = 1;
+            this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this._tableLayoutPanel.Size = new System.Drawing.Size(1008, 683);
+            this._tableLayoutPanel.TabIndex = 4;
+            // 
+            // _panel
+            // 
+            this._panel.Controls.Add(this._floorTabControl);
+            this._panel.Controls.Add(this._designToolStrip);
+            this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._panel.Location = new System.Drawing.Point(3, 3);
+            this._panel.Name = "_panel";
+            this._panel.Size = new System.Drawing.Size(802, 677);
+            this._panel.TabIndex = 1;
+            // 
+            // _floorTabControl
+            // 
+            this._floorTabControl.Controls.Add(this.tabPage1);
+            this._floorTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._floorTabControl.Location = new System.Drawing.Point(0, 25);
+            this._floorTabControl.Name = "_floorTabControl";
+            this._floorTabControl.SelectedIndex = 0;
+            this._floorTabControl.Size = new System.Drawing.Size(802, 652);
+            this._floorTabControl.TabIndex = 3;
+            // 
+            // _designToolStrip
+            // 
+            this._designToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._wallNodeToolStripButton,
+            this._guideNodeToolStripButton,
+            this._linkToolStripButton});
+            this._designToolStrip.Location = new System.Drawing.Point(0, 0);
+            this._designToolStrip.Name = "_designToolStrip";
+            this._designToolStrip.Size = new System.Drawing.Size(802, 25);
+            this._designToolStrip.TabIndex = 2;
+            this._designToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignToolStrip_ItemClicked);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(794, 626);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // _wallNodeToolStripButton
+            // 
+            this._wallNodeToolStripButton.CheckOnClick = true;
+            this._wallNodeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._wallNodeToolStripButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.WallNodeIcon;
+            this._wallNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._wallNodeToolStripButton.Name = "_wallNodeToolStripButton";
+            this._wallNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this._wallNodeToolStripButton.Text = "Wall node";
+            // 
+            // _guideNodeToolStripButton
+            // 
+            this._guideNodeToolStripButton.CheckOnClick = true;
+            this._guideNodeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._guideNodeToolStripButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.GuideNodeIcon;
+            this._guideNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._guideNodeToolStripButton.Name = "_guideNodeToolStripButton";
+            this._guideNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this._guideNodeToolStripButton.Text = "Guide node";
+            // 
+            // _linkToolStripButton
+            // 
+            this._linkToolStripButton.CheckOnClick = true;
+            this._linkToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._linkToolStripButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.LinkIcon;
+            this._linkToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._linkToolStripButton.Name = "_linkToolStripButton";
+            this._linkToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this._linkToolStripButton.Text = "Link";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,13 +428,15 @@
             this._menuStrip.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
-            this._tableLayoutPanel.ResumeLayout(false);
-            this._tableLayoutPanel.PerformLayout();
-            this._toolStrip.ResumeLayout(false);
-            this._toolStrip.PerformLayout();
-            this._tabControl.ResumeLayout(false);
+            this._rightTabControl.ResumeLayout(false);
             this._mapViewTabPage.ResumeLayout(false);
             this._propertyTabPage.ResumeLayout(false);
+            this._tableLayoutPanel.ResumeLayout(false);
+            this._panel.ResumeLayout(false);
+            this._panel.PerformLayout();
+            this._floorTabControl.ResumeLayout(false);
+            this._designToolStrip.ResumeLayout(false);
+            this._designToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -459,18 +470,19 @@
         private System.Windows.Forms.ToolStripMenuItem _deleteMenuItem;
         private System.Windows.Forms.StatusStrip _statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel _statusLabel;
-        private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
-        private System.Windows.Forms.TabControl _tabControl;
+        private System.Windows.Forms.TabControl _rightTabControl;
         private System.Windows.Forms.TabPage _mapViewTabPage;
         private System.Windows.Forms.TreeView _mapView;
         private System.Windows.Forms.TabPage _propertyTabPage;
         private System.Windows.Forms.PropertyGrid _propertyGrid;
-        private System.Windows.Forms.ToolStrip _toolStrip;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
+        private System.Windows.Forms.Panel _panel;
+        private System.Windows.Forms.TabControl _floorTabControl;
+        private System.Windows.Forms.ToolStrip _designToolStrip;
+        private System.Windows.Forms.ToolStripButton _wallNodeToolStripButton;
+        private System.Windows.Forms.ToolStripButton _guideNodeToolStripButton;
+        private System.Windows.Forms.ToolStripButton _linkToolStripButton;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 
