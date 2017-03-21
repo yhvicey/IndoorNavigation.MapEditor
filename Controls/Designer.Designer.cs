@@ -1,6 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
-    partial class GuideNode
+    partial class Designer
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // GuideNode
+            // Designer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::IndoorNavigator.MapEditor.Properties.Resources.GuideNodeIcon;
-            this.Name = "GuideNode";
+            this.Name = "Designer";
+            this.Size = new System.Drawing.Size(573, 429);
             this.ResumeLayout(false);
 
         }

@@ -1,6 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
-    partial class BaseNode
+    partial class Node
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,16 +30,17 @@
         {
             this.SuspendLayout();
             // 
-            // BaseNode
+            // Node
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BackgroundImage = global::IndoorNavigator.MapEditor.Properties.Resources.NodeIcon;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.DoubleBuffered = true;
             this.MaximumSize = new System.Drawing.Size(14, 14);
             this.MinimumSize = new System.Drawing.Size(10, 10);
-            this.Name = "BaseNode";
+            this.Name = "Node";
             this.Size = new System.Drawing.Size(10, 10);
             this.ResumeLayout(false);
 
