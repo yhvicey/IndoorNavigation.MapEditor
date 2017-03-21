@@ -61,12 +61,11 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static System.Drawing.Bitmap GuideNodeIcon {
+        internal static string ErrorDialogTitle {
             get {
-                object obj = ResourceManager.GetObject("GuideNodeIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ErrorDialogTitle", resourceCulture);
             }
         }
         
@@ -91,11 +90,39 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*.
+        /// </summary>
+        internal static string LoadBackgroundDialogFilter {
+            get {
+                return ResourceManager.GetString("LoadBackgroundDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load background.
+        /// </summary>
+        internal static string LoadBackgroundDialogTitle {
+            get {
+                return ResourceManager.GetString("LoadBackgroundDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Logo {
+            get {
+                object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RightArrow {
+        internal static System.Drawing.Bitmap NodeIcon {
             get {
-                object obj = ResourceManager.GetObject("RightArrow", resourceCulture);
+                object obj = ResourceManager.GetObject("NodeIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +130,9 @@ namespace IndoorNavigator.MapEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WallNodeIcon {
+        internal static System.Drawing.Bitmap RightArrow {
             get {
-                object obj = ResourceManager.GetObject("WallNodeIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("RightArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
