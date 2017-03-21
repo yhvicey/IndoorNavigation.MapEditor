@@ -47,42 +47,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\BaseNode.cs">
+    <Compile Include="Contracts\Floor.cs" />
+    <Compile Include="Contracts\Map.cs" />
+    <Compile Include="Contracts\Nodes\GuideNode.cs" />
+    <Compile Include="Contracts\Nodes\TagNode.cs" />
+    <Compile Include="Contracts\Nodes\WallNode.cs" />
+    <Compile Include="Contracts\Nodes\NodeType.cs" />
+    <Compile Include="Contracts\Link.cs" />
+    <Compile Include="Contracts\Nodes\NodeBase.cs" />
+    <Compile Include="Controls\Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\BaseNode.Designer.cs">
-      <DependentUpon>BaseNode.cs</DependentUpon>
+    <Compile Include="Controls\Designer.Designer.cs">
+      <DependentUpon>Designer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GuideNode.cs">
+    <Compile Include="Controls\Node.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\GuideNode.Designer.cs">
-      <DependentUpon>GuideNode.cs</DependentUpon>
+    <Compile Include="Controls\Node.Designer.cs">
+      <DependentUpon>Node.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WallNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\WallNode.Designer.cs">
-      <DependentUpon>WallNode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Windows\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\BaseNode.resx">
-      <DependentUpon>BaseNode.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Designer.resx">
+      <DependentUpon>Designer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\GuideNode.resx">
-      <DependentUpon>GuideNode.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Node.resx">
+      <DependentUpon>Node.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WallNode.resx">
-      <DependentUpon>WallNode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="Windows\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -109,19 +108,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GuideNodeIcon.png" />
+    <None Include="Resources\NodeIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RightArrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WallNodeIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LeftArrow.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LinkIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
