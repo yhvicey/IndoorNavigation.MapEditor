@@ -17,8 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\MapEditor\Debug\</OutputPath>
-    <IntermediateOutputPath>..\..\int\MapEditor\Debug\</IntermediateOutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,8 +26,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\MapEditor\Release\</OutputPath>
-    <IntermediateOutputPath>..\..\int\MapEditor\Release\</IntermediateOutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,14 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\Floor.cs" />
-    <Compile Include="Contracts\Map.cs" />
-    <Compile Include="Contracts\Nodes\GuideNode.cs" />
-    <Compile Include="Contracts\Nodes\TagNode.cs" />
-    <Compile Include="Contracts\Nodes\WallNode.cs" />
-    <Compile Include="Contracts\Nodes\NodeType.cs" />
-    <Compile Include="Contracts\Link.cs" />
-    <Compile Include="Contracts\Nodes\NodeBase.cs" />
+    <Compile Include="Models\Floor.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\Nodes\EntryNode.cs" />
+    <Compile Include="Models\Nodes\GuideNode.cs" />
+    <Compile Include="Models\Nodes\WallNode.cs" />
+    <Compile Include="Models\Nodes\NodeType.cs" />
+    <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\Nodes\NodeBase.cs" />
     <Compile Include="Controls\Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,6 +65,9 @@
     <Compile Include="Controls\Node.Designer.cs">
       <DependentUpon>Node.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map\MapParser.cs" />
+    <Compile Include="Map\MapSaver.cs" />
+    <Compile Include="Share\Contract.cs" />
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,8 +123,6 @@
   <ItemGroup>
     <None Include="Resources\Logo.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parser\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
