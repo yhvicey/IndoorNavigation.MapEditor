@@ -42,10 +42,10 @@
             {
                 case EntryNode entry:
                 {
+                    if (entry.Name != null) nodeElement.SetAttribute(AttrName, entry.Name);
                     nodeElement.SetAttribute(AttrType, TypeEntry);
                     if (entry.PrevEntry != null) nodeElement.SetAttribute(AttrPrevEntry, entry.PrevEntry.ToString());
                     if (entry.NextEntry != null) nodeElement.SetAttribute(AttrNextEntry, entry.NextEntry.ToString());
-                    if (entry.Name != null) nodeElement.SetAttribute(AttrName, entry.Name);
                     break;
                 }
                 case GuideNode guide:
