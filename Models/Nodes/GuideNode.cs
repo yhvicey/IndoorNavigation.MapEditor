@@ -1,4 +1,4 @@
-﻿namespace IndoorNavigator.MapEditor.Contracts.Nodes
+﻿namespace IndoorNavigator.MapEditor.Models.Nodes
 {
     public class GuideNode :
         NodeBase
@@ -7,7 +7,7 @@
 
         public override NodeType Type => NodeType.GuideNode;
 
-        public GuideNode(int x, int y, string name = null) :
+        public GuideNode(double x, double y, string name = null) :
             base(x, y)
         {
             Name = name;

@@ -1,4 +1,4 @@
-﻿namespace IndoorNavigator.MapEditor.Contracts
+﻿namespace IndoorNavigator.MapEditor.Models
 {
     using System.Diagnostics;
 
@@ -9,13 +9,10 @@
 
         public int End { get; }
 
-        public int? EndFloor { get; }
-
-        public Link(int start, int end, int? endFloor = null)
+        public Link(int start, int end)
         {
             Start = start;
             End = end;
-            EndFloor = endFloor;
         }
     }
 }
