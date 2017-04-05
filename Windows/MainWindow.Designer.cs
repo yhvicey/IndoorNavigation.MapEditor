@@ -1,7 +1,6 @@
 namespace IndoorNavigator.MapEditor.Windows
 {
-    using Contracts;
-    using Contracts.Nodes;
+    using Models.Nodes;
 
     partial class MainWindow
     {
@@ -61,7 +60,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._removeBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._setScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
-            this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._rightTabControl = new System.Windows.Forms.TabControl();
             this._mapViewTabPage = new System.Windows.Forms.TabPage();
             this._mapView = new System.Windows.Forms.TreeView();
@@ -71,12 +69,14 @@ namespace IndoorNavigator.MapEditor.Windows
             this._panel = new System.Windows.Forms.Panel();
             this._floorTabControl = new System.Windows.Forms.TabControl();
             this._floor1TabPage = new System.Windows.Forms.TabPage();
+            this.nodeControl1 = new IndoorNavigator.MapEditor.Controls.Node();
             this._designToolStrip = new System.Windows.Forms.ToolStrip();
             this._wallNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._linkToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._loadFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.nodeControl1 = new IndoorNavigator.MapEditor.Controls.Node();
+            this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._menuStrip.SuspendLayout();
+            this._statusStrip.SuspendLayout();
             this._rightTabControl.SuspendLayout();
             this._mapViewTabPage.SuspendLayout();
             this._propertyTabPage.SuspendLayout();
@@ -189,7 +189,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // _saveAllMenuItem
             // 
             this._saveAllMenuItem.Name = "_saveAllMenuItem";
-            this._saveAllMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this._saveAllMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this._saveAllMenuItem.Size = new System.Drawing.Size(187, 22);
             this._saveAllMenuItem.Text = "Save All";
@@ -299,17 +299,13 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             // _statusStrip
             // 
+            this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._statusLabel});
             this._statusStrip.Location = new System.Drawing.Point(0, 707);
             this._statusStrip.Name = "_statusStrip";
             this._statusStrip.Size = new System.Drawing.Size(1008, 22);
             this._statusStrip.TabIndex = 3;
             this._statusStrip.Text = "statusStrip1";
-            // 
-            // _statusLabel
-            // 
-            this._statusLabel.Name = "_statusLabel";
-            this._statusLabel.Size = new System.Drawing.Size(39, 17);
-            this._statusLabel.Text = "Ready";
             // 
             // _rightTabControl
             // 
@@ -410,6 +406,19 @@ namespace IndoorNavigator.MapEditor.Windows
             this._floor1TabPage.Text = "Floor 1";
             this._floor1TabPage.UseVisualStyleBackColor = true;
             // 
+            // nodeControl1
+            // 
+            this.nodeControl1.BackColor = System.Drawing.Color.Transparent;
+            this.nodeControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nodeControl1.BackgroundImage")));
+            this.nodeControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.nodeControl1.Location = new System.Drawing.Point(428, 227);
+            this.nodeControl1.MaximumSize = new System.Drawing.Size(14, 14);
+            this.nodeControl1.MinimumSize = new System.Drawing.Size(10, 10);
+            this.nodeControl1.Name = "nodeControl1";
+            this.nodeControl1.Size = new System.Drawing.Size(10, 10);
+            this.nodeControl1.TabIndex = 0;
+            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.EntryNode;
+            // 
             // _designToolStrip
             // 
             this._designToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -441,18 +450,11 @@ namespace IndoorNavigator.MapEditor.Windows
             this._linkToolStripButton.Size = new System.Drawing.Size(23, 22);
             this._linkToolStripButton.Text = "Link";
             // 
-            // nodeControl1
+            // _statusLabel
             // 
-            this.nodeControl1.BackColor = System.Drawing.Color.Transparent;
-            this.nodeControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nodeControl1.BackgroundImage")));
-            this.nodeControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.nodeControl1.Location = new System.Drawing.Point(428, 227);
-            this.nodeControl1.MaximumSize = new System.Drawing.Size(14, 14);
-            this.nodeControl1.MinimumSize = new System.Drawing.Size(10, 10);
-            this.nodeControl1.Name = "nodeControl1";
-            this.nodeControl1.Size = new System.Drawing.Size(10, 10);
-            this.nodeControl1.TabIndex = 0;
-            this.nodeControl1.Type = NodeType.Door;
+            this._statusLabel.Name = "_statusLabel";
+            this._statusLabel.Size = new System.Drawing.Size(39, 17);
+            this._statusLabel.Text = "Ready";
             // 
             // MainWindow
             // 
@@ -468,6 +470,8 @@ namespace IndoorNavigator.MapEditor.Windows
             this.Text = "Editor";
             this._menuStrip.ResumeLayout(false);
             this._menuStrip.PerformLayout();
+            this._statusStrip.ResumeLayout(false);
+            this._statusStrip.PerformLayout();
             this._rightTabControl.ResumeLayout(false);
             this._mapViewTabPage.ResumeLayout(false);
             this._propertyTabPage.ResumeLayout(false);
@@ -510,7 +514,6 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _pasteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _deleteMenuItem;
         private System.Windows.Forms.StatusStrip _statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel _statusLabel;
         private System.Windows.Forms.TabControl _rightTabControl;
         private System.Windows.Forms.TabPage _mapViewTabPage;
         private System.Windows.Forms.TreeView _mapView;
@@ -529,6 +532,7 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _removeBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _setScaleMenuItem;
         private Controls.Node nodeControl1;
+        private System.Windows.Forms.ToolStripStatusLabel _statusLabel;
     }
 }
 

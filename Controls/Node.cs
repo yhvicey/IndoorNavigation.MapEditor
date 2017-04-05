@@ -6,14 +6,15 @@
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.Windows.Forms;
-    using Contracts.Nodes;
+    using Models.Nodes;
 
     public partial class Node : UserControl
     {
         private static readonly Dictionary<NodeType, Color> TypeColorMap = new Dictionary<NodeType, Color>
         {
-            [NodeType.WallNode] = Color.SlateGray,
+            [NodeType.EntryNode] = Color.Aqua,
             [NodeType.GuideNode] = Color.DeepSkyBlue,
+            [NodeType.WallNode] = Color.SlateGray
         };
 
         private bool _isMouseHovering;

@@ -1,9 +1,11 @@
 ﻿namespace IndoorNavigator.MapEditor.Windows
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using Contracts;
+    using Map;
+    using Models;
     using Properties;
 
     public partial class MainWindow : Form
@@ -15,27 +17,30 @@
             MessageBox.Show(this, message, title);
         }
 
+        private void Alert(Exception ex, string appendMessage = null)
+        {
+            Alert(ex.ToString(), Resources.ErrorDialogTitle);
+            StatusBarMessage($"Exception occured.{(appendMessage == null ? string.Empty : " " + appendMessage)}");
+        }
+
         private void StatusBarMessage(string message)
         {
             _statusLabel.Text = message;
         }
 
-        public MainWindow(string[] args)
+        public MainWindow(IReadOnlyList<string> args)
         {
             InitializeComponent();
-            if (args.Length < 1) return;
+            if (args.Count < 1) return;
             try
             {
-                _currentMap = Map.FromFile(args[0]);
-                StatusBarMessage($"Load {args[0]} successfully.");
+                _currentMap = MapParser.Parse(args[0]);
+                StatusBarMessage($"Succeed to Load {args[0]}.");
             }
             catch (Exception ex)
             {
-                Alert(ex.ToString(), Resources.ErrorDialogTitle);
+                Alert(ex, $"Failed to load {args[0]}.");
             }
-            if (_currentMap != null) return;
-            Alert("Failed to load map file!");
-            StatusBarMessage($"Load {args[0]} failed.");
         }
 
         private void DesignToolStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
