@@ -9,9 +9,9 @@
     [DebuggerDisplay("{" + nameof(X) + "}, {" + nameof(Y) + "}")]
     public abstract class NodeBase
     {
-        protected Floor Parent { get; }
-
         public List<Link> Links { get; } = new List<Link>();
+
+        protected Floor Parent { get; }
 
         public abstract NodeType Type { get; }
 

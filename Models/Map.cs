@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics;
+    using Nodes;
     using Share;
 
     [DebuggerDisplay("Count = {" + nameof(Floors) + ".Count}")]
@@ -24,6 +25,11 @@
         public void AddFloor(Floor floor)
         {
             Floors.Add(floor);
+        }
+
+        public void AddNode(NodeBase node, int floor)
+        {
+            Floors[floor].AddNode(node);
         }
 
         public void OnLoadFinished()

@@ -18,13 +18,6 @@
 
         public List<WallNode> WallNodes { get; } = new List<WallNode>();
 
-        public Floor(List<NodeBase> nodes)
-        {
-            Contract.EnsureArgsNonNull(nodes);
-            nodes.ForEach(AddNode);
-            OnLoadFinished();
-        }
-
         public void AddNode(NodeBase node)
         {
             Contract.EnsureArgsNonNull(node);
@@ -49,6 +42,14 @@
                 {
                     throw new ArgumentException(Resources.UnexpectedTypeError, nameof(node));
                 }
+            }
+        }
+
+        public void AddNodes(IEnumerable<NodeBase> nodes)
+        {
+            foreach (var node in nodes)
+            {
+                AddNode(node);
             }
         }
 
@@ -107,15 +108,15 @@
         {
             switch (type)
             {
-                case NodeType.Entry:
+                case NodeType.EntryNode:
                 {
                     return GetEntryNode(index);
                 }
-                case NodeType.Guide:
+                case NodeType.GuideNode:
                 {
                     return GetGuideNode(index);
                 }
-                case NodeType.Wall:
+                case NodeType.WallNode:
                 {
                     return GetWallNode(index);
                 }

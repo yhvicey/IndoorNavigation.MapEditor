@@ -2,8 +2,8 @@
 {
     public enum NodeType
     {
-        Entry,
-        Guide,
-        Wall
+        EntryNode,
+        GuideNode,
+        WallNode
     }
 }

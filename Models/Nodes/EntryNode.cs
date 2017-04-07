@@ -5,24 +5,24 @@
     {
         public string Name { get; set; }
 
-        public int? NextEntry { get; }
+        public int? Next { get; }
 
-        public int? PrevEntry { get; }
+        public int? Prev { get; }
 
-        public override NodeType Type => NodeType.Entry;
+        public override NodeType Type => NodeType.EntryNode;
 
-        public EntryNode(Floor parent, double x, double y, string name, int? prevEntry, int? nextEntry) :
+        public EntryNode(Floor parent, double x, double y, string name, int? prev, int? next) :
             base(parent, x, y)
         {
             Name = name;
-            NextEntry = nextEntry;
-            PrevEntry = prevEntry;
+            Next = next;
+            Prev = prev;
         }
 
         public override string ToString()
         {
             return
-                $"{base.ToString()} {(Name == null ? "" : $"Name: {Name} ") + (PrevEntry == null ? "" : $"Prev: {PrevEntry}") + (NextEntry == null ? "" : $"Next: {NextEntry}")}";
+                $"{base.ToString()} {(Name == null ? "" : $"Name: {Name} ") + (Prev == null ? "" : $"Prev: {Prev} ") + (Next == null ? "" : $"Next: {Next}")}";
         }
     }
 }

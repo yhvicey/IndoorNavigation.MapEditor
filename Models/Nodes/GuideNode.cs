@@ -5,7 +5,7 @@
     {
         public string Name { get; set; }
 
-        public override NodeType Type => NodeType.Guide;
+        public override NodeType Type => NodeType.GuideNode;
 
         public GuideNode(Floor parent, double x, double y, string name = null) :
             base(parent, x, y)

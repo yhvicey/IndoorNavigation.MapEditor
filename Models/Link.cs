@@ -25,5 +25,10 @@
         {
             Distance = _parent.GetDistance(Type, Index);
         }
+
+        public override string ToString()
+        {
+            return $"Link({Type}, {Index})";
+        }
     }
 }
