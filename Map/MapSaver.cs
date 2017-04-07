@@ -3,107 +3,68 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Xml;
     using Models;
     using Models.Nodes;
+    using Properties;
     using Share;
 
     public static class MapSaver
     {
-        private const string SupportedVersion = "1.0";
-        private const string AttrVersion = "Version";
+        private const string AttrIndex = "Index";
+        private const string AttrName = "Name";
+        private const string AttrNext = "Next";
+        private const string AttrPrev = "Prev";
         private const string AttrType = "Type";
+        private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
-        private const string AttrName = "Name";
-        private const string AttrPrevEntry = "PrevEntry";
-        private const string AttrNextEntry = "NextEntry";
-        private const string AttrStart = "Start";
-        private const string AttrEnd = "End";
         private const string ElementMap = "Map";
-        private const string ElementNode = "Node";
-        private const string ElementNodes = "Nodes";
-        private const string ElementLink = "Link";
-        private const string ElementLinks = "Links";
         private const string ElementFloor = "Floor";
-        private const string TypeEntry = "Entry";
-        private const string TypeGuide = "Guide";
-        private const string TypeWall = "Wall";
+        private const string ElementLink = "Link";
+        private const string SupportedVersion = "1.0";
+
+        private static XmlElement GenerateLink(Link link, XmlDocument doc)
+        {
+            Contract.EnsureArgsNonNull(link, doc);
+            var linkElement = doc.CreateElement(ElementLink);
+            linkElement.SetAttribute(AttrType, link.Type.ToString());
+            linkElement.SetAttribute(AttrIndex, link.Index.ToString());
+            return linkElement;
+        }
 
         private static XmlElement GenerateNode(NodeBase node, XmlDocument doc)
         {
             Contract.EnsureArgsNonNull(node, doc);
 
-            var nodeElement = doc.CreateElement(ElementNode);
+            var nodeElement = doc.CreateElement(node.Type.ToString());
             nodeElement.SetAttribute(AttrX, node.X.ToString("F2"));
             nodeElement.SetAttribute(AttrY, node.Y.ToString("F2"));
+            node.Links.ForEach(link => nodeElement.AppendChild(GenerateLink(link, doc)));
             switch (node)
             {
-                case EntryNode entry:
+                case EntryNode entryNode:
                 {
-                    if (entry.Name != null) nodeElement.SetAttribute(AttrName, entry.Name);
-                    nodeElement.SetAttribute(AttrType, TypeEntry);
-                    if (entry.PrevEntry != null) nodeElement.SetAttribute(AttrPrevEntry, entry.PrevEntry.ToString());
-                    if (entry.NextEntry != null) nodeElement.SetAttribute(AttrNextEntry, entry.NextEntry.ToString());
+                    if (entryNode.Name != null) nodeElement.SetAttribute(AttrName, entryNode.Name);
+                    if (entryNode.Prev != null) nodeElement.SetAttribute(AttrPrev, entryNode.Prev.ToString());
+                    if (entryNode.Next != null) nodeElement.SetAttribute(AttrNext, entryNode.Next.ToString());
                     break;
                 }
-                case GuideNode guide:
+                case GuideNode guideNode:
                 {
-                    nodeElement.SetAttribute(AttrType, TypeGuide);
-                    if (guide.Name != null) nodeElement.SetAttribute(AttrName, guide.Name);
+                    if (guideNode.Name != null) nodeElement.SetAttribute(AttrName, guideNode.Name);
                     break;
                 }
-                case WallNode wall:
+                case WallNode wallNode:
                 {
-                    nodeElement.SetAttribute(AttrType, TypeWall);
                     break;
                 }
                 default:
                 {
-                    throw new Exception("Invalid type");
+                    throw new ArgumentException(Resources.UnexpectedTypeError, nameof(node));
                 }
             }
             return nodeElement;
-        }
-
-        private static XmlElement GenerateLink(Link link, XmlDocument doc)
-        {
-            var linkElement = doc.CreateElement(ElementLink);
-            linkElement.SetAttribute(AttrStart, link.Start.ToString());
-            linkElement.SetAttribute(AttrEnd, link.End.ToString());
-            return linkElement;
-        }
-
-        private static XmlElement GenerateNodes(IEnumerable<NodeBase> nodes, XmlDocument doc)
-        {
-            var nodesElement = doc.CreateElement(ElementNodes);
-            foreach (var node in nodes)
-            {
-                nodesElement.AppendChild(GenerateNode(node, doc));
-            }
-            return nodesElement;
-        }
-
-        private static XmlElement GenerateLinks(IList<NodeBase> nodes, XmlDocument doc)
-        {
-            Contract.EnsureArgsNonNull(nodes);
-
-            var links = new List<Link>();
-            var start = 0;
-            foreach (var node in nodes)
-            {
-                links.AddRange(node.AdjacentNodes.Select(nodes.IndexOf).Select(end => new Link(start, end)));
-                start++;
-            }
-
-            var linksElement = doc.CreateElement(ElementLinks);
-            foreach (var link in links)
-            {
-                linksElement.AppendChild(GenerateLink(link, doc));
-            }
-
-            return linksElement;
         }
 
         public static void Save(string fileName, Map map)
@@ -122,16 +83,9 @@
             {
                 var floorElement = doc.CreateElement(ElementFloor);
 
-                var nodes = new List<NodeBase>();
-                nodes.AddRange(floor.EntryNodes);
-                nodes.AddRange(floor.GuideNodes);
-                nodes.AddRange(floor.WallNodes);
-
-                var nodesElement = GenerateNodes(nodes, doc);
-                var linksElement = GenerateLinks(nodes, doc);
-
-                floorElement.AppendChild(nodesElement);
-                floorElement.AppendChild(linksElement);
+                floor.EntryNodes.ForEach(entryNode => floorElement.AppendChild(GenerateNode(entryNode, doc)));
+                floor.GuideNodes.ForEach(guideNode => floorElement.AppendChild(GenerateNode(guideNode, doc)));
+                floor.WallNodes.ForEach(wallNode => floorElement.AppendChild(GenerateNode(wallNode, doc)));
 
                 root.AppendChild(floorElement);
             }
