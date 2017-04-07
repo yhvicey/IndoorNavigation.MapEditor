@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MapElementTreeNode.cs" />
+    <Compile Include="Controls\MapViewAdapter.cs" />
+    <Compile Include="Extensions\IEnumerableExtension.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Nodes\EntryNode.cs" />
@@ -67,7 +70,14 @@
     </Compile>
     <Compile Include="Map\MapParser.cs" />
     <Compile Include="Map\MapSaver.cs" />
+    <Compile Include="Share\Alerter.cs" />
     <Compile Include="Share\Contract.cs" />
+    <Compile Include="Windows\AddNodeWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\AddNodeWizard.Designer.cs">
+      <DependentUpon>AddNodeWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Node.resx">
       <DependentUpon>Node.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\AddNodeWizard.resx">
+      <DependentUpon>AddNodeWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

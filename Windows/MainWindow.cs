@@ -164,5 +164,38 @@
         }
 
         #endregion // Event handlers
+
+        private void magicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var wizard = new AddNodeWizard(_map);
+            if (wizard.ShowDialog() != DialogResult.Yes) return;
+            var floorIndex = wizard.Floor;
+            var floor = _map.Floors[floorIndex];
+            NodeBase node;
+            switch (wizard.Type)
+            {
+                case NodeType.EntryNode:
+                {
+                    node = new EntryNode(floor, wizard.X, wizard.Y, wizard.NodeName, wizard.Prev, wizard.Next);
+                    break;
+                }
+                case NodeType.GuideNode:
+                {
+                    node = new GuideNode(floor, wizard.X, wizard.Y, wizard.NodeName);
+                    break;
+                }
+                case NodeType.WallNode:
+                {
+                    node = new WallNode(floor, wizard.X, wizard.Y);
+                    break;
+                }
+                default:
+                {
+                    return;
+                }
+            }
+            floor.AddNode(node);
+            _mapViewAdapter.AddNode(floorIndex, node);
+        }
     }
 }
