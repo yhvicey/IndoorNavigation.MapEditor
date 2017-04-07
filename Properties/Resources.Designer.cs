@@ -70,6 +70,51 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid argument.
+        /// </summary>
+        internal static string InvalidArgument {
+            get {
+                return ResourceManager.GetString("InvalidArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid element.
+        /// </summary>
+        internal static string InvalidElementError {
+            get {
+                return ResourceManager.GetString("InvalidElementError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid map file.
+        /// </summary>
+        internal static string InvalidMapFileError {
+            get {
+                return ResourceManager.GetString("InvalidMapFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid x value.
+        /// </summary>
+        internal static string InvalidXValueError {
+            get {
+                return ResourceManager.GetString("InvalidXValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid y value.
+        /// </summary>
+        internal static string InvalidYValue {
+            get {
+                return ResourceManager.GetString("InvalidYValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap LeftArrow {
@@ -128,12 +173,39 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a floor.
+        /// </summary>
+        internal static string PleaseSelectFloorAlert {
+            get {
+                return ResourceManager.GetString("PleaseSelectFloorAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap RightArrow {
             get {
                 object obj = ResourceManager.GetObject("RightArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected node type.
+        /// </summary>
+        internal static string UnexpectedTypeError {
+            get {
+                return ResourceManager.GetString("UnexpectedTypeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported version.
+        /// </summary>
+        internal static string UnsupportedVersionError {
+            get {
+                return ResourceManager.GetString("UnsupportedVersionError", resourceCulture);
             }
         }
     }

@@ -142,4 +142,28 @@
   <data name="NodeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NodeIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="UnexpectedTypeError" xml:space="preserve">
+    <value>Unexpected node type</value>
+  </data>
+  <data name="InvalidElementError" xml:space="preserve">
+    <value>Invalid element</value>
+  </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>Invalid argument</value>
+  </data>
+  <data name="InvalidMapFileError" xml:space="preserve">
+    <value>Invalid map file</value>
+  </data>
+  <data name="UnsupportedVersionError" xml:space="preserve">
+    <value>Unsupported version</value>
+  </data>
+  <data name="InvalidXValueError" xml:space="preserve">
+    <value>Invalid x value</value>
+  </data>
+  <data name="InvalidYValue" xml:space="preserve">
+    <value>Invalid y value</value>
+  </data>
+  <data name="PleaseSelectFloorAlert" xml:space="preserve">
+    <value>Please select a floor</value>
+  </data>
 </root>

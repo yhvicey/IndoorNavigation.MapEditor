@@ -2,12 +2,13 @@
 {
     using System;
     using System.Linq;
+    using Properties;
 
     public static class Contract
     {
         public static void EnsureArgsNonNull(params object[] args)
         {
-            if (args.Any(arg => arg == null)) throw new ArgumentNullException();
+            if (args.Any(arg => arg == null)) throw new ArgumentNullException(Resources.InvalidArgument);
         }
 
         public static void EnsureValuesNonNull(params object[] values)
