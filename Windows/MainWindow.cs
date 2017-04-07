@@ -43,17 +43,6 @@
 
         #region Functions
 
-        private void Alert(string message, string title = "Alert")
-        {
-            MessageBox.Show(this, message, title);
-        }
-
-        private void Alert(Exception ex, string statusBarMessage = null)
-        {
-            Alert(ex.ToString(), Resources.ErrorDialogTitle);
-            StatusBarMessage($"Exception occured. {statusBarMessage ?? ""}");
-        }
-
         private bool LoadMap(string fileName)
         {
             try
@@ -65,7 +54,7 @@
             }
             catch (Exception ex)
             {
-                Alert(ex, $"Failed to load {fileName}.");
+                Alerter.Alert(ex, $"Failed to load {fileName}.");
                 return false;
             }
         }
