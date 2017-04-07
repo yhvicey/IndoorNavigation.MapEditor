@@ -30,6 +30,7 @@ namespace IndoorNavigator.MapEditor.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this._menuStrip = new System.Windows.Forms.MenuStrip();
             this._fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,11 +62,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._setScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this._rightTabControl = new System.Windows.Forms.TabControl();
-            this._mapViewTabPage = new System.Windows.Forms.TabPage();
-            this._mapView = new System.Windows.Forms.TreeView();
-            this._propertyTabPage = new System.Windows.Forms.TabPage();
-            this._propertyGrid = new System.Windows.Forms.PropertyGrid();
             this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this._panel = new System.Windows.Forms.Panel();
             this._floorTabControl = new System.Windows.Forms.TabControl();
@@ -74,17 +70,39 @@ namespace IndoorNavigator.MapEditor.Windows
             this._designToolStrip = new System.Windows.Forms.ToolStrip();
             this._wallNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._linkToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this._rightPanel = new System.Windows.Forms.SplitContainer();
+            this._mapView = new System.Windows.Forms.TreeView();
+            this._propertyGrid = new System.Windows.Forms.PropertyGrid();
             this._loadFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this._mapTreeNodeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._mapTreeNodeAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._mapTreeNodeFloorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._mapTreeNodeSaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._floorTreeNodeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._floorTreeNodeAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._floorTreeNodeEntryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._floorTreeNodeGuideMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._floorTreeNodeWallMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._floorTreeNodeRemoveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._nodeTreeNodeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._nodeTreeNodeAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._nodeTreeNodeLinkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._nodeTreeNodeRemoveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.magicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
-            this._rightTabControl.SuspendLayout();
-            this._mapViewTabPage.SuspendLayout();
-            this._propertyTabPage.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
             this._panel.SuspendLayout();
             this._floorTabControl.SuspendLayout();
             this._floor1TabPage.SuspendLayout();
             this._designToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._rightPanel)).BeginInit();
+            this._rightPanel.Panel1.SuspendLayout();
+            this._rightPanel.Panel2.SuspendLayout();
+            this._rightPanel.SuspendLayout();
+            this._mapTreeNodeMenu.SuspendLayout();
+            this._floorTreeNodeMenu.SuspendLayout();
+            this._nodeTreeNodeMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // _menuStrip
@@ -92,7 +110,8 @@ namespace IndoorNavigator.MapEditor.Windows
             this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
             this._editMenuItem,
-            this._layerMenuItem});
+            this._layerMenuItem,
+            this.magicToolStripMenuItem});
             this._menuStrip.Location = new System.Drawing.Point(0, 0);
             this._menuStrip.Name = "_menuStrip";
             this._menuStrip.Size = new System.Drawing.Size(1008, 24);
@@ -313,71 +332,19 @@ namespace IndoorNavigator.MapEditor.Windows
             this._statusLabel.Size = new System.Drawing.Size(39, 17);
             this._statusLabel.Text = "Ready";
             // 
-            // _rightTabControl
-            // 
-            this._rightTabControl.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this._rightTabControl.Controls.Add(this._mapViewTabPage);
-            this._rightTabControl.Controls.Add(this._propertyTabPage);
-            this._rightTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._rightTabControl.Location = new System.Drawing.Point(711, 3);
-            this._rightTabControl.Multiline = true;
-            this._rightTabControl.Name = "_rightTabControl";
-            this._rightTabControl.SelectedIndex = 0;
-            this._rightTabControl.Size = new System.Drawing.Size(294, 677);
-            this._rightTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
-            this._rightTabControl.TabIndex = 0;
-            // 
-            // _mapViewTabPage
-            // 
-            this._mapViewTabPage.Controls.Add(this._mapView);
-            this._mapViewTabPage.Location = new System.Drawing.Point(4, 4);
-            this._mapViewTabPage.Name = "_mapViewTabPage";
-            this._mapViewTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._mapViewTabPage.Size = new System.Drawing.Size(267, 669);
-            this._mapViewTabPage.TabIndex = 0;
-            this._mapViewTabPage.Text = "Map View";
-            this._mapViewTabPage.UseVisualStyleBackColor = true;
-            // 
-            // _mapView
-            // 
-            this._mapView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._mapView.Location = new System.Drawing.Point(3, 3);
-            this._mapView.Name = "_mapView";
-            this._mapView.Size = new System.Drawing.Size(261, 663);
-            this._mapView.TabIndex = 0;
-            // 
-            // _propertyTabPage
-            // 
-            this._propertyTabPage.Controls.Add(this._propertyGrid);
-            this._propertyTabPage.Location = new System.Drawing.Point(4, 4);
-            this._propertyTabPage.Name = "_propertyTabPage";
-            this._propertyTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._propertyTabPage.Size = new System.Drawing.Size(167, 669);
-            this._propertyTabPage.TabIndex = 1;
-            this._propertyTabPage.Text = "Properties";
-            this._propertyTabPage.UseVisualStyleBackColor = true;
-            // 
-            // _propertyGrid
-            // 
-            this._propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._propertyGrid.LineColor = System.Drawing.SystemColors.ControlDark;
-            this._propertyGrid.Location = new System.Drawing.Point(3, 3);
-            this._propertyGrid.Name = "_propertyGrid";
-            this._propertyGrid.Size = new System.Drawing.Size(161, 663);
-            this._propertyGrid.TabIndex = 0;
-            // 
             // _tableLayoutPanel
             // 
             this._tableLayoutPanel.ColumnCount = 2;
             this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
-            this._tableLayoutPanel.Controls.Add(this._rightTabControl, 1, 0);
             this._tableLayoutPanel.Controls.Add(this._panel, 0, 0);
+            this._tableLayoutPanel.Controls.Add(this._rightPanel, 1, 0);
             this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tableLayoutPanel.Location = new System.Drawing.Point(0, 24);
             this._tableLayoutPanel.Name = "_tableLayoutPanel";
             this._tableLayoutPanel.RowCount = 1;
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 683F));
             this._tableLayoutPanel.Size = new System.Drawing.Size(1008, 683);
             this._tableLayoutPanel.TabIndex = 4;
             // 
@@ -423,7 +390,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this.nodeControl1.Name = "nodeControl1";
             this.nodeControl1.Size = new System.Drawing.Size(10, 10);
             this.nodeControl1.TabIndex = 0;
-            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.Entry;
+            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.EntryNode;
             // 
             // _designToolStrip
             // 
@@ -444,7 +411,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._wallNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._wallNodeToolStripButton.Name = "_wallNodeToolStripButton";
             this._wallNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._wallNodeToolStripButton.Text = "Wall node";
+            this._wallNodeToolStripButton.Text = "WallNode node";
             // 
             // _linkToolStripButton
             // 
@@ -455,6 +422,149 @@ namespace IndoorNavigator.MapEditor.Windows
             this._linkToolStripButton.Name = "_linkToolStripButton";
             this._linkToolStripButton.Size = new System.Drawing.Size(23, 22);
             this._linkToolStripButton.Text = "Link";
+            // 
+            // _rightPanel
+            // 
+            this._rightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rightPanel.Location = new System.Drawing.Point(711, 3);
+            this._rightPanel.Name = "_rightPanel";
+            this._rightPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // _rightPanel.Panel1
+            // 
+            this._rightPanel.Panel1.Controls.Add(this._mapView);
+            // 
+            // _rightPanel.Panel2
+            // 
+            this._rightPanel.Panel2.Controls.Add(this._propertyGrid);
+            this._rightPanel.Size = new System.Drawing.Size(294, 677);
+            this._rightPanel.SplitterDistance = 405;
+            this._rightPanel.SplitterWidth = 10;
+            this._rightPanel.TabIndex = 2;
+            // 
+            // _mapView
+            // 
+            this._mapView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._mapView.Location = new System.Drawing.Point(0, 0);
+            this._mapView.Name = "_mapView";
+            this._mapView.Size = new System.Drawing.Size(294, 405);
+            this._mapView.TabIndex = 3;
+            this._mapView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MapViewNodeMouseClick);
+            // 
+            // _propertyGrid
+            // 
+            this._propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._propertyGrid.LineColor = System.Drawing.SystemColors.ControlDark;
+            this._propertyGrid.Location = new System.Drawing.Point(0, 0);
+            this._propertyGrid.Name = "_propertyGrid";
+            this._propertyGrid.Size = new System.Drawing.Size(294, 262);
+            this._propertyGrid.TabIndex = 0;
+            this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
+            // 
+            // _mapTreeNodeMenu
+            // 
+            this._mapTreeNodeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._mapTreeNodeAddMenuItem,
+            this._mapTreeNodeSaveMenuItem});
+            this._mapTreeNodeMenu.Name = "_mapNodeContextMenuStrip";
+            this._mapTreeNodeMenu.Size = new System.Drawing.Size(99, 48);
+            // 
+            // _mapTreeNodeAddMenuItem
+            // 
+            this._mapTreeNodeAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._mapTreeNodeFloorMenuItem});
+            this._mapTreeNodeAddMenuItem.Name = "_mapTreeNodeAddMenuItem";
+            this._mapTreeNodeAddMenuItem.Size = new System.Drawing.Size(98, 22);
+            this._mapTreeNodeAddMenuItem.Text = "Add";
+            // 
+            // _mapTreeNodeFloorMenuItem
+            // 
+            this._mapTreeNodeFloorMenuItem.Name = "_mapTreeNodeFloorMenuItem";
+            this._mapTreeNodeFloorMenuItem.Size = new System.Drawing.Size(101, 22);
+            this._mapTreeNodeFloorMenuItem.Text = "Floor";
+            // 
+            // _mapTreeNodeSaveMenuItem
+            // 
+            this._mapTreeNodeSaveMenuItem.Name = "_mapTreeNodeSaveMenuItem";
+            this._mapTreeNodeSaveMenuItem.Size = new System.Drawing.Size(98, 22);
+            this._mapTreeNodeSaveMenuItem.Text = "Save";
+            // 
+            // _floorTreeNodeMenu
+            // 
+            this._floorTreeNodeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._floorTreeNodeAddMenuItem,
+            this._floorTreeNodeRemoveMenuItem});
+            this._floorTreeNodeMenu.Name = "_floorNodeContextMenuStrip";
+            this._floorTreeNodeMenu.Size = new System.Drawing.Size(118, 48);
+            // 
+            // _floorTreeNodeAddMenuItem
+            // 
+            this._floorTreeNodeAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._floorTreeNodeEntryMenuItem,
+            this._floorTreeNodeGuideMenuItem,
+            this._floorTreeNodeWallMenuItem});
+            this._floorTreeNodeAddMenuItem.Name = "_floorTreeNodeAddMenuItem";
+            this._floorTreeNodeAddMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._floorTreeNodeAddMenuItem.Text = "Add";
+            // 
+            // _floorTreeNodeEntryMenuItem
+            // 
+            this._floorTreeNodeEntryMenuItem.Name = "_floorTreeNodeEntryMenuItem";
+            this._floorTreeNodeEntryMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._floorTreeNodeEntryMenuItem.Text = "Entry node";
+            // 
+            // _floorTreeNodeGuideMenuItem
+            // 
+            this._floorTreeNodeGuideMenuItem.Name = "_floorTreeNodeGuideMenuItem";
+            this._floorTreeNodeGuideMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._floorTreeNodeGuideMenuItem.Text = "Guide node";
+            // 
+            // _floorTreeNodeWallMenuItem
+            // 
+            this._floorTreeNodeWallMenuItem.Name = "_floorTreeNodeWallMenuItem";
+            this._floorTreeNodeWallMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._floorTreeNodeWallMenuItem.Text = "Wall node";
+            // 
+            // _floorTreeNodeRemoveMenuItem
+            // 
+            this._floorTreeNodeRemoveMenuItem.Name = "_floorTreeNodeRemoveMenuItem";
+            this._floorTreeNodeRemoveMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._floorTreeNodeRemoveMenuItem.Text = "Remove";
+            // 
+            // _nodeTreeNodeMenu
+            // 
+            this._nodeTreeNodeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._nodeTreeNodeAddMenuItem,
+            this._nodeTreeNodeRemoveMenuItem});
+            this._nodeTreeNodeMenu.Name = "_nodeTreeNodeMenu";
+            this._nodeTreeNodeMenu.Size = new System.Drawing.Size(118, 48);
+            // 
+            // _nodeTreeNodeAddMenuItem
+            // 
+            this._nodeTreeNodeAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._nodeTreeNodeLinkMenuItem});
+            this._nodeTreeNodeAddMenuItem.Name = "_nodeTreeNodeAddMenuItem";
+            this._nodeTreeNodeAddMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._nodeTreeNodeAddMenuItem.Text = "Add";
+            // 
+            // _nodeTreeNodeLinkMenuItem
+            // 
+            this._nodeTreeNodeLinkMenuItem.Name = "_nodeTreeNodeLinkMenuItem";
+            this._nodeTreeNodeLinkMenuItem.Size = new System.Drawing.Size(152, 22);
+            this._nodeTreeNodeLinkMenuItem.Text = "Link";
+            // 
+            // _nodeTreeNodeRemoveMenuItem
+            // 
+            this._nodeTreeNodeRemoveMenuItem.Name = "_nodeTreeNodeRemoveMenuItem";
+            this._nodeTreeNodeRemoveMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._nodeTreeNodeRemoveMenuItem.Text = "Remove";
+            // 
+            // magicToolStripMenuItem
+            // 
+            this.magicToolStripMenuItem.Name = "magicToolStripMenuItem";
+            this.magicToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.magicToolStripMenuItem.Text = "Magic";
+            this.magicToolStripMenuItem.Click += new System.EventHandler(this.magicToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -472,9 +582,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._menuStrip.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
-            this._rightTabControl.ResumeLayout(false);
-            this._mapViewTabPage.ResumeLayout(false);
-            this._propertyTabPage.ResumeLayout(false);
             this._tableLayoutPanel.ResumeLayout(false);
             this._panel.ResumeLayout(false);
             this._panel.PerformLayout();
@@ -482,6 +589,13 @@ namespace IndoorNavigator.MapEditor.Windows
             this._floor1TabPage.ResumeLayout(false);
             this._designToolStrip.ResumeLayout(false);
             this._designToolStrip.PerformLayout();
+            this._rightPanel.Panel1.ResumeLayout(false);
+            this._rightPanel.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._rightPanel)).EndInit();
+            this._rightPanel.ResumeLayout(false);
+            this._mapTreeNodeMenu.ResumeLayout(false);
+            this._floorTreeNodeMenu.ResumeLayout(false);
+            this._nodeTreeNodeMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,11 +628,6 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _pasteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _deleteMenuItem;
         private System.Windows.Forms.StatusStrip _statusStrip;
-        private System.Windows.Forms.TabControl _rightTabControl;
-        private System.Windows.Forms.TabPage _mapViewTabPage;
-        private System.Windows.Forms.TreeView _mapView;
-        private System.Windows.Forms.TabPage _propertyTabPage;
-        private System.Windows.Forms.PropertyGrid _propertyGrid;
         private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
         private System.Windows.Forms.Panel _panel;
         private System.Windows.Forms.TabControl _floorTabControl;
@@ -533,6 +642,24 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _setScaleMenuItem;
         private Controls.Node nodeControl1;
         private System.Windows.Forms.ToolStripStatusLabel _statusLabel;
+        private System.Windows.Forms.SplitContainer _rightPanel;
+        private System.Windows.Forms.TreeView _mapView;
+        private System.Windows.Forms.PropertyGrid _propertyGrid;
+        private System.Windows.Forms.ContextMenuStrip _mapTreeNodeMenu;
+        private System.Windows.Forms.ToolStripMenuItem _mapTreeNodeAddMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _mapTreeNodeSaveMenuItem;
+        private System.Windows.Forms.ContextMenuStrip _floorTreeNodeMenu;
+        private System.Windows.Forms.ToolStripMenuItem _floorTreeNodeAddMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _floorTreeNodeEntryMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _floorTreeNodeGuideMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _floorTreeNodeWallMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _floorTreeNodeRemoveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _mapTreeNodeFloorMenuItem;
+        private System.Windows.Forms.ContextMenuStrip _nodeTreeNodeMenu;
+        private System.Windows.Forms.ToolStripMenuItem _nodeTreeNodeAddMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _nodeTreeNodeLinkMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _nodeTreeNodeRemoveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem magicToolStripMenuItem;
     }
 }
 
