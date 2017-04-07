@@ -5,38 +5,32 @@
     using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
+    using Controls;
     using Map;
     using Models;
+    using Models.Nodes;
     using Properties;
+    using Share;
 
     public partial class MainWindow : Form
     {
         #region Variables
 
-        private Map _currentMap;
+        private Map _map;
+
+        private readonly MapViewAdapter _mapViewAdapter;
 
         #endregion // Variables
 
+        #region Initialize functions
+
+        #endregion // Initialize functions
+
         #region Flush functions
 
-        private void FlushMapView()
+        public void FlushMapView()
         {
-            _mapView.Nodes.Clear();
-            if (_currentMap == null) return;
-            var rootNode = new TreeNode(_currentMap.Name);
-            var index = 1;
-            foreach (var floor in _currentMap.Floors)
-            {
-                var floorNode = new TreeNode($"Floor {index++}");
-                var entryNodes = floor.EntryNodes.Select(entryNode => new TreeNode(entryNode.ToString()));
-                var guideNodes = floor.GuideNodes.Select(guideNode => new TreeNode(guideNode.ToString()));
-                var wallNodes = floor.WallNodes.Select(wallNode => new TreeNode(wallNode.ToString()));
-                floorNode.Nodes.Add(new TreeNode("Entry nodes", entryNodes.ToArray()));
-                floorNode.Nodes.Add(new TreeNode("Guide nodes", guideNodes.ToArray()));
-                floorNode.Nodes.Add(new TreeNode("Wall nodes", wallNodes.ToArray()));
-                rootNode.Nodes.Add(floorNode);
-            }
-            _mapView.Nodes.Add(rootNode);
+            _mapViewAdapter?.Flush();
         }
 
         #endregion // Flush functions
@@ -47,9 +41,9 @@
         {
             try
             {
-                _currentMap = MapParser.Parse(fileName);
+                _map = MapParser.Parse(fileName);
                 StatusBarMessage($"Succeed to Load {fileName}.");
-                FlushMapView();
+                _mapViewAdapter.Map = _map;
                 return true;
             }
             catch (Exception ex)
@@ -71,6 +65,7 @@
         public MainWindow(IReadOnlyList<string> args)
         {
             InitializeComponent();
+            _mapViewAdapter = new MapViewAdapter(_mapView);
             if (args.Count < 1) return;
             LoadMap(args[0]);
         }
@@ -110,6 +105,56 @@
                     MessageBox.Show(this, ex.ToString(), Resources.ErrorDialogTitle);
                 }
             }
+        }
+
+        private void MapViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            var treeNode = e.Node as MapElementTreeNode;
+            if (treeNode == null) return;
+            _mapView.SelectedNode = treeNode;
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                {
+                    _propertyGrid.SelectedObject = treeNode.MapElement;
+                    return;
+                }
+                case MouseButtons.Right:
+                {
+                    switch (treeNode.MapElement)
+                    {
+                        case Map map:
+                        {
+                            _mapView.ContextMenuStrip = _mapTreeNodeMenu;
+                            return;
+                        }
+                        case Floor floor:
+                        {
+                            _mapView.ContextMenuStrip = _floorTreeNodeMenu;
+                            return;
+                        }
+                        case NodeBase node:
+                        {
+                            _mapView.ContextMenuStrip = _nodeTreeNodeMenu;
+                            return;
+                        }
+                        default:
+                        {
+                            _mapView.ContextMenuStrip = null;
+                            return;
+                        }
+                    }
+                }
+                default:
+                {
+                    return;
+                }
+            }
+        }
+
+        private void PropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            FlushMapView();
         }
 
         private void RemoveBackgroundMenuItemClick(object sender, EventArgs e)
