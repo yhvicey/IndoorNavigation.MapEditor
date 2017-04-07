@@ -60,6 +60,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._removeBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._setScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
+            this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._rightTabControl = new System.Windows.Forms.TabControl();
             this._mapViewTabPage = new System.Windows.Forms.TabPage();
             this._mapView = new System.Windows.Forms.TreeView();
@@ -74,7 +75,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._wallNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._linkToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._loadFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this._statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._rightTabControl.SuspendLayout();
@@ -307,17 +307,23 @@ namespace IndoorNavigator.MapEditor.Windows
             this._statusStrip.TabIndex = 3;
             this._statusStrip.Text = "statusStrip1";
             // 
+            // _statusLabel
+            // 
+            this._statusLabel.Name = "_statusLabel";
+            this._statusLabel.Size = new System.Drawing.Size(39, 17);
+            this._statusLabel.Text = "Ready";
+            // 
             // _rightTabControl
             // 
             this._rightTabControl.Alignment = System.Windows.Forms.TabAlignment.Right;
             this._rightTabControl.Controls.Add(this._mapViewTabPage);
             this._rightTabControl.Controls.Add(this._propertyTabPage);
             this._rightTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._rightTabControl.Location = new System.Drawing.Point(811, 3);
+            this._rightTabControl.Location = new System.Drawing.Point(711, 3);
             this._rightTabControl.Multiline = true;
             this._rightTabControl.Name = "_rightTabControl";
             this._rightTabControl.SelectedIndex = 0;
-            this._rightTabControl.Size = new System.Drawing.Size(194, 677);
+            this._rightTabControl.Size = new System.Drawing.Size(294, 677);
             this._rightTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this._rightTabControl.TabIndex = 0;
             // 
@@ -327,7 +333,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._mapViewTabPage.Location = new System.Drawing.Point(4, 4);
             this._mapViewTabPage.Name = "_mapViewTabPage";
             this._mapViewTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._mapViewTabPage.Size = new System.Drawing.Size(167, 669);
+            this._mapViewTabPage.Size = new System.Drawing.Size(267, 669);
             this._mapViewTabPage.TabIndex = 0;
             this._mapViewTabPage.Text = "Map View";
             this._mapViewTabPage.UseVisualStyleBackColor = true;
@@ -337,7 +343,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._mapView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mapView.Location = new System.Drawing.Point(3, 3);
             this._mapView.Name = "_mapView";
-            this._mapView.Size = new System.Drawing.Size(161, 663);
+            this._mapView.Size = new System.Drawing.Size(261, 663);
             this._mapView.TabIndex = 0;
             // 
             // _propertyTabPage
@@ -364,7 +370,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             this._tableLayoutPanel.ColumnCount = 2;
             this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this._tableLayoutPanel.Controls.Add(this._rightTabControl, 1, 0);
             this._tableLayoutPanel.Controls.Add(this._panel, 0, 0);
             this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -382,7 +388,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._panel.Location = new System.Drawing.Point(3, 3);
             this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(802, 677);
+            this._panel.Size = new System.Drawing.Size(702, 677);
             this._panel.TabIndex = 1;
             // 
             // _floorTabControl
@@ -392,7 +398,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._floorTabControl.Location = new System.Drawing.Point(0, 25);
             this._floorTabControl.Name = "_floorTabControl";
             this._floorTabControl.SelectedIndex = 0;
-            this._floorTabControl.Size = new System.Drawing.Size(802, 652);
+            this._floorTabControl.Size = new System.Drawing.Size(702, 652);
             this._floorTabControl.TabIndex = 3;
             // 
             // _floor1TabPage
@@ -401,7 +407,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._floor1TabPage.Location = new System.Drawing.Point(4, 22);
             this._floor1TabPage.Name = "_floor1TabPage";
             this._floor1TabPage.Padding = new System.Windows.Forms.Padding(3);
-            this._floor1TabPage.Size = new System.Drawing.Size(794, 626);
+            this._floor1TabPage.Size = new System.Drawing.Size(694, 626);
             this._floor1TabPage.TabIndex = 0;
             this._floor1TabPage.Text = "Floor 1";
             this._floor1TabPage.UseVisualStyleBackColor = true;
@@ -417,7 +423,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this.nodeControl1.Name = "nodeControl1";
             this.nodeControl1.Size = new System.Drawing.Size(10, 10);
             this.nodeControl1.TabIndex = 0;
-            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.EntryNode;
+            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.Entry;
             // 
             // _designToolStrip
             // 
@@ -426,7 +432,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._linkToolStripButton});
             this._designToolStrip.Location = new System.Drawing.Point(0, 0);
             this._designToolStrip.Name = "_designToolStrip";
-            this._designToolStrip.Size = new System.Drawing.Size(802, 25);
+            this._designToolStrip.Size = new System.Drawing.Size(702, 25);
             this._designToolStrip.TabIndex = 2;
             this._designToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignToolStripItemClicked);
             // 
@@ -438,7 +444,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._wallNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._wallNodeToolStripButton.Name = "_wallNodeToolStripButton";
             this._wallNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._wallNodeToolStripButton.Text = "WallNode node";
+            this._wallNodeToolStripButton.Text = "Wall node";
             // 
             // _linkToolStripButton
             // 
@@ -449,12 +455,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._linkToolStripButton.Name = "_linkToolStripButton";
             this._linkToolStripButton.Size = new System.Drawing.Size(23, 22);
             this._linkToolStripButton.Text = "Link";
-            // 
-            // _statusLabel
-            // 
-            this._statusLabel.Name = "_statusLabel";
-            this._statusLabel.Size = new System.Drawing.Size(39, 17);
-            this._statusLabel.Text = "Ready";
             // 
             // MainWindow
             // 

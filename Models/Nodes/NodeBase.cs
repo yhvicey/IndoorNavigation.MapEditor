@@ -47,5 +47,10 @@
             _distanceTable[other] = distance;
             return distance;
         }
+
+        public override string ToString()
+        {
+            return $"{Type}({X}, {Y})";
+        }
     }
 }

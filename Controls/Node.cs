@@ -12,9 +12,9 @@
     {
         private static readonly Dictionary<NodeType, Color> TypeColorMap = new Dictionary<NodeType, Color>
         {
-            [NodeType.EntryNode] = Color.Aqua,
-            [NodeType.GuideNode] = Color.DeepSkyBlue,
-            [NodeType.WallNode] = Color.SlateGray
+            [NodeType.Entry] = Color.Aqua,
+            [NodeType.Guide] = Color.DeepSkyBlue,
+            [NodeType.Wall] = Color.SlateGray
         };
 
         private bool _isMouseHovering;
@@ -34,7 +34,7 @@
         [Browsable(true)]
         [Description("Indicate the node's type.")]
         [Category("Appearence")]
-        [DefaultValue("WallNode")]
+        [DefaultValue("Wall")]
         public NodeType Type { get; set; }
 
         private void EnlargeSize()

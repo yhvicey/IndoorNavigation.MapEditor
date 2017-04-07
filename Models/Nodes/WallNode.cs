@@ -3,7 +3,7 @@
     public class WallNode :
         NodeBase
     {
-        public override NodeType Type => NodeType.WallNode;
+        public override NodeType Type => NodeType.Wall;
 
         public WallNode(double x, double y) :
             base(x, y)
