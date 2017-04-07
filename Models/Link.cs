@@ -1,18 +1,29 @@
 ﻿namespace IndoorNavigator.MapEditor.Models
 {
     using System.Diagnostics;
+    using Nodes;
 
-    [DebuggerDisplay("Start = {" + nameof(Start) + "}, End = {" + nameof(End) + "}")]
+    [DebuggerDisplay(nameof(Type) + " = {" + nameof(Type) + "}, " + nameof(Index) + " = {" + nameof(Index) + "}, " + nameof(Distance) + " = {" + nameof(Distance) + "}")]
     public class Link
     {
-        public int Start { get; }
+        private readonly NodeBase _parent;
 
-        public int End { get; }
+        public double Distance { get; private set; }
 
-        public Link(int start, int end)
+        public int Index { get; }
+
+        public NodeType Type { get; }
+
+        public Link(NodeBase parent, NodeType type, int index)
         {
-            Start = start;
-            End = end;
+            _parent = parent;
+            Type = type;
+            Index = index;
+        }
+
+        public void OnLoadFinished()
+        {
+            Distance = _parent.GetDistance(Type, Index);
         }
     }
 }

@@ -11,8 +11,8 @@
 
         public override NodeType Type => NodeType.Entry;
 
-        public EntryNode(double x, double y, string name, int? prevEntry, int? nextEntry) :
-            base(x, y)
+        public EntryNode(Floor parent, double x, double y, string name, int? prevEntry, int? nextEntry) :
+            base(parent, x, y)
         {
             Name = name;
             NextEntry = nextEntry;

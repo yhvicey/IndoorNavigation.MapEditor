@@ -6,80 +6,155 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using Nodes;
+    using Properties;
     using Share;
 
     [DebuggerDisplay("Count = {" + nameof(EntryNodes) + ".Count + " + nameof(GuideNodes) + ".Count + " + nameof(WallNodes) + ".Count}")]
     public class Floor
     {
-        public IList<EntryNode> EntryNodes { get; } = new List<EntryNode>();
+        public List<EntryNode> EntryNodes { get; } = new List<EntryNode>();
 
-        public IList<GuideNode> GuideNodes { get; } = new List<GuideNode>();
+        public List<GuideNode> GuideNodes { get; } = new List<GuideNode>();
 
-        public IList<WallNode> WallNodes { get; } = new List<WallNode>();
+        public List<WallNode> WallNodes { get; } = new List<WallNode>();
 
-        public Floor(IList<NodeBase> nodes, IEnumerable<Link> links)
+        public Floor(List<NodeBase> nodes)
         {
-            Contract.EnsureArgsNonNull(nodes, links);
-            foreach (var link in links)
+            Contract.EnsureArgsNonNull(nodes);
+            nodes.ForEach(AddNode);
+            OnLoadFinished();
+        }
+
+        public void AddNode(NodeBase node)
+        {
+            Contract.EnsureArgsNonNull(node);
+            switch (node)
             {
-                nodes[link.Start].AddAdjacentNode(nodes[link.End]);
-            }
-            foreach (var node in nodes)
-            {
-                if (node == null) continue;
-                switch (node)
+                case EntryNode entryNode:
                 {
-                    case EntryNode entry:
-                    {
-                        EntryNodes.Add(entry);
-                        break;
-                    }
-                    case GuideNode guide:
-                    {
-                        GuideNodes.Add(guide);
-                        break;
-                    }
-                    case WallNode wall:
-                    {
-                        WallNodes.Add(wall);
-                        break;
-                    }
+                    EntryNodes.Add(entryNode);
+                    return;
+                }
+                case GuideNode guideNode:
+                {
+                    GuideNodes.Add(guideNode);
+                    return;
+                }
+                case WallNode wallNode:
+                {
+                    WallNodes.Add(wallNode);
+                    return;
+                }
+                default:
+                {
+                    throw new ArgumentException(Resources.UnexpectedTypeError, nameof(node));
                 }
             }
         }
 
-        public void ClearTags()
+        public IEnumerable<EntryNode> FindEntryNodes(string pattern)
         {
-            foreach (var entryNode in EntryNodes)
-            {
-                entryNode.ClearTag();
-            }
-            foreach (var guideNode in GuideNodes)
-            {
-                guideNode.ClearTag();
-            }
-            foreach (var wallNode in WallNodes)
-            {
-                wallNode.ClearTag();
-            }
-        }
-
-        public IList<EntryNode> FindEntryNode(string pattern)
-        {
-            if (string.IsNullOrEmpty(pattern)) return null;
+            if (string.IsNullOrEmpty(pattern)) return new List<EntryNode>();
             return
                 EntryNodes.Where(entryNode => entryNode.Name != null)
-                    .Where(entryNode => Regex.IsMatch(entryNode.Name, pattern))
-                    .ToList();
+                    .Where(entryNode => Regex.IsMatch(entryNode.Name, pattern));
         }
 
-        public IList<GuideNode> FindGuideNodes(string pattern)
+        public IEnumerable<GuideNode> FindGuideNodes(string pattern)
         {
-            if (string.IsNullOrEmpty(pattern)) return null;
+            if (string.IsNullOrEmpty(pattern)) return new List<GuideNode>();
             return
                 GuideNodes.Where(guideNode => guideNode.Name != null)
-                    .Where(guideNode => Regex.IsMatch(guideNode.Name, pattern))
-                    .ToList();
+                    .Where(guideNode => Regex.IsMatch(guideNode.Name, pattern));
+        }
+
+        public IEnumerable<NodeBase> FindNodes(string pattern)
+        {
+            return FindEntryNodes(pattern).Union<NodeBase>(FindGuideNodes(pattern));
+        }
+
+        public EntryNode GetEntryNode(int index)
+        {
+            return EntryNodes[index];
+        }
+
+        public int GetEntryNodeIndex(EntryNode entry)
+        {
+            return EntryNodes.IndexOf(entry);
+        }
+
+        public GuideNode GetGuideNode(int index)
+        {
+            return GuideNodes[index];
+        }
+
+        public int GetGuideNodeIndex(GuideNode guide)
+        {
+            return GuideNodes.IndexOf(guide);
+        }
+
+        public WallNode GetWallNode(int index)
+        {
+            return WallNodes[index];
+        }
+
+        public int GetWallNodeIndex(WallNode wall)
+        {
+            return WallNodes.IndexOf(wall);
+        }
+
+        public NodeBase GetNode(NodeType type, int index)
+        {
+            switch (type)
+            {
+                case NodeType.Entry:
+                {
+                    return GetEntryNode(index);
+                }
+                case NodeType.Guide:
+                {
+                    return GetGuideNode(index);
+                }
+                case NodeType.Wall:
+                {
+                    return GetWallNode(index);
+                }
+                default:
+                {
+                    throw new ArgumentException(Resources.UnexpectedTypeError, nameof(type));
+                }
+            }
+        }
+
+        public int GetNodeIndex(NodeBase node)
+        {
+            switch (node)
+            {
+                case EntryNode entryNode:
+                {
+                    return GetEntryNodeIndex(entryNode);
+                }
+                case GuideNode guideNode:
+                {
+                    return GetGuideNodeIndex(guideNode);
+                }
+                case WallNode wallNode:
+                {
+                    return GetWallNodeIndex(wallNode);
+                }
+                default:
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public void OnLoadFinished()
+        {
+            EntryNodes.ForEach(entryNode => entryNode.OnLoadFinished());
+            GuideNodes.ForEach(guideNode => guideNode.OnLoadFinished());
+            WallNodes.ForEach(wallNode => wallNode.OnLoadFinished());
         }
     }
 }
+

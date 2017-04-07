@@ -5,8 +5,8 @@
     {
         public override NodeType Type => NodeType.Wall;
 
-        public WallNode(double x, double y) :
-            base(x, y)
+        public WallNode(Floor parent, double x, double y) :
+            base(parent, x, y)
         {
 
         }

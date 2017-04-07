@@ -3,16 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using Share;
 
     [DebuggerDisplay("{" + nameof(X) + "}, {" + nameof(Y) + "}")]
     public abstract class NodeBase
     {
-        private readonly Dictionary<NodeBase, double> _distanceTable = new Dictionary<NodeBase, double>();
+        protected Floor Parent { get; }
 
-        public IList<NodeBase> AdjacentNodes { get; protected set; } = new List<NodeBase>();
-
-        public string Tag { get; set; }
+        public List<Link> Links { get; } = new List<Link>();
 
         public abstract NodeType Type { get; }
 
@@ -20,32 +19,42 @@
 
         public double Y { get; set; }
 
-        protected NodeBase(double x, double y)
+        protected NodeBase(Floor parent, double x, double y)
         {
+            Contract.EnsureArgsNonNull(parent);
+            Parent = parent;
             X = x;
             Y = y;
         }
 
-        public void AddAdjacentNode(NodeBase node)
+        public double GetDistance(NodeType type, int index)
         {
-            Contract.EnsureArgsNonNull(node);
-            if (AdjacentNodes.Contains(node)) return;
-            GetDistance(node);
-            AdjacentNodes.Add(node);
-        }
-
-        public void ClearTag()
-        {
-            Tag = null;
+            var target = Parent.GetNode(type, index);
+            return GetDistance(target);
         }
 
         public double GetDistance(NodeBase other)
         {
             Contract.EnsureArgsNonNull(other);
-            if (_distanceTable.ContainsKey(other)) return _distanceTable[other];
-            var distance = Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
-            _distanceTable[other] = distance;
-            return distance;
+            return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
+        }
+
+        public void Link(NodeType type, int index)
+        {
+            if (Links.Any(link => link.Type == type && link.Index == index)) return;
+            Links.Add(new Link(this, type, index));
+        }
+
+        public void Link(NodeBase node)
+        {
+            Contract.EnsureArgsNonNull(node);
+            var index = Parent.GetNodeIndex(node);
+            Link(node.Type, index);
+        }
+
+        public void OnLoadFinished()
+        {
+            Links.ForEach(link => link.OnLoadFinished());
         }
 
         public override string ToString()
