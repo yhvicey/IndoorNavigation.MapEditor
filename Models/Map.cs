@@ -19,7 +19,6 @@
             Contract.EnsureArgsNonNull(name, floors);
             Name = name;
             floors.ForEach(AddFloor);
-            OnLoadFinished();
         }
 
         public void AddFloor(Floor floor)
@@ -30,11 +29,6 @@
         public void AddNode(NodeBase node, int floor)
         {
             Floors[floor].AddNode(node);
-        }
-
-        public void OnLoadFinished()
-        {
-            Floors.ForEach(floor => floor.OnLoadFinished());
         }
     }
 }

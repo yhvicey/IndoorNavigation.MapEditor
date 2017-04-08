@@ -2,33 +2,38 @@
 {
     using System.Diagnostics;
     using Nodes;
+    using Share;
 
-    [DebuggerDisplay(nameof(Type) + " = {" + nameof(Type) + "}, " + nameof(Index) + " = {" + nameof(Index) + "}, " + nameof(Distance) + " = {" + nameof(Distance) + "}")]
+    [DebuggerDisplay(nameof(Distance) + " = {" + nameof(Distance) + "}")]
     public class Link
     {
-        private readonly NodeBase _parent;
-
         public double Distance { get; private set; }
 
-        public int Index { get; }
+        public int EndIndex { get; set; }
 
-        public NodeType Type { get; }
+        public NodeType EndType { get; set; }
 
-        public Link(NodeBase parent, NodeType type, int index)
+        public int StartIndex { get; set; }
+
+        public NodeType StartType { get; set; }
+
+        public void OnAdd(Floor parent)
         {
-            _parent = parent;
-            Type = type;
-            Index = index;
+            Contract.EnsureArgsNonNull(parent);
+            Distance = parent.GetDistance(StartType, StartIndex, EndType, EndIndex);
         }
 
-        public void OnLoadFinished()
+        public Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
-            Distance = _parent.GetDistance(Type, Index);
+            StartType = startType;
+            StartIndex = startIndex;
+            EndType = endType;
+            EndIndex = endIndex;
         }
 
         public override string ToString()
         {
-            return $"Link({Type}, {Index})";
+            return $"Link Start({StartType}, {StartIndex}) End({EndType}, {EndIndex})";
         }
     }
 }

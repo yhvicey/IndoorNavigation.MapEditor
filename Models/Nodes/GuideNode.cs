@@ -7,8 +7,8 @@
 
         public override NodeType Type => NodeType.GuideNode;
 
-        public GuideNode(Floor parent, double x, double y, string name = null) :
-            base(parent, x, y)
+        public GuideNode(double x, double y, string name = null) :
+            base(x, y)
         {
             Name = name;
         }

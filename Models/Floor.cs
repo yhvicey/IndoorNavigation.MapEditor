@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Extensions;
     using Nodes;
     using Properties;
     using Share;
@@ -16,7 +17,21 @@
 
         public List<GuideNode> GuideNodes { get; } = new List<GuideNode>();
 
+        public List<Link> Links { get; } = new List<Link>();
+
         public List<WallNode> WallNodes { get; } = new List<WallNode>();
+
+        public void AddLink(Link link)
+        {
+            link.OnAdd(this);
+            Links.Add(link);
+        }
+
+        public void AddLinks(IEnumerable<Link> links)
+        {
+            Contract.EnsureArgsNonNull(links);
+            links.ForEach(AddLink);
+        }
 
         public void AddNode(NodeBase node)
         {
@@ -47,10 +62,8 @@
 
         public void AddNodes(IEnumerable<NodeBase> nodes)
         {
-            foreach (var node in nodes)
-            {
-                AddNode(node);
-            }
+            Contract.EnsureArgsNonNull(nodes);
+            nodes.ForEach(AddNode);
         }
 
         public IEnumerable<EntryNode> FindEntryNodes(string pattern)
@@ -72,6 +85,11 @@
         public IEnumerable<NodeBase> FindNodes(string pattern)
         {
             return FindEntryNodes(pattern).Union<NodeBase>(FindGuideNodes(pattern));
+        }
+
+        public double GetDistance(NodeType startType, int startIndex, NodeType endType, int endIndex)
+        {
+            return GetNode(startType, startIndex).GetDistance(GetNode(endType, endIndex));
         }
 
         public EntryNode GetEntryNode(int index)
@@ -127,6 +145,29 @@
             }
         }
 
+        public List<NodeBase> GetNodes(NodeType type)
+        {
+            switch (type)
+            {
+                case NodeType.EntryNode:
+                {
+                    return new List<NodeBase>(EntryNodes);
+                }
+                case NodeType.GuideNode:
+                {
+                    return new List<NodeBase>(GuideNodes);
+                }
+                case NodeType.WallNode:
+                {
+                    return new List<NodeBase>(WallNodes);
+                }
+                default:
+                {
+                    return null;
+                }
+            }
+        }
+
         public int GetNodeIndex(NodeBase node)
         {
             switch (node)
@@ -150,11 +191,21 @@
             }
         }
 
-        public void OnLoadFinished()
+        public Link Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
-            EntryNodes.ForEach(entryNode => entryNode.OnLoadFinished());
-            GuideNodes.ForEach(guideNode => guideNode.OnLoadFinished());
-            WallNodes.ForEach(wallNode => wallNode.OnLoadFinished());
+            var target = Links.Find(link =>
+                        link.StartType == startType && link.StartIndex == startIndex && link.EndType == endType &&
+                        link.EndIndex == endIndex);
+            if (target != null) return target;
+            target = new Link(startType, startIndex, endType, endIndex);
+            AddLink(target);
+            return target;
+        }
+
+        public Link Link(NodeBase start, NodeBase end)
+        {
+            Contract.EnsureArgsNonNull(start, end);
+            return Link(start.Type, GetNodeIndex(start), end.Type, GetNodeIndex(end));
         }
     }
 }
