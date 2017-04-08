@@ -1,26 +1,25 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
     using Models;
-    using Models.Nodes;
-    using Properties;
 
-    public class MapElementTreeNode :
+    public sealed class MapElementTreeNode :
         TreeNode
     {
-        private readonly bool _haveStaticText;
+        public static ContextMenuStrip CustomContextMenuStrip { get; set; }
 
-        public object MapElement { get; }
+        public object MapElement { get; set; }
+
+        public string StaticText { get; set; }
 
         public MapElementTreeNode(string text, IEnumerable<MapElementTreeNode> childItems = null, object mapElement = null)
         {
+            ContextMenuStrip = CustomContextMenuStrip;
             if (text != null)
             {
-                _haveStaticText = true;
-                Text = text;
+                StaticText = text;
             }
             if (childItems != null)
             {
@@ -29,15 +28,13 @@
                     Nodes.Add(childItem);
                 }
             }
-            if (mapElement == null) return;
-            if (!(mapElement is Map || mapElement is Floor || mapElement is NodeBase || mapElement is Link))
-                throw new ArgumentException(Resources.InvalidArgument);
-            MapElement = mapElement;
+            if (mapElement != null) MapElement = mapElement;
+            Update();
         }
 
         public void Update()
         {
-            if (!_haveStaticText) Text = MapElement?.ToString() ?? "";
+            Text = StaticText ?? MapElement?.ToString() ?? "";
             foreach (var node in Nodes.OfType<MapElementTreeNode>())
             {
                 node.Update();
