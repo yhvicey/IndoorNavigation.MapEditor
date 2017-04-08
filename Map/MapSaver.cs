@@ -1,7 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Map
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Xml;
     using Models;
@@ -11,11 +10,13 @@
 
     public static class MapSaver
     {
-        private const string AttrIndex = "Index";
+        private const string AttrEndIndex = "EndIndex";
+        private const string AttrEndType = "EndType";
         private const string AttrName = "Name";
         private const string AttrNext = "Next";
         private const string AttrPrev = "Prev";
-        private const string AttrType = "Type";
+        private const string AttrStartIndex = "StartIndex";
+        private const string AttrStartType = "StartType";
         private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
@@ -28,8 +29,10 @@
         {
             Contract.EnsureArgsNonNull(link, doc);
             var linkElement = doc.CreateElement(ElementLink);
-            linkElement.SetAttribute(AttrType, link.Type.ToString());
-            linkElement.SetAttribute(AttrIndex, link.Index.ToString());
+            linkElement.SetAttribute(AttrStartType, link.StartType.ToString());
+            linkElement.SetAttribute(AttrStartIndex, link.StartIndex.ToString());
+            linkElement.SetAttribute(AttrEndType, link.EndType.ToString());
+            linkElement.SetAttribute(AttrEndIndex, link.EndIndex.ToString());
             return linkElement;
         }
 
@@ -40,7 +43,6 @@
             var nodeElement = doc.CreateElement(node.Type.ToString());
             nodeElement.SetAttribute(AttrX, node.X.ToString("F2"));
             nodeElement.SetAttribute(AttrY, node.Y.ToString("F2"));
-            node.Links.ForEach(link => nodeElement.AppendChild(GenerateLink(link, doc)));
             switch (node)
             {
                 case EntryNode entryNode:
@@ -86,6 +88,7 @@
                 floor.EntryNodes.ForEach(entryNode => floorElement.AppendChild(GenerateNode(entryNode, doc)));
                 floor.GuideNodes.ForEach(guideNode => floorElement.AppendChild(GenerateNode(guideNode, doc)));
                 floor.WallNodes.ForEach(wallNode => floorElement.AppendChild(GenerateNode(wallNode, doc)));
+                floor.Links.ForEach(link => floorElement.AppendChild(GenerateLink(link, doc)));
 
                 root.AppendChild(floorElement);
             }

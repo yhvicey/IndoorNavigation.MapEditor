@@ -8,14 +8,17 @@
     using Models.Nodes;
     using Properties;
     using Share;
+    using Extensions;
 
     public static class MapParser
     {
-        private const string AttrIndex = "Index";
+        private const string AttrEndIndex = "EndIndex";
+        private const string AttrEndType = "EndType";
         private const string AttrName = "Name";
         private const string AttrNext = "Next";
         private const string AttrPrev = "Prev";
-        private const string AttrType = "Type";
+        private const string AttrStartIndex = "StartIndex";
+        private const string AttrStartType = "StartType";
         private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
@@ -24,25 +27,26 @@
         private const string ElementLink = "Link";
         private const string SupportedVersion = "1.0";
 
-        private static void GenerateLink(NodeBase parent, XmlElement element)
+        private static Link GenerateLink(XmlElement element)
         {
-            Contract.EnsureArgsNonNull(parent, element);
+            Contract.EnsureArgsNonNull(element);
 
-            if (!Enum.TryParse(element.GetAttribute(AttrType), out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
-            if (!int.TryParse(element.GetAttribute(AttrIndex), out var index)) throw new Exception(Resources.InvalidElementError);
+            if (!Enum.TryParse(element.GetAttribute(AttrStartType), out NodeType startType)) throw new Exception(Resources.UnexpectedTypeError);
+            if (!int.TryParse(element.GetAttribute(AttrStartIndex), out var startIndex)) throw new Exception(Resources.InvalidElementError);
+            if (!Enum.TryParse(element.GetAttribute(AttrEndType), out NodeType endType)) throw new Exception(Resources.UnexpectedTypeError);
+            if (!int.TryParse(element.GetAttribute(AttrEndIndex), out var endIndex)) throw new Exception(Resources.InvalidElementError);
 
-            parent.Link(type, index);
+            return new Link(startType, startIndex, endType, endIndex);
         }
 
-        private static NodeBase GenerateNode(Floor parent, XmlElement element)
+        private static NodeBase GenerateNode(XmlElement element)
         {
-            Contract.EnsureArgsNonNull(parent, element);
+            Contract.EnsureArgsNonNull(element);
 
             if (!Enum.TryParse(element.Name, out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
             if (!double.TryParse(element.GetAttribute(AttrX), out var x)) throw new Exception(Resources.InvalidElementError);
             if (!double.TryParse(element.GetAttribute(AttrY), out var y)) throw new Exception(Resources.InvalidElementError);
 
-            NodeBase node;
             switch (type)
             {
                 case NodeType.EntryNode:
@@ -54,29 +58,22 @@
                     var next = int.TryParse(element.GetAttribute(AttrNext), out var nextEntry)
                         ? nextEntry
                         : (int?)null;
-                    node = new EntryNode(parent, x, y, string.IsNullOrEmpty(name) ? null : name, prev, next);
-                    break;
+                    return new EntryNode(x, y, string.IsNullOrEmpty(name) ? null : name, prev, next);
                 }
                 case NodeType.GuideNode:
                 {
                     var name = element.GetAttribute(AttrName);
-                    node = new GuideNode(parent, x, y, string.IsNullOrEmpty(name) ? null : name);
-                    break;
+                    return new GuideNode(x, y, string.IsNullOrEmpty(name) ? null : name);
                 }
                 case NodeType.WallNode:
                 {
-                    node = new WallNode(parent, x, y);
-                    break;
+                    return new WallNode(x, y);
                 }
                 default:
                 {
                     throw new Exception(Resources.InvalidElementError);
                 }
             }
-            var linkElements = element.SelectNodes(ElementLink)?.OfType<XmlElement>().ToList();
-            if (linkElements == null) return node;
-            linkElements.ForEach(linkElement => GenerateLink(node, linkElement));
-            return node;
         }
 
         public static Map Parse(string fileName)
@@ -102,15 +99,19 @@
 
                 var entryNodeElements = floorElement.SelectNodes(NodeType.EntryNode.ToString())?.OfType<XmlElement>();
                 Contract.EnsureValuesNonNull(entryNodeElements);
-                floor.AddNodes(entryNodeElements.Select(entryNodeElement => GenerateNode(floor, entryNodeElement)));
+                floor.AddNodes(entryNodeElements.Select(GenerateNode));
 
                 var guideNodeElements = floorElement.SelectNodes(NodeType.GuideNode.ToString())?.OfType<XmlElement>();
                 Contract.EnsureValuesNonNull(guideNodeElements);
-                floor.AddNodes(guideNodeElements.Select(entryNodeElement => GenerateNode(floor, entryNodeElement)));
+                floor.AddNodes(guideNodeElements.Select(GenerateNode));
 
                 var wallNodeElements = floorElement.SelectNodes(NodeType.WallNode.ToString())?.OfType<XmlElement>();
                 Contract.EnsureValuesNonNull(wallNodeElements);
-                floor.AddNodes(wallNodeElements.Select(entryNodeElement => GenerateNode(floor, entryNodeElement)));
+                floor.AddNodes(wallNodeElements.Select(GenerateNode));
+
+                var linkElements = floorElement.SelectNodes(ElementLink)?.OfType<XmlElement>();
+                Contract.EnsureValuesNonNull(linkElements);
+                floor.AddLinks(linkElements.Select(GenerateLink));
 
                 floors.Add(floor);
             }
