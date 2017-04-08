@@ -5,14 +5,14 @@
     {
         public string Name { get; set; }
 
-        public int? Next { get; }
+        public int? Next { get; set; }
 
-        public int? Prev { get; }
+        public int? Prev { get; set; }
 
         public override NodeType Type => NodeType.EntryNode;
 
-        public EntryNode(Floor parent, double x, double y, string name, int? prev, int? next) :
-            base(parent, x, y)
+        public EntryNode(double x, double y, string name, int? prev, int? next) :
+            base(x, y)
         {
             Name = name;
             Next = next;
