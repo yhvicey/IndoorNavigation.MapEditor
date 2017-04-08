@@ -72,6 +72,12 @@
     <Compile Include="Map\MapSaver.cs" />
     <Compile Include="Share\Alerter.cs" />
     <Compile Include="Share\Contract.cs" />
+    <Compile Include="Windows\AddLinkWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\AddLinkWizard.Designer.cs">
+      <DependentUpon>AddLinkWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddNodeWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Node.resx">
       <DependentUpon>Node.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\AddLinkWizard.resx">
+      <DependentUpon>AddLinkWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\AddNodeWizard.resx">
       <DependentUpon>AddNodeWizard.cs</DependentUpon>

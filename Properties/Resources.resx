@@ -157,13 +157,13 @@
   <data name="UnsupportedVersionError" xml:space="preserve">
     <value>Unsupported version</value>
   </data>
-  <data name="InvalidXValueError" xml:space="preserve">
-    <value>Invalid x value</value>
-  </data>
-  <data name="InvalidYValue" xml:space="preserve">
-    <value>Invalid y value</value>
+  <data name="InvalidValueError" xml:space="preserve">
+    <value>Invalid value</value>
   </data>
   <data name="PleaseSelectFloorAlert" xml:space="preserve">
     <value>Please select a floor</value>
+  </data>
+  <data name="MapStatusTemplate" xml:space="preserve">
+    <value>Map: {0} Floor: {1}</value>
   </data>
 </root>

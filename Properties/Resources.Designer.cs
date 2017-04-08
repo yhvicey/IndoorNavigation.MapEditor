@@ -97,20 +97,11 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid x value.
+        ///   Looks up a localized string similar to Invalid value.
         /// </summary>
-        internal static string InvalidXValueError {
+        internal static string InvalidValueError {
             get {
-                return ResourceManager.GetString("InvalidXValueError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid y value.
-        /// </summary>
-        internal static string InvalidYValue {
-            get {
-                return ResourceManager.GetString("InvalidYValue", resourceCulture);
+                return ResourceManager.GetString("InvalidValueError", resourceCulture);
             }
         }
         
@@ -159,6 +150,15 @@ namespace IndoorNavigator.MapEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map: {0} Floor: {1}.
+        /// </summary>
+        internal static string MapStatusTemplate {
+            get {
+                return ResourceManager.GetString("MapStatusTemplate", resourceCulture);
             }
         }
         
