@@ -58,6 +58,7 @@
             this._nodeTypeComboBox.Name = "_nodeTypeComboBox";
             this._nodeTypeComboBox.Size = new System.Drawing.Size(121, 21);
             this._nodeTypeComboBox.TabIndex = 0;
+            this._nodeTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.NodeTypeComboBoxSelectedIndexChanged);
             // 
             // _label1
             // 
@@ -136,7 +137,7 @@
             // 
             // _confirmButton
             // 
-            this._confirmButton.Location = new System.Drawing.Point(12, 200);
+            this._confirmButton.Location = new System.Drawing.Point(12, 197);
             this._confirmButton.Name = "_confirmButton";
             this._confirmButton.Size = new System.Drawing.Size(79, 22);
             this._confirmButton.TabIndex = 12;
@@ -147,7 +148,7 @@
             // _cancelButton
             // 
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(116, 200);
+            this._cancelButton.Location = new System.Drawing.Point(116, 197);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(79, 22);
             this._cancelButton.TabIndex = 13;
@@ -198,7 +199,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(207, 234);
+            this.ClientSize = new System.Drawing.Size(207, 228);
             this.Controls.Add(this._nextComboBox);
             this.Controls.Add(this._prevComboBox);
             this.Controls.Add(this._label2);
