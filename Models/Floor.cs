@@ -192,6 +192,16 @@
             }
         }
 
+        public IEnumerable<int> GetLinkIndices(NodeType type, int index)
+        {
+            for (var i = 0; i < Links.Count; i++)
+            {
+                var link = Links[i];
+                if (link.StartType == type && link.StartIndex == index || link.EndType == type && link.EndIndex == index)
+                    yield return i;
+            }
+        }
+
         public Link Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
             var target = Links.Find(link =>
@@ -215,19 +225,26 @@
                 case NodeType.EntryNode:
                 {
                     EntryNodes.RemoveAt(index);
-                    return;
+                    break;
                 }
                 case NodeType.GuideNode:
                 {
                     GuideNodes.RemoveAt(index);
-                    return;
+                    break;
                 }
                 case NodeType.WallNode:
                 {
                     WallNodes.RemoveAt(index);
-                    return;
+                    break;
                 }
             }
+            GetLinkIndices(type, index).ForEach(RemoveLink);
+            Links.ForEach(link =>
+            {
+                if (link.StartType == type && link.StartIndex > index) link.StartIndex--;
+                if (link.EndType == type && link.EndIndex > index) link.EndIndex--;
+            });
+
         }
 
         public void ResetEntryNodes(bool prev = false, bool next = false)
