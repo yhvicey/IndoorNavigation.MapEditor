@@ -19,18 +19,18 @@
 
         public NodeType StartType { get; set; }
 
-        public void OnAdd(Floor parent)
-        {
-            Contract.EnsureArgsNonNull(parent);
-            _parent = parent;
-        }
-
         public Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
             StartType = startType;
             StartIndex = startIndex;
             EndType = endType;
             EndIndex = endIndex;
+        }
+
+        public void OnAdd(Floor parent)
+        {
+            Contract.EnsureArgsNonNull(parent);
+            _parent = parent;
         }
 
         public override string ToString()

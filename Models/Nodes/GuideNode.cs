@@ -16,7 +16,7 @@
         public override string ToString()
         {
             return
-                $"{base.ToString()} {(Name == null ? "" : $"Name: {Name} ")}";
+                $"{base.ToString()}{(Name == null ? "" : $" Name: {Name}")}";
         }
     }
 }

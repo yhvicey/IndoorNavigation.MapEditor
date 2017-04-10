@@ -22,7 +22,7 @@
         public override string ToString()
         {
             return
-                $"{base.ToString()} {(Name == null ? "" : $"Name: {Name} ") + (Prev == null ? "" : $"Prev: {Prev} ") + (Next == null ? "" : $"Next: {Next}")}";
+                $"{base.ToString()}{(Name == null ? "" : $" Name: {Name}") + (Prev == null ? "" : $" Prev: {Prev}") + (Next == null ? "" : $" Next: {Next}")}";
         }
     }
 }

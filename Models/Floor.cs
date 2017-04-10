@@ -23,6 +23,7 @@
 
         public void AddLink(Link link)
         {
+            Contract.EnsureArgsNonNull(link);
             link.OnAdd(this);
             Links.Add(link);
         }
@@ -200,12 +201,6 @@
             target = new Link(startType, startIndex, endType, endIndex);
             AddLink(target);
             return target;
-        }
-
-        public Link Link(NodeBase start, NodeBase end)
-        {
-            Contract.EnsureArgsNonNull(start, end);
-            return Link(start.Type, GetNodeIndex(start), end.Type, GetNodeIndex(end));
         }
 
         public void RemoveLink(int index)
