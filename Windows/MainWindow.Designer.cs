@@ -1,7 +1,5 @@
 namespace IndoorNavigator.MapEditor.Windows
 {
-    using Models.Nodes;
-
     partial class MainWindow
     {
         /// <summary>
@@ -56,36 +54,17 @@ namespace IndoorNavigator.MapEditor.Windows
             this._toolStripPlaceholder = new System.Windows.Forms.ToolStripStatusLabel();
             this._mapStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
             this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this._panel = new System.Windows.Forms.Panel();
-            this.nodeControl1 = new IndoorNavigator.MapEditor.Controls.Node();
-            this._designer = new IndoorNavigator.MapEditor.Controls.Designer();
-            this._designToolStrip = new System.Windows.Forms.ToolStrip();
-            this._entryNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this._guideNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this._wallNodeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this._toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this._linkToolStripButton = new System.Windows.Forms.ToolStripButton();
             this._rightPanel = new System.Windows.Forms.SplitContainer();
-            this._mapView = new System.Windows.Forms.TreeView();
+            this._mapView = new IndoorNavigator.MapEditor.Controls.MapView();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this._mapViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this._mapViewAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddFloorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddEntryNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddGuideNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddWallNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddLinkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewRemoveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerView = new IndoorNavigator.MapEditor.Controls.DesignerView();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
-            this._panel.SuspendLayout();
-            this._designToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._rightPanel)).BeginInit();
             this._rightPanel.Panel1.SuspendLayout();
             this._rightPanel.Panel2.SuspendLayout();
             this._rightPanel.SuspendLayout();
-            this._mapViewMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _menuStrip
@@ -270,7 +249,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._tableLayoutPanel.ColumnCount = 2;
             this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
-            this._tableLayoutPanel.Controls.Add(this._panel, 0, 0);
+            this._tableLayoutPanel.Controls.Add(this._designerView, 0, 0);
             this._tableLayoutPanel.Controls.Add(this._rightPanel, 1, 0);
             this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tableLayoutPanel.Location = new System.Drawing.Point(0, 24);
@@ -280,96 +259,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 683F));
             this._tableLayoutPanel.Size = new System.Drawing.Size(1008, 683);
             this._tableLayoutPanel.TabIndex = 4;
-            // 
-            // _panel
-            // 
-            this._panel.Controls.Add(this.nodeControl1);
-            this._panel.Controls.Add(this._designer);
-            this._panel.Controls.Add(this._designToolStrip);
-            this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._panel.Location = new System.Drawing.Point(3, 3);
-            this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(702, 677);
-            this._panel.TabIndex = 1;
-            // 
-            // nodeControl1
-            // 
-            this.nodeControl1.BackColor = System.Drawing.Color.Transparent;
-            this.nodeControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nodeControl1.BackgroundImage")));
-            this.nodeControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.nodeControl1.Location = new System.Drawing.Point(332, 211);
-            this.nodeControl1.MaximumSize = new System.Drawing.Size(14, 14);
-            this.nodeControl1.MinimumSize = new System.Drawing.Size(10, 10);
-            this.nodeControl1.Name = "nodeControl1";
-            this.nodeControl1.Size = new System.Drawing.Size(10, 10);
-            this.nodeControl1.TabIndex = 4;
-            this.nodeControl1.Type = IndoorNavigator.MapEditor.Models.Nodes.NodeType.WallNode;
-            // 
-            // _designer
-            // 
-            this._designer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this._designer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._designer.Location = new System.Drawing.Point(0, 25);
-            this._designer.Name = "_designer";
-            this._designer.Size = new System.Drawing.Size(702, 652);
-            this._designer.TabIndex = 3;
-            // 
-            // _designToolStrip
-            // 
-            this._designToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._entryNodeToolStripButton,
-            this._guideNodeToolStripButton,
-            this._wallNodeToolStripButton,
-            this._toolStripSeparator4,
-            this._linkToolStripButton});
-            this._designToolStrip.Location = new System.Drawing.Point(0, 0);
-            this._designToolStrip.Name = "_designToolStrip";
-            this._designToolStrip.Size = new System.Drawing.Size(702, 25);
-            this._designToolStrip.TabIndex = 2;
-            this._designToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignToolStripItemClicked);
-            // 
-            // _entryNodeToolStripButton
-            // 
-            this._entryNodeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._entryNodeToolStripButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.EntryNode;
-            this._entryNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._entryNodeToolStripButton.Name = "_entryNodeToolStripButton";
-            this._entryNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._entryNodeToolStripButton.Text = "Entry node";
-            // 
-            // _guideNodeToolStripButton
-            // 
-            this._guideNodeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._guideNodeToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("_guideNodeToolStripButton.Image")));
-            this._guideNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._guideNodeToolStripButton.Name = "_guideNodeToolStripButton";
-            this._guideNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._guideNodeToolStripButton.Text = "Guide node";
-            // 
-            // _wallNodeToolStripButton
-            // 
-            this._wallNodeToolStripButton.CheckOnClick = true;
-            this._wallNodeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._wallNodeToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("_wallNodeToolStripButton.Image")));
-            this._wallNodeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._wallNodeToolStripButton.Name = "_wallNodeToolStripButton";
-            this._wallNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._wallNodeToolStripButton.Text = "Wall node";
-            // 
-            // _toolStripSeparator4
-            // 
-            this._toolStripSeparator4.Name = "_toolStripSeparator4";
-            this._toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _linkToolStripButton
-            // 
-            this._linkToolStripButton.CheckOnClick = true;
-            this._linkToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._linkToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("_linkToolStripButton.Image")));
-            this._linkToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._linkToolStripButton.Name = "_linkToolStripButton";
-            this._linkToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this._linkToolStripButton.Text = "Link";
             // 
             // _rightPanel
             // 
@@ -397,7 +286,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._mapView.Name = "_mapView";
             this._mapView.Size = new System.Drawing.Size(294, 405);
             this._mapView.TabIndex = 3;
-            this._mapView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MapViewNodeMouseClick);
             // 
             // _propertyGrid
             // 
@@ -409,67 +297,14 @@ namespace IndoorNavigator.MapEditor.Windows
             this._propertyGrid.TabIndex = 0;
             this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
             // 
-            // _mapViewMenuStrip
+            // _designerView
             // 
-            this._mapViewMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._mapViewAddMenuItem,
-            this._mapViewRemoveMenuItem});
-            this._mapViewMenuStrip.Name = "_floorNodeContextMenuStrip";
-            this._mapViewMenuStrip.Size = new System.Drawing.Size(153, 70);
-            // 
-            // _mapViewAddMenuItem
-            // 
-            this._mapViewAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._mapViewAddFloorMenuItem,
-            this._mapViewAddEntryNodeMenuItem,
-            this._mapViewAddGuideNodeMenuItem,
-            this._mapViewAddWallNodeMenuItem,
-            this._mapViewAddLinkMenuItem});
-            this._mapViewAddMenuItem.Name = "_mapViewAddMenuItem";
-            this._mapViewAddMenuItem.Size = new System.Drawing.Size(152, 22);
-            this._mapViewAddMenuItem.Text = "Add";
-            // 
-            // _mapViewAddFloorMenuItem
-            // 
-            this._mapViewAddFloorMenuItem.Name = "_mapViewAddFloorMenuItem";
-            this._mapViewAddFloorMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddFloorMenuItem.Text = "Floor";
-            this._mapViewAddFloorMenuItem.Click += new System.EventHandler(this.MapViewAddFloorMenuItemClick);
-            // 
-            // _mapViewAddEntryNodeMenuItem
-            // 
-            this._mapViewAddEntryNodeMenuItem.Name = "_mapViewAddEntryNodeMenuItem";
-            this._mapViewAddEntryNodeMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddEntryNodeMenuItem.Text = "Entry node";
-            this._mapViewAddEntryNodeMenuItem.Click += new System.EventHandler(this.MapViewAddEntryNodeMenuItemClick);
-            // 
-            // _mapViewAddGuideNodeMenuItem
-            // 
-            this._mapViewAddGuideNodeMenuItem.Name = "_mapViewAddGuideNodeMenuItem";
-            this._mapViewAddGuideNodeMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddGuideNodeMenuItem.Text = "Guide node";
-            this._mapViewAddGuideNodeMenuItem.Click += new System.EventHandler(this.MapViewAddGuideNodeMenuItemClick);
-            // 
-            // _mapViewAddWallNodeMenuItem
-            // 
-            this._mapViewAddWallNodeMenuItem.Name = "_mapViewAddWallNodeMenuItem";
-            this._mapViewAddWallNodeMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddWallNodeMenuItem.Text = "Wall node";
-            this._mapViewAddWallNodeMenuItem.Click += new System.EventHandler(this.MapViewAddWallNodeMenuItemClick);
-            // 
-            // _mapViewAddLinkMenuItem
-            // 
-            this._mapViewAddLinkMenuItem.Name = "_mapViewAddLinkMenuItem";
-            this._mapViewAddLinkMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddLinkMenuItem.Text = "Link";
-            this._mapViewAddLinkMenuItem.Click += new System.EventHandler(this.MapViewAddLinkMenuItemClick);
-            // 
-            // _mapViewRemoveMenuItem
-            // 
-            this._mapViewRemoveMenuItem.Name = "_mapViewRemoveMenuItem";
-            this._mapViewRemoveMenuItem.Size = new System.Drawing.Size(152, 22);
-            this._mapViewRemoveMenuItem.Text = "Remove";
-            this._mapViewRemoveMenuItem.Click += new System.EventHandler(this.MapViewRemoveMenuItemClick);
+            this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._designerView.Location = new System.Drawing.Point(3, 3);
+            this._designerView.Name = "_designerView";
+            this._designerView.Size = new System.Drawing.Size(702, 677);
+            this._designerView.TabIndex = 9;
             // 
             // MainWindow
             // 
@@ -489,15 +324,10 @@ namespace IndoorNavigator.MapEditor.Windows
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this._tableLayoutPanel.ResumeLayout(false);
-            this._panel.ResumeLayout(false);
-            this._panel.PerformLayout();
-            this._designToolStrip.ResumeLayout(false);
-            this._designToolStrip.PerformLayout();
             this._rightPanel.Panel1.ResumeLayout(false);
             this._rightPanel.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._rightPanel)).EndInit();
             this._rightPanel.ResumeLayout(false);
-            this._mapViewMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -519,36 +349,20 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _exitMenuItem;
         private System.Windows.Forms.StatusStrip _statusStrip;
         private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
-        private System.Windows.Forms.Panel _panel;
-        private System.Windows.Forms.ToolStrip _designToolStrip;
-        private System.Windows.Forms.ToolStripButton _wallNodeToolStripButton;
-        private System.Windows.Forms.ToolStripButton _linkToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem _layerMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _loadBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _removeBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _setScaleMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel _messageStatusLabel;
         private System.Windows.Forms.SplitContainer _rightPanel;
-        private System.Windows.Forms.TreeView _mapView;
+        private Controls.MapView _mapView;
         private System.Windows.Forms.PropertyGrid _propertyGrid;
-        private System.Windows.Forms.ContextMenuStrip _mapViewMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddEntryNodeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddGuideNodeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddWallNodeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewRemoveMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddLinkMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddFloorMenuItem;
-        private Controls.Node nodeControl1;
-        private Controls.Designer _designer;
         private System.Windows.Forms.ToolStripStatusLabel _toolStripPlaceholder;
         private System.Windows.Forms.ToolStripStatusLabel _mapStatusLable;
         private System.Windows.Forms.ToolStripMenuItem _newNodeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _newLinkMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _openMapMenuItem;
-        private System.Windows.Forms.ToolStripButton _entryNodeToolStripButton;
-        private System.Windows.Forms.ToolStripButton _guideNodeToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator _toolStripSeparator4;
+        private Controls.DesignerView _designerView;
     }
 }
 
