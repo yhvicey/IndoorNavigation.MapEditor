@@ -24,7 +24,7 @@
 
         private const int LinksIndex = 3;
 
-        #endregion
+        #endregion // Constants
 
         #region Variables
 
@@ -400,8 +400,6 @@
 
         #endregion // Functions
 
-        #region Constructors
-
         public MainWindow(IReadOnlyList<string> args = null)
         {
             InitializeComponent();
@@ -411,8 +409,6 @@
 
             _commandLineArgs = args;
         }
-
-        #endregion // Constructors
 
         #region Event handlers
 
@@ -454,7 +450,7 @@
                 using (var stream = openFileDialog.OpenFile())
                 {
                     var background = Image.FromStream(stream);
-                    _designer.BackgroundImage = background;
+                    _designerView.BackgroundImage = background;
                 }
             }
             catch (Exception ex)
@@ -567,7 +563,7 @@
         {
             try
             {
-                _designer.BackgroundImage = null;
+                _designerView.BackgroundImage = null;
             }
             catch (Exception ex)
             {
