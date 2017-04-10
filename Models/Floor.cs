@@ -207,6 +207,42 @@
             Contract.EnsureArgsNonNull(start, end);
             return Link(start.Type, GetNodeIndex(start), end.Type, GetNodeIndex(end));
         }
+
+        public void RemoveLink(int index)
+        {
+            Links.RemoveAt(index);
+        }
+
+        public void RemoveNode(NodeType type, int index)
+        {
+            switch (type)
+            {
+                case NodeType.EntryNode:
+                {
+                    EntryNodes.RemoveAt(index);
+                    return;
+                }
+                case NodeType.GuideNode:
+                {
+                    GuideNodes.RemoveAt(index);
+                    return;
+                }
+                case NodeType.WallNode:
+                {
+                    WallNodes.RemoveAt(index);
+                    return;
+                }
+            }
+        }
+
+        public void ResetEntryNodes(bool prev = false, bool next = false)
+        {
+            EntryNodes.ForEach(entryNode =>
+            {
+                if (prev) entryNode.Prev = null;
+                if (next) entryNode.Next = null;
+            });
+        }
     }
 }
 

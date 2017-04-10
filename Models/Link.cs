@@ -7,7 +7,9 @@
     [DebuggerDisplay(nameof(Distance) + " = {" + nameof(Distance) + "}")]
     public class Link
     {
-        public double Distance { get; private set; }
+        private Floor _parent;
+
+        public double Distance => _parent.GetDistance(StartType, StartIndex, EndType, EndIndex);
 
         public int EndIndex { get; set; }
 
@@ -20,7 +22,7 @@
         public void OnAdd(Floor parent)
         {
             Contract.EnsureArgsNonNull(parent);
-            Distance = parent.GetDistance(StartType, StartIndex, EndType, EndIndex);
+            _parent = parent;
         }
 
         public Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
