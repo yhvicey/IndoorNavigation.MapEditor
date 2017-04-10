@@ -1,7 +1,9 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using Extensions;
     using Models;
     using Models.Nodes;
     using Share;
@@ -32,11 +34,11 @@
 
         private const int LinksIndex = 3;
 
-        private readonly TreeView _mapView;
+        private readonly MapView _mapView;
 
         private MapElementTreeNode _root;
 
-        public MapViewAdapter(TreeView mapView)
+        public MapViewAdapter(MapView mapView)
         {
             Contract.EnsureArgsNonNull(mapView);
             _mapView = mapView;

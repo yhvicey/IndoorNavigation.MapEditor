@@ -16,14 +16,6 @@
     {
         #region Constants
 
-        private const int MapNodeLevel = 0;
-
-        private const int FloorNodeLevel = 1;
-
-        private const int CatalogueNodeLevel = 2;
-
-        private const int ElementNodeLevel = 3;
-
         private const int EntryNodesIndex = 0;
 
         private const int GuideNodesIndex = 1;
@@ -56,8 +48,9 @@
             _designerViewAdapter = new DesignerViewAdapter(_designerView);
         }
 
-        private void InitializeMapViewAdapter()
+        private void InitializeMapView()
         {
+            _mapView.SetParent(this);
             _mapViewAdapter = new MapViewAdapter(_mapView);
         }
 
@@ -119,82 +112,6 @@
 
             Flush();
             StatusBarMessage("Node added.");
-        }
-
-        private void OnMapViewMenuShow(int itemLevel, int nodeIndex, object mapElement)
-        {
-            _mapViewAddMenuItem.Visible = false;
-            _mapViewAddFloorMenuItem.Visible = false;
-            _mapViewAddEntryNodeMenuItem.Visible = false;
-            _mapViewAddGuideNodeMenuItem.Visible = false;
-            _mapViewAddWallNodeMenuItem.Visible = false;
-            _mapViewAddLinkMenuItem.Visible = false;
-            switch (itemLevel)
-            {
-                case MapNodeLevel:
-                {
-                    _mapViewAddMenuItem.Visible = true;
-                    _mapViewAddFloorMenuItem.Visible = true;
-                    return;
-                }
-                case FloorNodeLevel:
-                {
-                    _mapViewAddMenuItem.Visible = true;
-                    _mapViewAddEntryNodeMenuItem.Visible = true;
-                    _mapViewAddGuideNodeMenuItem.Visible = true;
-                    _mapViewAddWallNodeMenuItem.Visible = true;
-                    _mapViewAddLinkMenuItem.Visible = true;
-                    return;
-                }
-                case CatalogueNodeLevel:
-                {
-                    switch (nodeIndex)
-                    {
-                        case EntryNodesIndex:
-                        {
-                            _mapViewAddMenuItem.Visible = true;
-                            _mapViewAddEntryNodeMenuItem.Visible = true;
-                            _mapViewAddLinkMenuItem.Visible = true;
-                            return;
-                        }
-                        case GuideNodesIndex:
-                        {
-                            _mapViewAddMenuItem.Visible = true;
-                            _mapViewAddGuideNodeMenuItem.Visible = true;
-                            _mapViewAddLinkMenuItem.Visible = true;
-                            return;
-                        }
-                        case WallNodesIndex:
-                        {
-                            _mapViewAddMenuItem.Visible = true;
-                            _mapViewAddWallNodeMenuItem.Visible = true;
-                            _mapViewAddLinkMenuItem.Visible = true;
-                            return;
-                        }
-                        case LinksIndex:
-                        {
-                            _mapViewAddMenuItem.Visible = true;
-                            _mapViewAddLinkMenuItem.Visible = true;
-                            return;
-                        }
-                        default:
-                        {
-                            return;
-                        }
-                    }
-                }
-                case ElementNodeLevel:
-                {
-                    if (mapElement is Link) return;
-                    _mapViewAddMenuItem.Visible = true;
-                    _mapViewAddLinkMenuItem.Visible = true;
-                    return;
-                }
-                default:
-                {
-                    return;
-                }
-            }
         }
 
         private void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
@@ -489,9 +406,8 @@
         {
             InitializeComponent();
 
-            InitializeMapElementTreeNode();
-            InitializeMapViewAdapter();
             InitializeDesignerView();
+            InitializeMapView();
 
             _commandLineArgs = args;
         }
@@ -554,202 +470,6 @@
                 if (!(_commandLineArgs?.Count > 0)) return;
                 AddMap(MapParser.Parse(_commandLineArgs[0]));
                 _commandLineArgs = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewAddEntryNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var wizard = new AddNodeWizard(_currentMap)
-                {
-                    Floor = _currentFloorIndex,
-                    Type = NodeType.EntryNode
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddNode(wizard.MakeNode(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewAddFloorMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                AddFloor(new Floor());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewAddGuideNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var wizard = new AddNodeWizard(_currentMap)
-                {
-                    Floor = _currentFloorIndex,
-                    Type = NodeType.GuideNode
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddNode(wizard.MakeNode(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewAddLinkMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var selectedNode = _mapView.SelectedNode as MapElementTreeNode;
-                if (selectedNode == null) return;
-                var wizard = new AddLinkWizard(_currentMap)
-                {
-                    Floor = _currentFloorIndex,
-                };
-                switch (selectedNode.Level)
-                {
-                    case CatalogueNodeLevel:
-                    {
-                        if (selectedNode.Index != LinksIndex) wizard.StartType = (NodeType)selectedNode.Index;
-                        break;
-                    }
-                    case ElementNodeLevel:
-                    {
-                        if (selectedNode.Parent.Index != LinksIndex) wizard.StartType = (NodeType)selectedNode.Parent.Index;
-                        wizard.StartIndex = selectedNode.Index;
-                        break;
-                    }
-                }
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddLink(wizard.MakeLink(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewAddWallNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var wizard = new AddNodeWizard(_currentMap)
-                {
-                    Floor = _currentFloorIndex,
-                    Type = NodeType.WallNode
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddNode(wizard.MakeNode(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            try
-            {
-                var selectedNode = e.Node as MapElementTreeNode;
-                if (selectedNode == null) return;
-                switch (selectedNode.Level)
-                {
-                    case MapNodeLevel:
-                    {
-                        SelectMap();
-                        break;
-                    }
-                    case FloorNodeLevel:
-                    {
-                        SelectFloor(selectedNode.Index);
-                        break;
-                    }
-                    case CatalogueNodeLevel:
-                    {
-                        SelectCatalogue(selectedNode.Parent.Index, selectedNode.Index);
-                        break;
-                    }
-                    case ElementNodeLevel:
-                    {
-                        var catalogueIndex = selectedNode.Parent.Index;
-                        if (catalogueIndex == LinksIndex)
-                            SelectLink(selectedNode.Parent.Parent.Index, selectedNode.Index);
-                        else
-                            SelectNode(selectedNode.Parent.Parent.Index, (NodeType)selectedNode.Parent.Index,
-                                selectedNode.Index);
-                        break;
-                    }
-                }
-                if (e.Button != MouseButtons.Right) return;
-                OnMapViewMenuShow(selectedNode.Level, selectedNode.Index, selectedNode.MapElement);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MapViewRemoveMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var selectedNode = _mapView.SelectedNode as MapElementTreeNode;
-                if (selectedNode == null) return;
-                switch (selectedNode.Level)
-                {
-                    case MapNodeLevel:
-                    {
-                        RemoveMap();
-                        break;
-                    }
-                    case FloorNodeLevel:
-                    {
-                        RemoveFloor(selectedNode.Index);
-                        break;
-                    }
-                    case CatalogueNodeLevel:
-                    {
-                        RemoveCatalogue(selectedNode.Parent.Index, selectedNode.Index);
-                        break;
-                    }
-                    case ElementNodeLevel:
-                    {
-                        switch (selectedNode.Index)
-                        {
-                            case EntryNodesIndex:
-                            case GuideNodesIndex:
-                            case WallNodesIndex:
-                            {
-                                RemoveNode(selectedNode.Parent.Parent.Index, (NodeType)selectedNode.Index, selectedNode.Index);
-                                break;
-                            }
-                            case LinksIndex:
-                            {
-                                RemoveLink(selectedNode.Parent.Parent.Index, selectedNode.Index);
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
             }
             catch (Exception ex)
             {
