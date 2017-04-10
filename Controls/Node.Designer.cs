@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.BackgroundImage = global::IndoorNavigator.MapEditor.Properties.Resources.NodeIcon;
+            this.BackgroundImage = global::IndoorNavigator.MapEditor.Properties.Resources.WallNode;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.DoubleBuffered = true;
             this.MaximumSize = new System.Drawing.Size(14, 14);

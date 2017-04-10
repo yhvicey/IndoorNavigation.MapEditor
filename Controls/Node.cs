@@ -1,22 +1,14 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Drawing.Imaging;
     using System.Windows.Forms;
     using Models.Nodes;
+    using Properties;
 
     public partial class Node : UserControl
     {
-        private static readonly Dictionary<NodeType, Color> TypeColorMap = new Dictionary<NodeType, Color>
-        {
-            [NodeType.EntryNode] = Color.Aqua,
-            [NodeType.GuideNode] = Color.DeepSkyBlue,
-            [NodeType.WallNode] = Color.SlateGray
-        };
-
         private bool _isMouseHovering;
 
         private bool _isDragging;
@@ -24,6 +16,8 @@
         private Point _dragStartPositon;
 
         private Point _dragStartCursorPosition;
+
+        private NodeType _type;
 
         [Browsable(true)]
         [Description("Indicate the node is selected or not.")]
@@ -35,7 +29,40 @@
         [Description("Indicate the node's type.")]
         [Category("Appearence")]
         [DefaultValue("WallNode")]
-        public NodeType Type { get; set; }
+        public NodeType Type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                _type = value;
+                switch (_type)
+                {
+                    case NodeType.EntryNode:
+                    {
+                        BackgroundImage = Resources.EntryNode;
+                        return;
+                    }
+                    case NodeType.GuideNode:
+                    {
+                        BackgroundImage = Resources.GuideNode;
+                        return;
+                    }
+                    case NodeType.WallNode:
+                    {
+                        BackgroundImage = Resources.WallNode;
+                        return;
+                    }
+                    default:
+                    {
+                        BackgroundImage = Resources.ErrorIcon;
+                        return;
+                    }
+                }
+            }
+        }
 
         private void EnlargeSize()
         {
@@ -101,23 +128,6 @@
         {
             _isDragging = false;
             base.OnMouseUp(e);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            var graphics = e.Graphics;
-            var colorMap = new[]
-            {
-                new ColorMap
-                {
-                    OldColor = Color.Black,
-                    NewColor = TypeColorMap[Type]
-                }
-            };
-            var attr = new ImageAttributes();
-            attr.SetRemapTable(colorMap);
-            graphics.DrawImage(BackgroundImage, ClientRectangle, 0, 0, BackgroundImage.Width, BackgroundImage.Height,
-                GraphicsUnit.Pixel, attr);
         }
 
         public Node()
