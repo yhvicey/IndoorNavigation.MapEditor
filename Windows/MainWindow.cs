@@ -41,6 +41,7 @@
         private int _currentFloorIndex = -1;
 
         private Map _currentMap;
+        private DesignerViewAdapter _designerViewAdapter;
 
         private MapViewAdapter _mapViewAdapter;
 
@@ -48,9 +49,10 @@
 
         #region Initialize functions
 
-        private void InitializeMapElementTreeNode()
+        private void InitializeDesignerView()
         {
-            MapElementTreeNode.CustomContextMenuStrip = _mapViewMenuStrip;
+            _designerView.SetParent(this);
+            _designerViewAdapter = new DesignerViewAdapter(_designerView);
         }
 
         private void InitializeMapViewAdapter()
@@ -64,25 +66,10 @@
 
         private void Flush()
         {
-            FlushDesigner();
-            FlushMapStatusLabel();
-            FlushMapView();
-        }
-
-        private void FlushDesigner()
-        {
-
-        }
-
-        private void FlushMapStatusLabel()
-        {
-            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _currentMap?.Name ?? "None",
-                _currentFloorIndex == -1 ? "None" : (_currentFloorIndex + 1).ToString());
-        }
-
-        public void FlushMapView()
-        {
-            _mapViewAdapter?.Flush();
+            _designerViewAdapter.Flush();
+            _mapViewAdapter.Flush();
+            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, CurrentMap?.Name ?? "None",
+                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
         }
 
         #endregion // Flush functions
@@ -93,7 +80,8 @@
         {
             StatusBarMessage("Adding map...");
 
-            _mapViewAdapter.AddMap(_currentMap);
+            _designerViewAdapter.AddMap(CurrentMap);
+            _mapViewAdapter.AddMap(CurrentMap);
 
             Flush();
             StatusBarMessage("Map added.");
@@ -103,6 +91,7 @@
         {
             StatusBarMessage("Adding floor...");
 
+            _designerViewAdapter.AddFloor(floor);
             _mapViewAdapter.AddFloor(floor);
 
             Flush();
@@ -113,6 +102,7 @@
         {
             StatusBarMessage("Adding link...");
 
+            _designerViewAdapter.AddLink(link, floorIndex);
             _mapViewAdapter.AddLink(link, floorIndex);
 
             Flush();
@@ -123,6 +113,7 @@
         {
             StatusBarMessage("Adding node...");
 
+            _designerViewAdapter.AddNode(node, floorIndex);
             _mapViewAdapter.AddNode(node, floorIndex);
 
             Flush();
@@ -209,6 +200,7 @@
         {
             StatusBarMessage("Removing catalogue...");
 
+            _designerViewAdapter.RemoveCatalogue(floorIndex, catalogueIndex);
             _mapViewAdapter.RemoveCatalogue(floorIndex, catalogueIndex);
 
             Flush();
@@ -223,6 +215,7 @@
                 MessageBox.Show(Resources.SaveMapNotification, Resources.InfoDialogTitle, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information) == DialogResult.Yes) SaveMap(map);
 
+            _designerViewAdapter.RemoveMap();
             _mapViewAdapter.RemoveMap();
 
             Flush();
@@ -233,6 +226,7 @@
         {
             StatusBarMessage("Removing floor...");
 
+            _designerViewAdapter.RemoveFloor(floorIndex);
             _mapViewAdapter.RemoveFloor(floorIndex);
 
             Flush();
@@ -243,6 +237,7 @@
         {
             StatusBarMessage("Removing link...");
 
+            _designerViewAdapter.RemoveLink(floorIndex, linkIndex);
             _mapViewAdapter.RemoveLink(floorIndex, linkIndex);
 
             Flush();
@@ -253,6 +248,7 @@
         {
             StatusBarMessage("Removing node...");
 
+            _designerViewAdapter.RemoveNode(floorIndex, type, nodeIndex);
             _mapViewAdapter.RemoveNode(floorIndex, type, nodeIndex);
 
             Flush();
@@ -261,6 +257,7 @@
 
         private void OnSelectCatalogue(int floorIndex, int catalogueIndex)
         {
+            _designerViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
             _mapViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
             _propertyGrid.SelectedObject = _currentMap;
 
@@ -269,6 +266,7 @@
 
         private void OnSelectMap()
         {
+            _designerViewAdapter.SelectMap();
             _mapViewAdapter.SelectMap();
             _propertyGrid.SelectedObject = _currentMap;
 
@@ -277,6 +275,7 @@
 
         private void OnSelectFloor(int floorIndex)
         {
+            _designerViewAdapter.SelectFloor(floorIndex);
             _mapViewAdapter.SelectFloor(floorIndex);
             _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex];
 
@@ -285,6 +284,7 @@
 
         private void OnSelectLink(int floorIndex, int linkIndex)
         {
+            _designerViewAdapter.SelectLink(floorIndex, linkIndex);
             _mapViewAdapter.SelectLink(floorIndex, linkIndex);
             _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex].Links[linkIndex];
 
@@ -293,6 +293,7 @@
 
         private void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            _designerViewAdapter.SelectNode(floorIndex, type, nodeIndex);
             _mapViewAdapter.SelectNode(floorIndex, type, nodeIndex);
             _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex].GetNode(type, nodeIndex);
 
@@ -487,6 +488,7 @@
 
             InitializeMapElementTreeNode();
             InitializeMapViewAdapter();
+            InitializeDesignerView();
 
             _commandLineArgs = args;
         }
@@ -501,19 +503,6 @@
             {
                 RemoveMap();
                 Flush();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void DesignToolStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            try
-            {
-                _designToolStrip.Items.OfType<ToolStripButton>().ForEach(item => item.Checked = false);
-                if (e.ClickedItem is ToolStripButton button) button.Checked = true;
             }
             catch (Exception ex)
             {
