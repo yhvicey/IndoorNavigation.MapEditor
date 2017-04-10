@@ -8,7 +8,6 @@
     using Models.Nodes;
     using Properties;
     using Share;
-    using Extensions;
 
     public static class MapParser
     {
@@ -76,12 +75,12 @@
             }
         }
 
-        public static Map Parse(string fileName)
+        public static Map Parse(string filename)
         {
-            Contract.EnsureArgsNonNull(fileName);
+            Contract.EnsureArgsNonNull(filename);
 
             var doc = new XmlDocument();
-            doc.Load(fileName);
+            doc.Load(filename);
             var root = doc.DocumentElement;
             Contract.EnsureValuesNonNull(root);
             if (root.Name != ElementMap) throw new Exception(Resources.InvalidMapFileError);

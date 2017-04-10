@@ -93,7 +93,10 @@
                 root.AppendChild(floorElement);
             }
 
-            doc.Save(new FileStream(fileName, FileMode.OpenOrCreate));
+            using (var fileStream = new FileStream(fileName, FileMode.Create))
+            {
+                doc.Save(fileStream);
+            }
         }
     }
 }

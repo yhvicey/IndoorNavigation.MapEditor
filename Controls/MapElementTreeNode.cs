@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
-    using Models;
 
     public sealed class MapElementTreeNode :
         TreeNode

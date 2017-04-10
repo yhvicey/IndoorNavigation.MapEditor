@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IndoorNavigator.MapEditor.Properties {
+namespace IndoorNavigator.MapEditor.Properties
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,190 +23,286 @@ namespace IndoorNavigator.MapEditor.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        
+    internal class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IndoorNavigator.MapEditor.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string ErrorDialogTitle {
-            get {
-                return ResourceManager.GetString("ErrorDialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid argument.
-        /// </summary>
-        internal static string InvalidArgument {
-            get {
-                return ResourceManager.GetString("InvalidArgument", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid element.
-        /// </summary>
-        internal static string InvalidElementError {
-            get {
-                return ResourceManager.GetString("InvalidElementError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid map file.
-        /// </summary>
-        internal static string InvalidMapFileError {
-            get {
-                return ResourceManager.GetString("InvalidMapFileError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid value.
-        /// </summary>
-        internal static string InvalidValueError {
-            get {
-                return ResourceManager.GetString("InvalidValueError", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LeftArrow {
-            get {
-                object obj = ResourceManager.GetObject("LeftArrow", resourceCulture);
+        internal static System.Drawing.Bitmap EntryNode
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("EntryNode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ErrorDialogTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorDialogTitle", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LinkIcon {
-            get {
+        internal static System.Drawing.Bitmap ErrorIcon
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GuideNode
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("GuideNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*.
+        /// </summary>
+        internal static string ImageFilter
+        {
+            get
+            {
+                return ResourceManager.GetString("ImageFilter", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        internal static string InfoDialogTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("InfoDialogTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid argument.
+        /// </summary>
+        internal static string InvalidArgument
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidArgument", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid element.
+        /// </summary>
+        internal static string InvalidElementError
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidElementError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid map file.
+        /// </summary>
+        internal static string InvalidMapFileError
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidMapFileError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid value.
+        /// </summary>
+        internal static string InvalidValueError
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidValueError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LinkIcon
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("LinkIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*.
-        /// </summary>
-        internal static string LoadBackgroundDialogFilter {
-            get {
-                return ResourceManager.GetString("LoadBackgroundDialogFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load background.
-        /// </summary>
-        internal static string LoadBackgroundDialogTitle {
-            get {
-                return ResourceManager.GetString("LoadBackgroundDialogTitle", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Logo {
-            get {
+        internal static System.Drawing.Icon Logo
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Map file|*.xml|All files|*.*.
+        /// </summary>
+        internal static string MapFileFilter
+        {
+            get
+            {
+                return ResourceManager.GetString("MapFileFilter", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Map: {0} Floor: {1}.
         /// </summary>
-        internal static string MapStatusTemplate {
-            get {
+        internal static string MapStatusTemplate
+        {
+            get
+            {
                 return ResourceManager.GetString("MapStatusTemplate", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to No map to save.
         /// </summary>
-        internal static System.Drawing.Bitmap NodeIcon {
-            get {
-                object obj = ResourceManager.GetObject("NodeIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+        internal static string NoMapToSaveError
+        {
+            get
+            {
+                return ResourceManager.GetString("NoMapToSaveError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Please select a floor.
         /// </summary>
-        internal static string PleaseSelectFloorAlert {
-            get {
+        internal static string PleaseSelectFloorAlert
+        {
+            get
+            {
                 return ResourceManager.GetString("PleaseSelectFloorAlert", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Ready.
         /// </summary>
-        internal static System.Drawing.Bitmap RightArrow {
-            get {
-                object obj = ResourceManager.GetObject("RightArrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+        internal static string Ready
+        {
+            get
+            {
+                return ResourceManager.GetString("Ready", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save map?.
+        /// </summary>
+        internal static string SaveMapNotification
+        {
+            get
+            {
+                return ResourceManager.GetString("SaveMapNotification", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Unexpected node type.
         /// </summary>
-        internal static string UnexpectedTypeError {
-            get {
+        internal static string UnexpectedTypeError
+        {
+            get
+            {
                 return ResourceManager.GetString("UnexpectedTypeError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unsupported version.
         /// </summary>
-        internal static string UnsupportedVersionError {
-            get {
+        internal static string UnsupportedVersionError
+        {
+            get
+            {
                 return ResourceManager.GetString("UnsupportedVersionError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WallNode
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("WallNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

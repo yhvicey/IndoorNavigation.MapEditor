@@ -118,29 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LeftArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LeftArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="LinkIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LinkIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RightArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RightArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ErrorDialogTitle" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="LoadBackgroundDialogTitle" xml:space="preserve">
-    <value>Load background</value>
-  </data>
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LoadBackgroundDialogFilter" xml:space="preserve">
+  <data name="ImageFilter" xml:space="preserve">
     <value>JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*</value>
-  </data>
-  <data name="NodeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NodeIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UnexpectedTypeError" xml:space="preserve">
     <value>Unexpected node type</value>
@@ -165,5 +153,32 @@
   </data>
   <data name="MapStatusTemplate" xml:space="preserve">
     <value>Map: {0} Floor: {1}</value>
+  </data>
+  <data name="EntryNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EntryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GuideNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuideNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WallNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WallNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="SaveMapNotification" xml:space="preserve">
+    <value>Do you want to save map?</value>
+  </data>
+  <data name="InfoDialogTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="MapFileFilter" xml:space="preserve">
+    <value>Map file|*.xml|All files|*.*</value>
+  </data>
+  <data name="NoMapToSaveError" xml:space="preserve">
+    <value>No map to save</value>
   </data>
 </root>
