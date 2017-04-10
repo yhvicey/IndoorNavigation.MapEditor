@@ -38,12 +38,13 @@
 
         private IReadOnlyList<string> _commandLineArgs;
 
-        private int _currentFloorIndex = -1;
-
-        private Map _currentMap;
         private DesignerViewAdapter _designerViewAdapter;
 
         private MapViewAdapter _mapViewAdapter;
+
+        internal int CurrentFloorIndex { get; private set; } = -1;
+
+        internal Map CurrentMap { get; private set; }
 
         #endregion // Variables
 
@@ -259,7 +260,7 @@
         {
             _designerViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
             _mapViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
-            _propertyGrid.SelectedObject = _currentMap;
+            _propertyGrid.SelectedObject = CurrentMap;
 
             Flush();
         }
@@ -268,7 +269,7 @@
         {
             _designerViewAdapter.SelectMap();
             _mapViewAdapter.SelectMap();
-            _propertyGrid.SelectedObject = _currentMap;
+            _propertyGrid.SelectedObject = CurrentMap;
 
             Flush();
         }
@@ -277,7 +278,7 @@
         {
             _designerViewAdapter.SelectFloor(floorIndex);
             _mapViewAdapter.SelectFloor(floorIndex);
-            _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex];
+            _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex];
 
             Flush();
         }
@@ -286,7 +287,7 @@
         {
             _designerViewAdapter.SelectLink(floorIndex, linkIndex);
             _mapViewAdapter.SelectLink(floorIndex, linkIndex);
-            _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex].Links[linkIndex];
+            _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].Links[linkIndex];
 
             Flush();
         }
@@ -295,7 +296,7 @@
         {
             _designerViewAdapter.SelectNode(floorIndex, type, nodeIndex);
             _mapViewAdapter.SelectNode(floorIndex, type, nodeIndex);
-            _propertyGrid.SelectedObject = _currentMap.Floors[floorIndex].GetNode(type, nodeIndex);
+            _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].GetNode(type, nodeIndex);
 
             Flush();
         }
@@ -304,37 +305,37 @@
 
         #region Functions
 
-        private void AddMap(Map map)
+        internal void AddMap(Map map)
         {
-            if (_currentMap != null && !SaveMap(_currentMap)) return;
+            if (CurrentMap != null && !SaveMap(CurrentMap)) return;
             if (map == null) return;
-            _currentMap = map;
+            CurrentMap = map;
 
             OnAddMap();
         }
 
-        private void AddFloor(Floor floor)
+        internal void AddFloor(Floor floor)
         {
-            _currentMap?.AddFloor(floor);
+            CurrentMap?.AddFloor(floor);
 
             OnAddFloor(floor);
         }
 
-        private void AddLink(Link link, int floorIndex)
+        internal void AddLink(Link link, int floorIndex)
         {
-            _currentMap?.Floors[floorIndex].AddLink(link);
+            CurrentMap?.Floors[floorIndex].AddLink(link);
 
             OnAddLink(link, floorIndex);
         }
 
-        private void AddNode(NodeBase node, int floorIndex)
+        internal void AddNode(NodeBase node, int floorIndex)
         {
-            _currentMap?.Floors[floorIndex].AddNode(node);
+            CurrentMap?.Floors[floorIndex].AddNode(node);
 
             OnAddNode(node, floorIndex);
         }
 
-        private Map LoadMap()
+        internal Map LoadMap()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -347,11 +348,11 @@
             return map;
         }
 
-        private void RemoveCatalogue(int floorIndex, int catalogueIndex)
+        internal void RemoveCatalogue(int floorIndex, int catalogueIndex)
         {
             Unselect();
 
-            var floor = _currentMap?.Floors[floorIndex];
+            var floor = CurrentMap?.Floors[floorIndex];
             if (floor == null) return;
             switch (catalogueIndex)
             {
@@ -380,44 +381,46 @@
             OnRemoveCatalogue(floorIndex, catalogueIndex);
         }
 
-        private void RemoveMap()
+        internal void RemoveMap()
         {
             Unselect();
 
-            var mapToRemove = _currentMap;
-            _currentMap = null;
+            var mapToRemove = CurrentMap;
+            CurrentFloorIndex = -1;
+            CurrentMap = null;
 
             OnRemoveMap(mapToRemove);
         }
 
-        private void RemoveFloor(int floorIndex)
+        internal void RemoveFloor(int floorIndex)
         {
             Unselect();
 
-            _currentMap?.RemoveFloor(floorIndex);
+            CurrentMap?.RemoveFloor(floorIndex);
 
             OnRemoveFloor(floorIndex);
         }
 
-        private void RemoveLink(int floorIndex, int linkIndex)
+        internal void RemoveLink(int floorIndex, int linkIndex)
         {
             Unselect();
 
-            _currentMap?.Floors[floorIndex].RemoveLink(linkIndex);
+            CurrentMap?.Floors[floorIndex].RemoveLink(linkIndex);
 
             OnRemoveLink(floorIndex, linkIndex);
         }
 
-        private void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
+        internal void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
             Unselect();
 
-            _currentMap?.Floors[floorIndex].RemoveNode(type, nodeIndex);
+            CurrentMap?.Floors[floorIndex].GetLinkIndices(type, nodeIndex).ForEach(linkIndex => RemoveLink(floorIndex, linkIndex));
+            CurrentMap?.Floors[floorIndex].RemoveNode(type, nodeIndex);
 
             OnRemoveNode(floorIndex, type, nodeIndex);
         }
 
-        private bool SaveMap(Map map)
+        internal bool SaveMap(Map map)
         {
             if (map == null)
             {
@@ -435,45 +438,45 @@
             return true;
         }
 
-        private void SelectCatalogue(int floorIndex, int catalogueIndex)
+        internal void SelectCatalogue(int floorIndex, int catalogueIndex)
         {
-            if (floorIndex != _currentFloorIndex) SelectFloor(floorIndex);
+            if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectCatalogue(floorIndex, catalogueIndex);
         }
 
-        private void SelectMap()
+        internal void SelectMap()
         {
             OnSelectMap();
         }
 
-        private void SelectFloor(int floorIndex)
+        internal void SelectFloor(int floorIndex)
         {
-            _currentFloorIndex = floorIndex;
+            CurrentFloorIndex = floorIndex;
 
             OnSelectFloor(floorIndex);
         }
 
-        private void SelectLink(int floorIndex, int linkIndex)
+        internal void SelectLink(int floorIndex, int linkIndex)
         {
-            if (floorIndex != _currentFloorIndex) SelectFloor(floorIndex);
+            if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectLink(floorIndex, linkIndex);
         }
 
-        private void SelectNode(int floorIndex, NodeType type, int nodeIndex)
+        internal void SelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
-            if (floorIndex != _currentFloorIndex) SelectFloor(floorIndex);
+            if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectNode(floorIndex, type, nodeIndex);
         }
 
-        private void StatusBarMessage(string message = null)
+        internal void StatusBarMessage(string message = null)
         {
             _messageStatusLabel.Text = message ?? Resources.Ready;
         }
 
-        private void Unselect()
+        internal void Unselect()
         {
             _propertyGrid.SelectedObject = null;
         }
@@ -514,7 +517,7 @@
         {
             try
             {
-                if (_currentMap != null) RemoveMap();
+                if (CurrentMap != null) RemoveMap();
                 Application.Exit();
             }
             catch (Exception ex)
@@ -770,9 +773,9 @@
         {
             try
             {
-                var wizard = new AddLinkWizard(_currentMap)
+                var wizard = new AddLinkWizard(CurrentMap)
                 {
-                    Floor = _currentFloorIndex
+                    Floor = CurrentFloorIndex
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
@@ -801,9 +804,9 @@
         {
             try
             {
-                var wizard = new AddNodeWizard(_currentMap)
+                var wizard = new AddNodeWizard(CurrentMap)
                 {
-                    Floor = _currentFloorIndex
+                    Floor = CurrentFloorIndex
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
@@ -856,7 +859,7 @@
         {
             try
             {
-                SaveMap(_currentMap);
+                SaveMap(CurrentMap);
             }
             catch (Exception ex)
             {
