@@ -1,9 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Forms;
-    using Extensions;
     using Models;
     using Models.Nodes;
     using Share;

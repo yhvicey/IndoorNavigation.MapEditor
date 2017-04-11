@@ -1,6 +1,5 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
-    using System.Collections.Generic;
     using Models;
     using Models.Nodes;
     using Share;
