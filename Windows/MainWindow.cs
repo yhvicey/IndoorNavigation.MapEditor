@@ -6,7 +6,7 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
-    using Controls.Adapter;
+    using Adapter;
     using Extensions;
     using Map;
     using Models;

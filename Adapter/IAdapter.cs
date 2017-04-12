@@ -1,4 +1,4 @@
-﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
+﻿namespace IndoorNavigator.MapEditor.Adapter
 {
     using Models;
     using Models.Nodes;

@@ -1,6 +1,7 @@
-﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
+﻿namespace IndoorNavigator.MapEditor.Adapter
 {
     using System.Diagnostics;
+    using Controls;
     using Models;
     using Models.Nodes;
 

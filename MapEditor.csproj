@@ -45,15 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Adapter\DesignerViewAdapter.cs" />
-    <Compile Include="Controls\Adapter\IAdapter.cs" />
+    <Compile Include="Adapter\DesignerViewAdapter.cs" />
+    <Compile Include="Adapter\IAdapter.cs" />
     <Compile Include="Controls\MapView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\MapView.Designer.cs">
       <DependentUpon>MapView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Adapter\MapViewAdapter.cs" />
+    <Compile Include="Adapter\MapViewAdapter.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\IMapModel.cs" />
