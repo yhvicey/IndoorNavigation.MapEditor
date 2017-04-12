@@ -45,15 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DesignerViewAdapter.cs" />
-    <Compile Include="Controls\MapElementTreeNode.cs" />
+    <Compile Include="Controls\Adapter\DesignerViewAdapter.cs" />
+    <Compile Include="Controls\Adapter\IAdapter.cs" />
     <Compile Include="Controls\MapView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\MapView.Designer.cs">
       <DependentUpon>MapView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MapViewAdapter.cs" />
+    <Compile Include="Controls\Adapter\MapViewAdapter.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\Map.cs" />
@@ -68,12 +68,6 @@
     </Compile>
     <Compile Include="Controls\DesignerView.Designer.cs">
       <DependentUpon>DesignerView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Node.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Node.Designer.cs">
-      <DependentUpon>Node.cs</DependentUpon>
     </Compile>
     <Compile Include="Map\MapParser.cs" />
     <Compile Include="Map\MapSaver.cs" />
@@ -110,9 +104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MapView.resx">
       <DependentUpon>MapView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Node.resx">
-      <DependentUpon>Node.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\AddLinkWizard.resx">
       <DependentUpon>AddLinkWizard.cs</DependentUpon>
