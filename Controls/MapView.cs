@@ -52,11 +52,6 @@
 
         #endregion // Variables
 
-        public MapView()
-        {
-            InitializeComponent();
-        }
-
         private void OnMapViewMenuShow(int itemLevel, int catalogueIndex, object mapElement)
         {
             _mapViewAddMenuItem.Visible = false;
@@ -131,6 +126,11 @@
                     return;
                 }
             }
+        }
+
+        public MapView()
+        {
+            InitializeComponent();
         }
 
         public void SetParent(MainWindow parent)
@@ -254,7 +254,7 @@
                 {
                     case Constant.MapNodeLevel:
                     {
-                        _parent.SelectMap();
+                        _parent.SelectMap(_parent.CurrentMap);
                         break;
                     }
                     case Constant.FloorNodeLevel:
