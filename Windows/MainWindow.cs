@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
-    using Controls;
     using Controls.Adapter;
     using Extensions;
     using Map;
@@ -19,8 +18,6 @@
     {
         #region Variables
 
-        private string _mapFileName;
-
         private DesignerViewAdapter _designerViewAdapter;
 
         private MapViewAdapter _mapViewAdapter;
@@ -28,6 +25,8 @@
         internal int CurrentFloorIndex { get; private set; } = -1;
 
         internal Map CurrentMap { get; private set; }
+
+        internal string CurrentMapFile { get; private set; }
 
         #endregion // Variables
 
@@ -46,6 +45,192 @@
         }
 
         #endregion // Initialize functions
+
+        #region Event handlers
+
+        private void CloseMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoveMap();
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void ExitMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CurrentMap != null) RemoveMap();
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void LoadBackgroundMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter = Resources.ImageFilter
+                };
+                if (openFileDialog.ShowDialog(this) != DialogResult.OK) return;
+                using (var stream = openFileDialog.OpenFile())
+                {
+                    var background = Image.FromStream(stream);
+                    _designerView.BackgroundImage = background;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void MainWindowLoad(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CurrentMapFile == null) return;
+                AddMap(MapParser.Parse(CurrentMapFile));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void NewFloorMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                AddFloor(new Floor());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void NewLinkMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var wizard = new AddLinkWizard(CurrentMap)
+                {
+                    Floor = CurrentFloorIndex
+                };
+                if (wizard.ShowDialog() == DialogResult.Cancel) return;
+                if (!wizard.Ready) return;
+                AddLink(wizard.MakeLink(), wizard.Floor);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void NewMapMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoveMap();
+                AddMap(new Map("Untitled", new List<Floor>()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void NewNodeMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var wizard = new AddNodeWizard(CurrentMap)
+                {
+                    Floor = CurrentFloorIndex
+                };
+                if (wizard.ShowDialog() == DialogResult.Cancel) return;
+                if (!wizard.Ready) return;
+                AddNode(wizard.MakeNode(), wizard.Floor);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void OpenMapMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoveMap();
+                AddMap(LoadMap());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void PropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            try
+            {
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void RemoveBackgroundMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                _designerView.BackgroundImage = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SaveMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveMap(CurrentMap);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SaveAsMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveMap(CurrentMap, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        #endregion // Event handlers
 
         #region View functions
 
@@ -213,8 +398,8 @@
         {
             _designerViewAdapter.OnFlush();
             _mapViewAdapter.OnFlush();
-            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _mapFileName ?? "None",
-                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
+            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, CurrentMapFile ?? "None",
+                CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString());
         }
 
         internal void AddMap(Map map)
@@ -256,7 +441,7 @@
             };
             if (openFileDialog.ShowDialog() == DialogResult.Cancel) return null;
             var map = MapParser.Parse(openFileDialog.FileName);
-            _mapFileName = openFileDialog.FileName;
+            CurrentMapFile = openFileDialog.FileName;
             StatusBarMessage("Map loaded.");
             return map;
         }
@@ -295,7 +480,8 @@
         internal void RemoveMap()
         {
             var mapToRemove = CurrentMap;
-            CurrentFloorIndex = -1;
+            CurrentMapFile = null;
+            CurrentFloorIndex = Constant.NoSelectedFloor;
             CurrentMap = null;
 
             OnRemoveMap(mapToRemove);
@@ -330,18 +516,18 @@
                 MessageBox.Show(Resources.NoMapToSaveError);
                 return false;
             }
-            if (_mapFileName == null || saveAs)
+            if (CurrentMapFile == null || saveAs)
             {
                 var saveFileDialog = new SaveFileDialog
                 {
                     DefaultExt = ".xml",
                     Filter = Resources.MapFileFilter,
-                    InitialDirectory = Path.GetDirectoryName(_mapFileName) ?? ""
+                    InitialDirectory = Path.GetDirectoryName(CurrentMapFile) ?? ""
                 };
                 if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return false;
-                _mapFileName = saveFileDialog.FileName;
+                CurrentMapFile = saveFileDialog.FileName;
             }
-            MapSaver.Save(_mapFileName, map);
+            MapSaver.Save(CurrentMapFile, map);
             StatusBarMessage("Map saved.");
             return true;
         }
@@ -355,6 +541,7 @@
 
         internal void SelectMap(Map map)
         {
+            CurrentFloorIndex = Constant.NoSelectedFloor;
             CurrentMap = map;
 
             OnSelectMap(map);
@@ -399,193 +586,7 @@
             InitializeMapView();
 
             if (!(args?.Count > 0)) return;
-            _mapFileName = args.First();
+            CurrentMapFile = args.First();
         }
-
-        #region Event handlers
-
-        private void CloseMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                RemoveMap();
-                Flush();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void ExitMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (CurrentMap != null) RemoveMap();
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void LoadBackgroundMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var openFileDialog = new OpenFileDialog
-                {
-                    Filter = Resources.ImageFilter
-                };
-                if (openFileDialog.ShowDialog(this) != DialogResult.OK) return;
-                using (var stream = openFileDialog.OpenFile())
-                {
-                    var background = Image.FromStream(stream);
-                    _designerView.BackgroundImage = background;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void MainWindowLoad(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_mapFileName == null) return;
-                AddMap(MapParser.Parse(_mapFileName));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void NewFloorMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                AddFloor(new Floor());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void NewLinkMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var wizard = new AddLinkWizard(CurrentMap)
-                {
-                    Floor = CurrentFloorIndex
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddLink(wizard.MakeLink(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void NewMapMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                RemoveMap();
-                AddMap(new Map("Untitled", new List<Floor>()));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void NewNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var wizard = new AddNodeWizard(CurrentMap)
-                {
-                    Floor = CurrentFloorIndex
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                AddNode(wizard.MakeNode(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void OpenMapMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                RemoveMap();
-                AddMap(LoadMap());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void PropertyGridPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            try
-            {
-                Flush();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void RemoveBackgroundMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                _designerView.BackgroundImage = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void SaveMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                SaveMap(CurrentMap);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private void SaveAsMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                SaveMap(CurrentMap, true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        #endregion // Event handlers
     }
 }
