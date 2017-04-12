@@ -18,16 +18,16 @@
             _mapView = mapView;
         }
 
-        public void AddMap(Map map)
+        public void OnAddMap(Map map)
         {
             _mapView.Nodes.Clear();
             if (map == null) return;
             _root = new MapView.MapViewTreeNode(null, mapElement: map);
-            map.Floors.ForEach(AddFloor);
+            map.Floors.ForEach(OnAddFloor);
             _mapView.Nodes.Add(_root);
         }
 
-        public void AddFloor(Floor floor)
+        public void OnAddFloor(Floor floor)
         {
             var floorNode = new MapView.MapViewTreeNode($"Floor {_root.Nodes.Count + 1}", mapElement: floor);
             var entryNodes = floor.EntryNodes.Select(entryNode => new MapView.MapViewTreeNode(null, mapElement: entryNode));
@@ -41,67 +41,67 @@
             _root.Nodes.Add(floorNode);
         }
 
-        public void AddLink(Link link, int floorIndex)
+        public void OnAddLink(Link link, int floorIndex)
         {
             _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapView.MapViewTreeNode(null, mapElement: link));
         }
 
-        public void AddNode(NodeBase node, int floorIndex)
+        public void OnAddNode(NodeBase node, int floorIndex)
         {
             _root.Nodes[floorIndex].Nodes[(int)node.Type].Nodes.Add(new MapView.MapViewTreeNode(null, mapElement: node));
         }
 
-        public void Flush()
+        public void OnFlush()
         {
             _root?.Update();
         }
 
-        public void RemoveCatalogue(int floorIndex, int catalogueIndex)
+        public void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
         {
             _root.Nodes[floorIndex].Nodes[catalogueIndex].Nodes.Clear();
         }
 
-        public void RemoveMap()
+        public void OnRemoveMap()
         {
             _mapView.Nodes.Clear();
         }
 
-        public void RemoveFloor(int floorIndex)
+        public void OnRemoveFloor(int floorIndex)
         {
             _root.Nodes.RemoveAt(floorIndex);
         }
 
-        public void RemoveLink(int floorIndex, int linkIndex)
+        public void OnRemoveLink(int floorIndex, int linkIndex)
         {
             _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.RemoveAt(linkIndex);
         }
 
-        public void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
+        public void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
             _root.Nodes[floorIndex].Nodes[(int)type].Nodes.RemoveAt(nodeIndex);
         }
 
-        public void SelectCatalogue(int floorIndex, int catalogueIndex)
+        public void OnSelectCatalogue(int floorIndex, int catalogueIndex)
         {
             _mapView.SelectedNode = _root.Nodes[floorIndex].Nodes[catalogueIndex];
         }
 
-        public void SelectMap(Map map)
+        public void OnSelectMap(Map map)
         {
             _mapView.SelectedNode = _root;
         }
 
-        public void SelectFloor(int floorIndex)
+        public void OnSelectFloor(int floorIndex)
         {
             _mapView.SelectedNode = _root.Nodes[floorIndex];
         }
 
-        public void SelectLink(int floorIndex, int linkIndex)
+        public void OnSelectLink(int floorIndex, int linkIndex)
         {
             _mapView.SelectedNode = _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes[linkIndex];
         }
 
-        public void SelectNode(int floorIndex, NodeType type, int nodeIndex)
+        public void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
             _mapView.SelectedNode = _root.Nodes[floorIndex].Nodes[(int)type].Nodes[nodeIndex];
         }

@@ -16,78 +16,78 @@
             _designerView = designerView;
         }
 
-        public void AddMap(Map map)
+        public void OnAddMap(Map map)
         {
             // no-op
         }
 
-        public void AddFloor(Floor floor)
+        public void OnAddFloor(Floor floor)
         {
             // no-op
         }
 
-        public void AddLink(Link link, int floorIndex)
+        public void OnAddLink(Link link, int floorIndex)
         {
             // no-op
         }
 
-        public void AddNode(NodeBase node, int floorIndex)
+        public void OnAddNode(NodeBase node, int floorIndex)
         {
             // no-op
         }
 
-        public void Flush()
+        public void OnFlush()
         {
             _designerView.Flush();
         }
 
-        public void RemoveCatalogue(int floorIndex, int catalogueIndex)
+        public void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
         {
             // no-op
         }
 
-        public void RemoveMap()
+        public void OnRemoveMap()
         {
             // no-op
         }
 
-        public void RemoveFloor(int floorIndex)
+        public void OnRemoveFloor(int floorIndex)
         {
             // no-op
         }
 
-        public void RemoveLink(int floorIndex, int linkIndex)
+        public void OnRemoveLink(int floorIndex, int linkIndex)
         {
             // no-op
         }
 
-        public void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
+        public void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
             // no-op
         }
 
-        public void SelectCatalogue(int floorIndex, int catalogueIndex)
+        public void OnSelectCatalogue(int floorIndex, int catalogueIndex)
         {
             //_designerView.Unhighlight();
             //_designerView.Targets[floorIndex].Targets[catalogueIndex].Targets.ForEach(target => target.Highlighted = true);
         }
 
-        public void SelectMap(Map map)
+        public void OnSelectMap(Map map)
         {
 
         }
 
-        public void SelectFloor(int floorIndex)
+        public void OnSelectFloor(int floorIndex)
         {
 
         }
 
-        public void SelectLink(int floorIndex, int linkIndex)
+        public void OnSelectLink(int floorIndex, int linkIndex)
         {
 
         }
 
-        public void SelectNode(int floorIndex, NodeType type, int nodeIndex)
+        public void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
 
         }

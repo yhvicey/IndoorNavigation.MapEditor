@@ -5,34 +5,34 @@
 
     public interface IAdapter
     {
-        void AddMap(Map map);
+        void OnAddMap(Map map);
 
-        void AddFloor(Floor floor);
+        void OnAddFloor(Floor floor);
 
-        void AddLink(Link link, int floorIndex);
+        void OnAddLink(Link link, int floorIndex);
 
-        void AddNode(NodeBase node, int floorIndex);
+        void OnAddNode(NodeBase node, int floorIndex);
 
-        void Flush();
+        void OnFlush();
 
-        void RemoveCatalogue(int floorIndex, int catalogueIndex);
+        void OnRemoveCatalogue(int floorIndex, int catalogueIndex);
 
-        void RemoveMap();
+        void OnRemoveMap();
 
-        void RemoveFloor(int floorIndex);
+        void OnRemoveFloor(int floorIndex);
 
-        void RemoveLink(int floorIndex, int linkIndex);
+        void OnRemoveLink(int floorIndex, int linkIndex);
 
-        void RemoveNode(int floorIndex, NodeType type, int nodeIndex);
+        void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex);
 
-        void SelectCatalogue(int floorIndex, int catalogueIndex);
+        void OnSelectCatalogue(int floorIndex, int catalogueIndex);
 
-        void SelectMap(Map map);
+        void OnSelectMap(Map map);
 
-        void SelectFloor(int floorIndex);
+        void OnSelectFloor(int floorIndex);
 
-        void SelectLink(int floorIndex, int linkIndex);
+        void OnSelectLink(int floorIndex, int linkIndex);
 
-        void SelectNode(int floorIndex, NodeType type, int nodeIndex);
+        void OnSelectNode(int floorIndex, NodeType type, int nodeIndex);
     }
 }

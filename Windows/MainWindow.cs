@@ -53,8 +53,8 @@
         {
             StatusBarMessage("Adding map...");
 
-            _designerViewAdapter.AddMap(CurrentMap);
-            _mapViewAdapter.AddMap(CurrentMap);
+            _designerViewAdapter.OnAddMap(CurrentMap);
+            _mapViewAdapter.OnAddMap(CurrentMap);
 
             Flush();
             StatusBarMessage("Map added.");
@@ -64,8 +64,8 @@
         {
             StatusBarMessage("Adding floor...");
 
-            _designerViewAdapter.AddFloor(floor);
-            _mapViewAdapter.AddFloor(floor);
+            _designerViewAdapter.OnAddFloor(floor);
+            _mapViewAdapter.OnAddFloor(floor);
 
             Flush();
             StatusBarMessage("Floor added.");
@@ -75,8 +75,8 @@
         {
             StatusBarMessage("Adding link...");
 
-            _designerViewAdapter.AddLink(link, floorIndex);
-            _mapViewAdapter.AddLink(link, floorIndex);
+            _designerViewAdapter.OnAddLink(link, floorIndex);
+            _mapViewAdapter.OnAddLink(link, floorIndex);
 
             Flush();
             StatusBarMessage("Link added.");
@@ -86,8 +86,8 @@
         {
             StatusBarMessage("Adding node...");
 
-            _designerViewAdapter.AddNode(node, floorIndex);
-            _mapViewAdapter.AddNode(node, floorIndex);
+            _designerViewAdapter.OnAddNode(node, floorIndex);
+            _mapViewAdapter.OnAddNode(node, floorIndex);
 
             Flush();
             StatusBarMessage("Node added.");
@@ -99,8 +99,8 @@
 
             StatusBarMessage("Removing catalogue...");
 
-            _designerViewAdapter.RemoveCatalogue(floorIndex, catalogueIndex);
-            _mapViewAdapter.RemoveCatalogue(floorIndex, catalogueIndex);
+            _designerViewAdapter.OnRemoveCatalogue(floorIndex, catalogueIndex);
+            _mapViewAdapter.OnRemoveCatalogue(floorIndex, catalogueIndex);
 
             Flush();
             StatusBarMessage("Catalogue removed.");
@@ -116,8 +116,8 @@
                 MessageBox.Show(Resources.SaveMapNotification, Resources.InfoDialogTitle, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information) == DialogResult.Yes) SaveMap(map);
 
-            _designerViewAdapter.RemoveMap();
-            _mapViewAdapter.RemoveMap();
+            _designerViewAdapter.OnRemoveMap();
+            _mapViewAdapter.OnRemoveMap();
 
             Flush();
             StatusBarMessage("Map removed.");
@@ -129,8 +129,8 @@
 
             StatusBarMessage("Removing floor...");
 
-            _designerViewAdapter.RemoveFloor(floorIndex);
-            _mapViewAdapter.RemoveFloor(floorIndex);
+            _designerViewAdapter.OnRemoveFloor(floorIndex);
+            _mapViewAdapter.OnRemoveFloor(floorIndex);
 
             Flush();
             StatusBarMessage("Floor removed.");
@@ -142,8 +142,8 @@
 
             StatusBarMessage("Removing link...");
 
-            _designerViewAdapter.RemoveLink(floorIndex, linkIndex);
-            _mapViewAdapter.RemoveLink(floorIndex, linkIndex);
+            _designerViewAdapter.OnRemoveLink(floorIndex, linkIndex);
+            _mapViewAdapter.OnRemoveLink(floorIndex, linkIndex);
 
             Flush();
             StatusBarMessage("Link removed.");
@@ -155,8 +155,8 @@
 
             StatusBarMessage("Removing node...");
 
-            _designerViewAdapter.RemoveNode(floorIndex, type, nodeIndex);
-            _mapViewAdapter.RemoveNode(floorIndex, type, nodeIndex);
+            _designerViewAdapter.OnRemoveNode(floorIndex, type, nodeIndex);
+            _mapViewAdapter.OnRemoveNode(floorIndex, type, nodeIndex);
 
             Flush();
             StatusBarMessage("Node removed.");
@@ -164,8 +164,8 @@
 
         private void OnSelectCatalogue(int floorIndex, int catalogueIndex)
         {
-            _designerViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
-            _mapViewAdapter.SelectCatalogue(floorIndex, catalogueIndex);
+            _designerViewAdapter.OnSelectCatalogue(floorIndex, catalogueIndex);
+            _mapViewAdapter.OnSelectCatalogue(floorIndex, catalogueIndex);
             _propertyGrid.SelectedObject = CurrentMap;
 
             Flush();
@@ -173,8 +173,8 @@
 
         private void OnSelectMap(Map map)
         {
-            _designerViewAdapter.SelectMap(map);
-            _mapViewAdapter.SelectMap(map);
+            _designerViewAdapter.OnSelectMap(map);
+            _mapViewAdapter.OnSelectMap(map);
             _propertyGrid.SelectedObject = map;
 
             Flush();
@@ -182,8 +182,8 @@
 
         private void OnSelectFloor(int floorIndex)
         {
-            _designerViewAdapter.SelectFloor(floorIndex);
-            _mapViewAdapter.SelectFloor(floorIndex);
+            _designerViewAdapter.OnSelectFloor(floorIndex);
+            _mapViewAdapter.OnSelectFloor(floorIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex];
 
             Flush();
@@ -191,8 +191,8 @@
 
         private void OnSelectLink(int floorIndex, int linkIndex)
         {
-            _designerViewAdapter.SelectLink(floorIndex, linkIndex);
-            _mapViewAdapter.SelectLink(floorIndex, linkIndex);
+            _designerViewAdapter.OnSelectLink(floorIndex, linkIndex);
+            _mapViewAdapter.OnSelectLink(floorIndex, linkIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].Links[linkIndex];
 
             Flush();
@@ -200,14 +200,22 @@
 
         private void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
-            _designerViewAdapter.SelectNode(floorIndex, type, nodeIndex);
-            _mapViewAdapter.SelectNode(floorIndex, type, nodeIndex);
+            _designerViewAdapter.OnSelectNode(floorIndex, type, nodeIndex);
+            _mapViewAdapter.OnSelectNode(floorIndex, type, nodeIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].GetNode(type, nodeIndex);
 
             Flush();
         }
 
         #endregion // View functions
+
+        private void Flush()
+        {
+            _designerViewAdapter.OnFlush();
+            _mapViewAdapter.OnFlush();
+            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _mapFileName ?? "None",
+                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
+        }
 
         internal void AddMap(Map map)
         {
@@ -237,14 +245,6 @@
             CurrentMap?.Floors[floorIndex].AddNode(node);
 
             OnAddNode(node, floorIndex);
-        }
-
-        private void Flush()
-        {
-            _designerViewAdapter.Flush();
-            _mapViewAdapter.Flush();
-            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _mapFileName ?? "None",
-                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
         }
 
         internal Map LoadMap()
