@@ -1,5 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
 {
+    using System.Diagnostics;
     using Models;
     using Models.Nodes;
     using Share;
@@ -13,7 +14,7 @@
 
         public MapViewAdapter(MapView mapView)
         {
-            Contract.EnsureArgsNonNull(mapView);
+            Debug.Assert(mapView != null);
             _mapView = mapView;
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace IndoorNavigator.MapEditor.Map
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Xml;
     using Models;
@@ -27,7 +28,9 @@
 
         private static XmlElement GenerateLink(Link link, XmlDocument doc)
         {
-            Contract.EnsureArgsNonNull(link, doc);
+            Debug.Assert(link != null);
+            Debug.Assert(doc != null);
+
             var linkElement = doc.CreateElement(ElementLink);
             linkElement.SetAttribute(AttrStartType, link.StartType.ToString());
             linkElement.SetAttribute(AttrStartIndex, link.StartIndex.ToString());
@@ -38,7 +41,8 @@
 
         private static XmlElement GenerateNode(NodeBase node, XmlDocument doc)
         {
-            Contract.EnsureArgsNonNull(node, doc);
+            Debug.Assert(node != null);
+            Debug.Assert(doc != null);
 
             var nodeElement = doc.CreateElement(node.Type.ToString());
             nodeElement.SetAttribute(AttrX, node.X.ToString("F2"));
@@ -69,9 +73,10 @@
             return nodeElement;
         }
 
-        public static void Save(string fileName, Map map)
+        public static void Save(string filename, Map map)
         {
-            Contract.EnsureArgsNonNull(fileName, map);
+            Debug.Assert(filename != null);
+            Debug.Assert(map != null);
 
             var doc = new XmlDocument();
             var decl = doc.CreateXmlDeclaration("1.0", "utf-8", null);
@@ -93,7 +98,7 @@
                 root.AppendChild(floorElement);
             }
 
-            using (var fileStream = new FileStream(fileName, FileMode.Create))
+            using (var fileStream = new FileStream(filename, FileMode.Create))
             {
                 doc.Save(fileStream);
             }

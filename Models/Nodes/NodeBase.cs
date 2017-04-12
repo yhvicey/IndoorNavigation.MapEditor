@@ -22,7 +22,8 @@
 
         public double GetDistance(NodeBase other)
         {
-            Contract.EnsureArgsNonNull(other);
+            Debug.Assert(other != null);
+
             return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
         }
 

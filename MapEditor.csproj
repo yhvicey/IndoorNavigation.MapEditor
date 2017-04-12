@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Share\Alerter.cs" />
     <Compile Include="Share\Constant.cs" />
-    <Compile Include="Share\Contract.cs" />
     <Compile Include="Windows\AddLinkWizard.cs">
       <SubType>Form</SubType>
     </Compile>

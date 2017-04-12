@@ -24,20 +24,23 @@
 
         public void AddLink(Link link)
         {
-            Contract.EnsureArgsNonNull(link);
+            Debug.Assert(link != null);
+
             link.OnAdd(this);
             Links.Add(link);
         }
 
         public void AddLinks(IEnumerable<Link> links)
         {
-            Contract.EnsureArgsNonNull(links);
+            Debug.Assert(links != null);
+
             links.ForEach(AddLink);
         }
 
         public void AddNode(NodeBase node)
         {
-            Contract.EnsureArgsNonNull(node);
+            Debug.Assert(node != null);
+
             switch (node)
             {
                 case EntryNode entryNode:
@@ -64,7 +67,8 @@
 
         public void AddNodes(IEnumerable<NodeBase> nodes)
         {
-            Contract.EnsureArgsNonNull(nodes);
+            Debug.Assert(nodes != null);
+
             nodes.ForEach(AddNode);
         }
 

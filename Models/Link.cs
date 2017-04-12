@@ -30,7 +30,8 @@
 
         public void OnAdd(Floor parent)
         {
-            Contract.EnsureArgsNonNull(parent);
+            Debug.Assert(parent != null);
+
             _parent = parent;
         }
 

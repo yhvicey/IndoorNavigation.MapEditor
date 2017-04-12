@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Xml;
     using Models;
@@ -28,7 +29,7 @@
 
         private static Link GenerateLink(XmlElement element)
         {
-            Contract.EnsureArgsNonNull(element);
+            Debug.Assert(element != null);
 
             if (!Enum.TryParse(element.GetAttribute(AttrStartType), out NodeType startType)) throw new Exception(Resources.UnexpectedTypeError);
             if (!int.TryParse(element.GetAttribute(AttrStartIndex), out var startIndex)) throw new Exception(Resources.InvalidElementError);
@@ -40,7 +41,7 @@
 
         private static NodeBase GenerateNode(XmlElement element)
         {
-            Contract.EnsureArgsNonNull(element);
+            Debug.Assert(element != null);
 
             if (!Enum.TryParse(element.Name, out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
             if (!double.TryParse(element.GetAttribute(AttrX), out var x)) throw new Exception(Resources.InvalidElementError);
@@ -77,12 +78,12 @@
 
         public static Map Parse(string filename)
         {
-            Contract.EnsureArgsNonNull(filename);
+            Debug.Assert(filename != null);
 
             var doc = new XmlDocument();
             doc.Load(filename);
             var root = doc.DocumentElement;
-            Contract.EnsureValuesNonNull(root);
+            Debug.Assert(root != null);
             if (root.Name != ElementMap) throw new Exception(Resources.InvalidMapFileError);
 
             var version = root.GetAttribute(AttrVersion);
@@ -97,19 +98,19 @@
                 var floor = new Floor();
 
                 var entryNodeElements = floorElement.SelectNodes(NodeType.EntryNode.ToString())?.OfType<XmlElement>();
-                Contract.EnsureValuesNonNull(entryNodeElements);
+                Debug.Assert(entryNodeElements != null);
                 floor.AddNodes(entryNodeElements.Select(GenerateNode));
 
                 var guideNodeElements = floorElement.SelectNodes(NodeType.GuideNode.ToString())?.OfType<XmlElement>();
-                Contract.EnsureValuesNonNull(guideNodeElements);
+                Debug.Assert(guideNodeElements != null);
                 floor.AddNodes(guideNodeElements.Select(GenerateNode));
 
                 var wallNodeElements = floorElement.SelectNodes(NodeType.WallNode.ToString())?.OfType<XmlElement>();
-                Contract.EnsureValuesNonNull(wallNodeElements);
+                Debug.Assert(wallNodeElements != null);
                 floor.AddNodes(wallNodeElements.Select(GenerateNode));
 
                 var linkElements = floorElement.SelectNodes(ElementLink)?.OfType<XmlElement>();
-                Contract.EnsureValuesNonNull(linkElements);
+                Debug.Assert(linkElements != null);
                 floor.AddLinks(linkElements.Select(GenerateLink));
 
                 floors.Add(floor);

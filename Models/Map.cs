@@ -17,7 +17,8 @@
 
         public Map(string name, List<Floor> floors)
         {
-            Contract.EnsureArgsNonNull(name, floors);
+            Debug.Assert(floors != null);
+
             Name = name;
             floors.ForEach(AddFloor);
         }

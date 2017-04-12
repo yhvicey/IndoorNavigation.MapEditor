@@ -1,9 +1,8 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
 {
-    using Extensions;
+    using System.Diagnostics;
     using Models;
     using Models.Nodes;
-    using Share;
 
     public class DesignerViewAdapter :
         IAdapter
@@ -12,7 +11,7 @@
 
         public DesignerViewAdapter(DesignerView designerView)
         {
-            Contract.EnsureArgsNonNull(designerView);
+            Debug.Assert(designerView != null);
             _designerView = designerView;
         }
 
