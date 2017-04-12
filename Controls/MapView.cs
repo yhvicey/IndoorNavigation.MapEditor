@@ -20,11 +20,11 @@
 
             public string StaticText { get; set; }
 
-            public MapViewTreeNode(string text = null, IMapModel mapElement = null, IEnumerable<IMapModel> childItems = null)
+            public MapViewTreeNode(string text = null, IMapModel mapModel = null, IEnumerable<IMapModel> childItems = null)
             {
                 StaticText = text;
-                MapElement = mapElement;
-                childItems?.ForEach(item => Nodes.Add(new MapViewTreeNode(mapElement: item)));
+                MapElement = mapModel;
+                childItems?.ForEach(item => Nodes.Add(new MapViewTreeNode(mapModel: item)));
 
                 Update();
             }

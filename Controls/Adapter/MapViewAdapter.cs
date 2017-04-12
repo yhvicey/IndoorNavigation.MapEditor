@@ -21,7 +21,7 @@
         {
             _mapView.Nodes.Clear();
             if (map == null) return;
-            _root = new MapView.MapViewTreeNode(mapElement: map);
+            _root = new MapView.MapViewTreeNode(mapModel: map);
             map.Floors.ForEach(OnAddFloor);
             _mapView.Nodes.Add(_root);
         }
@@ -38,12 +38,12 @@
 
         public void OnAddLink(Link link, int floorIndex)
         {
-            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapView.MapViewTreeNode(mapElement: link));
+            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapView.MapViewTreeNode(mapModel: link));
         }
 
         public void OnAddNode(NodeBase node, int floorIndex)
         {
-            _root.Nodes[floorIndex].Nodes[(int)node.Type].Nodes.Add(new MapView.MapViewTreeNode(null, mapElement: node));
+            _root.Nodes[floorIndex].Nodes[(int)node.Type].Nodes.Add(new MapView.MapViewTreeNode(mapModel: node));
         }
 
         public void OnFlush()
