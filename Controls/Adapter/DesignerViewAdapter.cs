@@ -1,10 +1,12 @@
-﻿namespace IndoorNavigator.MapEditor.Controls
+﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
 {
+    using Extensions;
     using Models;
     using Models.Nodes;
     using Share;
 
-    public class DesignerViewAdapter
+    public class DesignerViewAdapter :
+        IAdapter
     {
         private readonly DesignerView _designerView;
 
@@ -16,66 +18,61 @@
 
         public void AddMap(Map map)
         {
-
+            // no-op
         }
 
         public void AddFloor(Floor floor)
         {
-
-            Flush();
+            // no-op
         }
 
         public void AddLink(Link link, int floorIndex)
         {
-
-            Flush();
+            // no-op
         }
 
         public void AddNode(NodeBase node, int floorIndex)
         {
-
-            Flush();
+            // no-op
         }
 
         public void Flush()
         {
-
+            _designerView.Flush();
         }
 
         public void RemoveCatalogue(int floorIndex, int catalogueIndex)
         {
-
+            // no-op
         }
 
         public void RemoveMap()
         {
-
+            // no-op
         }
 
         public void RemoveFloor(int floorIndex)
         {
-
-            Flush();
+            // no-op
         }
 
         public void RemoveLink(int floorIndex, int linkIndex)
         {
-
-            Flush();
+            // no-op
         }
 
         public void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
-
-            Flush();
+            // no-op
         }
 
         public void SelectCatalogue(int floorIndex, int catalogueIndex)
         {
-
+            //_designerView.Unhighlight();
+            //_designerView.Targets[floorIndex].Targets[catalogueIndex].Targets.ForEach(target => target.Highlighted = true);
         }
 
-        public void SelectMap()
+        public void SelectMap(Map map)
         {
 
         }
