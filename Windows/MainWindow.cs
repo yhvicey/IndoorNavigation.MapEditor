@@ -3,8 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
     using Controls;
+    using Controls.Adapter;
     using Extensions;
     using Map;
     using Models;
@@ -43,18 +46,6 @@
         }
 
         #endregion // Initialize functions
-
-        #region Flush functions
-
-        private void Flush()
-        {
-            _designerViewAdapter.Flush();
-            _mapViewAdapter.Flush();
-            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, CurrentMap?.Name ?? "None",
-                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
-        }
-
-        #endregion // Flush functions
 
         #region View functions
 
@@ -104,6 +95,8 @@
 
         private void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
         {
+            Unselect();
+
             StatusBarMessage("Removing catalogue...");
 
             _designerViewAdapter.RemoveCatalogue(floorIndex, catalogueIndex);
@@ -115,6 +108,8 @@
 
         private void OnRemoveMap(Map map)
         {
+            Unselect();
+
             StatusBarMessage("Removing map...");
 
             if (map != null &&
@@ -130,6 +125,8 @@
 
         private void OnRemoveFloor(int floorIndex)
         {
+            Unselect();
+
             StatusBarMessage("Removing floor...");
 
             _designerViewAdapter.RemoveFloor(floorIndex);
@@ -141,6 +138,8 @@
 
         private void OnRemoveLink(int floorIndex, int linkIndex)
         {
+            Unselect();
+
             StatusBarMessage("Removing link...");
 
             _designerViewAdapter.RemoveLink(floorIndex, linkIndex);
@@ -152,6 +151,8 @@
 
         private void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            Unselect();
+
             StatusBarMessage("Removing node...");
 
             _designerViewAdapter.RemoveNode(floorIndex, type, nodeIndex);
@@ -170,11 +171,11 @@
             Flush();
         }
 
-        private void OnSelectMap()
+        private void OnSelectMap(Map map)
         {
-            _designerViewAdapter.SelectMap();
-            _mapViewAdapter.SelectMap();
-            _propertyGrid.SelectedObject = CurrentMap;
+            _designerViewAdapter.SelectMap(map);
+            _mapViewAdapter.SelectMap(map);
+            _propertyGrid.SelectedObject = map;
 
             Flush();
         }
@@ -208,13 +209,11 @@
 
         #endregion // View functions
 
-        #region Functions
-
         internal void AddMap(Map map)
         {
             if (CurrentMap != null && !SaveMap(CurrentMap)) return;
             if (map == null) return;
-            CurrentMap = map;
+            SelectMap(map);
 
             OnAddMap();
         }
@@ -240,8 +239,14 @@
             OnAddNode(node, floorIndex);
         }
 
+        private void Flush()
+        {
+            _designerViewAdapter.Flush();
+            _mapViewAdapter.Flush();
             _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _mapFileName ?? "None",
                 CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
+        }
+
         internal Map LoadMap()
         {
             var openFileDialog = new OpenFileDialog
@@ -258,8 +263,6 @@
 
         internal void RemoveCatalogue(int floorIndex, int catalogueIndex)
         {
-            Unselect();
-
             var floor = CurrentMap?.Floors[floorIndex];
             if (floor == null) return;
             switch (catalogueIndex)
@@ -291,8 +294,6 @@
 
         internal void RemoveMap()
         {
-            Unselect();
-
             var mapToRemove = CurrentMap;
             CurrentFloorIndex = -1;
             CurrentMap = null;
@@ -302,8 +303,6 @@
 
         internal void RemoveFloor(int floorIndex)
         {
-            Unselect();
-
             CurrentMap?.RemoveFloor(floorIndex);
 
             OnRemoveFloor(floorIndex);
@@ -311,8 +310,6 @@
 
         internal void RemoveLink(int floorIndex, int linkIndex)
         {
-            Unselect();
-
             CurrentMap?.Floors[floorIndex].RemoveLink(linkIndex);
 
             OnRemoveLink(floorIndex, linkIndex);
@@ -320,8 +317,6 @@
 
         internal void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
-            Unselect();
-
             CurrentMap?.Floors[floorIndex].GetLinkIndices(type, nodeIndex).ForEach(linkIndex => RemoveLink(floorIndex, linkIndex));
             CurrentMap?.Floors[floorIndex].RemoveNode(type, nodeIndex);
 
@@ -358,9 +353,11 @@
             OnSelectCatalogue(floorIndex, catalogueIndex);
         }
 
-        internal void SelectMap()
+        internal void SelectMap(Map map)
         {
-            OnSelectMap();
+            CurrentMap = map;
+
+            OnSelectMap(map);
         }
 
         internal void SelectFloor(int floorIndex)
@@ -393,8 +390,6 @@
         {
             _propertyGrid.SelectedObject = null;
         }
-
-        #endregion // Functions
 
         public MainWindow(IReadOnlyCollection<string> args = null)
         {
