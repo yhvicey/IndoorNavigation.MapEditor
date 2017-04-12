@@ -5,7 +5,8 @@
     using Share;
 
     [DebuggerDisplay(nameof(Distance) + " = {" + nameof(Distance) + "}")]
-    public class Link
+    public class Link :
+        IMapModel
     {
         private Floor _parent;
 

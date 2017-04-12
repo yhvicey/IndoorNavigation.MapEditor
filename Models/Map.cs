@@ -6,7 +6,8 @@
     using Share;
 
     [DebuggerDisplay("Count = {" + nameof(Floors) + ".Count}")]
-    public class Map
+    public class Map :
+        IMapModel
     {
         public List<Floor> Floors { get; } = new List<Floor>();
 

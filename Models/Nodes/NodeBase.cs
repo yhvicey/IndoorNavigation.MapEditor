@@ -5,7 +5,8 @@
     using Share;
 
     [DebuggerDisplay("{" + nameof(X) + "}, {" + nameof(Y) + "}")]
-    public abstract class NodeBase
+    public abstract class NodeBase :
+        IMapModel
     {
         public abstract NodeType Type { get; }
 

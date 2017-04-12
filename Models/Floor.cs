@@ -11,7 +11,8 @@
     using Share;
 
     [DebuggerDisplay("Count = {" + nameof(EntryNodes) + ".Count + " + nameof(GuideNodes) + ".Count + " + nameof(WallNodes) + ".Count}")]
-    public class Floor
+    public class Floor :
+        IMapModel
     {
         public List<EntryNode> EntryNodes { get; } = new List<EntryNode>();
 
