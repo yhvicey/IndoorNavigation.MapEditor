@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Windows.Forms;
     using Windows;
+    using Extensions;
     using Models;
     using Models.Nodes;
     using Share;
@@ -15,34 +16,23 @@
         public sealed class MapViewTreeNode :
             TreeNode
         {
-            public object MapElement { get; set; }
+            public IMapModel MapElement { get; set; }
 
             public string StaticText { get; set; }
 
-            public MapViewTreeNode(string text, IEnumerable<MapViewTreeNode> childItems = null, object mapElement = null)
+            public MapViewTreeNode(string text = null, IMapModel mapElement = null, IEnumerable<IMapModel> childItems = null)
             {
-                if (text != null)
-                {
-                    StaticText = text;
-                }
-                if (childItems != null)
-                {
-                    foreach (var childItem in childItems)
-                    {
-                        Nodes.Add(childItem);
-                    }
-                }
-                if (mapElement != null) MapElement = mapElement;
+                StaticText = text;
+                MapElement = mapElement;
+                childItems?.ForEach(item => Nodes.Add(new MapViewTreeNode(mapElement: item)));
+
                 Update();
             }
 
             public void Update()
             {
                 Text = StaticText ?? MapElement?.ToString() ?? "";
-                foreach (var node in Nodes.OfType<MapViewTreeNode>())
-                {
-                    node.Update();
-                }
+                Nodes.OfType<MapViewTreeNode>().ForEach(node => node.Update());
             }
         }
 

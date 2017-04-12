@@ -1,6 +1,5 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls.Adapter
 {
-    using System.Linq;
     using Models;
     using Models.Nodes;
     using Share;
@@ -22,28 +21,24 @@
         {
             _mapView.Nodes.Clear();
             if (map == null) return;
-            _root = new MapView.MapViewTreeNode(null, mapElement: map);
+            _root = new MapView.MapViewTreeNode(mapElement: map);
             map.Floors.ForEach(OnAddFloor);
             _mapView.Nodes.Add(_root);
         }
 
         public void OnAddFloor(Floor floor)
         {
-            var floorNode = new MapView.MapViewTreeNode($"Floor {_root.Nodes.Count + 1}", mapElement: floor);
-            var entryNodes = floor.EntryNodes.Select(entryNode => new MapView.MapViewTreeNode(null, mapElement: entryNode));
-            var guideNodes = floor.GuideNodes.Select(guideNode => new MapView.MapViewTreeNode(null, mapElement: guideNode));
-            var wallNodes = floor.WallNodes.Select(wallNode => new MapView.MapViewTreeNode(null, mapElement: wallNode));
-            var linkNodes = floor.Links.Select(link => new MapView.MapViewTreeNode(null, mapElement: link));
-            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.EntryNodesLabelText, entryNodes, floor.EntryNodes));
-            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.GuideNodesLabelText, guideNodes, floor.GuideNodes));
-            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.WallNodesLabelText, wallNodes, floor.WallNodes));
-            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.LinksLabelText, linkNodes, floor.Links));
+            var floorNode = new MapView.MapViewTreeNode($"Floor {_root.Nodes.Count + 1}", floor);
+            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.EntryNodesLabelText, childItems: floor.EntryNodes));
+            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.GuideNodesLabelText, childItems: floor.GuideNodes));
+            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.WallNodesLabelText, childItems: floor.WallNodes));
+            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.LinksLabelText, childItems: floor.Links));
             _root.Nodes.Add(floorNode);
         }
 
         public void OnAddLink(Link link, int floorIndex)
         {
-            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapView.MapViewTreeNode(null, mapElement: link));
+            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapView.MapViewTreeNode(mapElement: link));
         }
 
         public void OnAddNode(NodeBase node, int floorIndex)
