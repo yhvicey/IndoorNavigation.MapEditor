@@ -16,14 +16,14 @@
         public sealed class MapViewTreeNode :
             TreeNode
         {
-            public IMapModel MapElement { get; set; }
+            public IMapModel MapModel { get; set; }
 
             public string StaticText { get; set; }
 
             public MapViewTreeNode(string text = null, IMapModel mapModel = null, IEnumerable<IMapModel> childItems = null)
             {
                 StaticText = text;
-                MapElement = mapModel;
+                MapModel = mapModel;
                 childItems?.ForEach(item => Nodes.Add(new MapViewTreeNode(mapModel: item)));
 
                 Update();
@@ -31,7 +31,7 @@
 
             public void Update()
             {
-                Text = StaticText ?? MapElement?.ToString() ?? "";
+                Text = StaticText ?? MapModel?.ToString() ?? "";
                 Nodes.OfType<MapViewTreeNode>().ForEach(node => node.Update());
             }
         }
@@ -269,7 +269,7 @@
                     }
                 }
                 if (e.Button != MouseButtons.Right) return;
-                OnMapViewMenuShow(selectedNode.Level, selectedNode.Index, selectedNode.MapElement);
+                OnMapViewMenuShow(selectedNode.Level, selectedNode.Index, selectedNode.MapModel);
             }
             catch (Exception ex)
             {
