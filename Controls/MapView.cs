@@ -6,29 +6,10 @@
     using Windows;
     using Models;
     using Models.Nodes;
+    using Share;
 
     public partial class MapView : TreeView
     {
-        #region Constants
-
-        private const int MapNodeLevel = 0;
-
-        private const int FloorNodeLevel = 1;
-
-        private const int CatalogueNodeLevel = 2;
-
-        private const int ElementNodeLevel = 3;
-
-        private const int EntryNodesIndex = 0;
-
-        private const int GuideNodesIndex = 1;
-
-        private const int WallNodesIndex = 2;
-
-        private const int LinksIndex = 3;
-
-        #endregion // Constants
-
         #region Variables
 
         private MainWindow _parent;
@@ -50,13 +31,13 @@
             _mapViewAddLinkMenuItem.Visible = false;
             switch (itemLevel)
             {
-                case MapNodeLevel:
+                case Constant.MapNodeLevel:
                 {
                     _mapViewAddMenuItem.Visible = true;
                     _mapViewAddFloorMenuItem.Visible = true;
                     return;
                 }
-                case FloorNodeLevel:
+                case Constant.FloorNodeLevel:
                 {
                     _mapViewAddMenuItem.Visible = true;
                     _mapViewAddEntryNodeMenuItem.Visible = true;
@@ -65,32 +46,32 @@
                     _mapViewAddLinkMenuItem.Visible = true;
                     return;
                 }
-                case CatalogueNodeLevel:
+                case Constant.CatalogueNodeLevel:
                 {
                     switch (catalogueIndex)
                     {
-                        case EntryNodesIndex:
+                        case Constant.EntryNodesIndex:
                         {
                             _mapViewAddMenuItem.Visible = true;
                             _mapViewAddEntryNodeMenuItem.Visible = true;
                             _mapViewAddLinkMenuItem.Visible = true;
                             return;
                         }
-                        case GuideNodesIndex:
+                        case Constant.GuideNodesIndex:
                         {
                             _mapViewAddMenuItem.Visible = true;
                             _mapViewAddGuideNodeMenuItem.Visible = true;
                             _mapViewAddLinkMenuItem.Visible = true;
                             return;
                         }
-                        case WallNodesIndex:
+                        case Constant.WallNodesIndex:
                         {
                             _mapViewAddMenuItem.Visible = true;
                             _mapViewAddWallNodeMenuItem.Visible = true;
                             _mapViewAddLinkMenuItem.Visible = true;
                             return;
                         }
-                        case LinksIndex:
+                        case Constant.LinksIndex:
                         {
                             _mapViewAddMenuItem.Visible = true;
                             _mapViewAddLinkMenuItem.Visible = true;
@@ -102,7 +83,7 @@
                         }
                     }
                 }
-                case ElementNodeLevel:
+                case Constant.ElementNodeLevel:
                 {
                     if (mapElement is Link) return;
                     _mapViewAddMenuItem.Visible = true;
@@ -186,14 +167,14 @@
                 };
                 switch (selectedNode.Level)
                 {
-                    case CatalogueNodeLevel:
+                    case Constant.CatalogueNodeLevel:
                     {
-                        if (selectedNode.Index != LinksIndex) wizard.StartType = (NodeType)selectedNode.Index;
+                        if (selectedNode.Index != Constant.LinksIndex) wizard.StartType = (NodeType)selectedNode.Index;
                         break;
                     }
-                    case ElementNodeLevel:
+                    case Constant.ElementNodeLevel:
                     {
-                        if (selectedNode.Parent.Index != LinksIndex) wizard.StartType = (NodeType)selectedNode.Parent.Index;
+                        if (selectedNode.Parent.Index != Constant.LinksIndex) wizard.StartType = (NodeType)selectedNode.Parent.Index;
                         wizard.StartIndex = selectedNode.Index;
                         break;
                     }
@@ -235,25 +216,25 @@
                 if (selectedNode == null) return;
                 switch (selectedNode.Level)
                 {
-                    case MapNodeLevel:
+                    case Constant.MapNodeLevel:
                     {
                         _parent.SelectMap();
                         break;
                     }
-                    case FloorNodeLevel:
+                    case Constant.FloorNodeLevel:
                     {
                         _parent.SelectFloor(selectedNode.Index);
                         break;
                     }
-                    case CatalogueNodeLevel:
+                    case Constant.CatalogueNodeLevel:
                     {
                         _parent.SelectCatalogue(selectedNode.Parent.Index, selectedNode.Index);
                         break;
                     }
-                    case ElementNodeLevel:
+                    case Constant.ElementNodeLevel:
                     {
                         var catalogueIndex = selectedNode.Parent.Index;
-                        if (catalogueIndex == LinksIndex)
+                        if (catalogueIndex == Constant.LinksIndex)
                             _parent.SelectLink(selectedNode.Parent.Parent.Index, selectedNode.Index);
                         else
                             _parent.SelectNode(selectedNode.Parent.Parent.Index, (NodeType)selectedNode.Parent.Index,
@@ -278,33 +259,33 @@
                 if (selectedNode == null) return;
                 switch (selectedNode.Level)
                 {
-                    case MapNodeLevel:
+                    case Constant.MapNodeLevel:
                     {
                         _parent.RemoveMap();
                         break;
                     }
-                    case FloorNodeLevel:
+                    case Constant.FloorNodeLevel:
                     {
                         _parent.RemoveFloor(selectedNode.Index);
                         break;
                     }
-                    case CatalogueNodeLevel:
+                    case Constant.CatalogueNodeLevel:
                     {
                         _parent.RemoveCatalogue(selectedNode.Parent.Index, selectedNode.Index);
                         break;
                     }
-                    case ElementNodeLevel:
+                    case Constant.ElementNodeLevel:
                     {
                         switch (selectedNode.Parent.Index)
                         {
-                            case EntryNodesIndex:
-                            case GuideNodesIndex:
-                            case WallNodesIndex:
+                            case Constant.EntryNodesIndex:
+                            case Constant.GuideNodesIndex:
+                            case Constant.WallNodesIndex:
                             {
                                 _parent.RemoveNode(selectedNode.Parent.Parent.Index, (NodeType)selectedNode.Parent.Index, selectedNode.Index);
                                 break;
                             }
-                            case LinksIndex:
+                            case Constant.LinksIndex:
                             {
                                 _parent.RemoveLink(selectedNode.Parent.Parent.Index, selectedNode.Index);
                                 break;

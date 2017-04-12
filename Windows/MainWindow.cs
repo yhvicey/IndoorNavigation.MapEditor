@@ -10,21 +10,10 @@
     using Models;
     using Models.Nodes;
     using Properties;
+    using Share;
 
     public partial class MainWindow : Form
     {
-        #region Constants
-
-        private const int EntryNodesIndex = 0;
-
-        private const int GuideNodesIndex = 1;
-
-        private const int WallNodesIndex = 2;
-
-        private const int LinksIndex = 3;
-
-        #endregion // Constants
-
         #region Variables
 
         private IReadOnlyList<string> _commandLineArgs;
@@ -272,22 +261,22 @@
             if (floor == null) return;
             switch (catalogueIndex)
             {
-                case EntryNodesIndex:
+                case Constant.EntryNodesIndex:
                 {
                     floor.EntryNodes.Clear();
                     break;
                 }
-                case GuideNodesIndex:
+                case Constant.GuideNodesIndex:
                 {
                     floor.GuideNodes.Clear();
                     break;
                 }
-                case WallNodesIndex:
+                case Constant.WallNodesIndex:
                 {
                     floor.WallNodes.Clear();
                     break;
                 }
-                case LinksIndex:
+                case Constant.LinksIndex:
                 {
                     floor.Links.Clear();
                     break;

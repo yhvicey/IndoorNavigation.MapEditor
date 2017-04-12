@@ -7,30 +7,6 @@
 
     public class MapViewAdapter
     {
-        private const string EntryNodesLabelText = "Entry nodes";
-
-        private const string GuideNodesLabelText = "Guide nodes";
-
-        private const string WallNodesLabelText = "Wall nodes";
-
-        private const string LinksLabelText = "Links";
-
-        private const int MapNodeLevel = 0;
-
-        private const int FloorNodeLevel = 1;
-
-        private const int CatalogueNodeLevel = 2;
-
-        private const int ElementNodeLevel = 3;
-
-        private const int EntryNodesIndex = 0;
-
-        private const int GuideNodesIndex = 1;
-
-        private const int WallNodesIndex = 2;
-
-        private const int LinksIndex = 3;
-
         private readonly MapView _mapView;
 
         private MapElementTreeNode _root;
@@ -58,17 +34,17 @@
             var guideNodes = floor.GuideNodes.Select(guideNode => new MapElementTreeNode(null, mapElement: guideNode));
             var wallNodes = floor.WallNodes.Select(wallNode => new MapElementTreeNode(null, mapElement: wallNode));
             var linkNodes = floor.Links.Select(link => new MapElementTreeNode(null, mapElement: link));
-            floorNode.Nodes.Add(new MapElementTreeNode(EntryNodesLabelText, entryNodes, floor.EntryNodes));
-            floorNode.Nodes.Add(new MapElementTreeNode(GuideNodesLabelText, guideNodes, floor.GuideNodes));
-            floorNode.Nodes.Add(new MapElementTreeNode(WallNodesLabelText, wallNodes, floor.WallNodes));
-            floorNode.Nodes.Add(new MapElementTreeNode(LinksLabelText, linkNodes, floor.Links));
+            floorNode.Nodes.Add(new MapElementTreeNode(Constant.EntryNodesLabelText, entryNodes, floor.EntryNodes));
+            floorNode.Nodes.Add(new MapElementTreeNode(Constant.GuideNodesLabelText, guideNodes, floor.GuideNodes));
+            floorNode.Nodes.Add(new MapElementTreeNode(Constant.WallNodesLabelText, wallNodes, floor.WallNodes));
+            floorNode.Nodes.Add(new MapElementTreeNode(Constant.LinksLabelText, linkNodes, floor.Links));
             _root.Nodes.Add(floorNode);
             Flush();
         }
 
         public void AddLink(Link link, int floorIndex)
         {
-            _root.Nodes[floorIndex].Nodes[LinksIndex].Nodes.Add(new MapElementTreeNode(null, mapElement: link));
+            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.Add(new MapElementTreeNode(null, mapElement: link));
             Flush();
         }
 
@@ -101,7 +77,7 @@
 
         public void RemoveLink(int floorIndex, int linkIndex)
         {
-            _root.Nodes[floorIndex].Nodes[LinksIndex].Nodes.RemoveAt(linkIndex);
+            _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes.RemoveAt(linkIndex);
             Flush();
         }
 
@@ -128,7 +104,7 @@
 
         public void SelectLink(int floorIndex, int linkIndex)
         {
-            _mapView.SelectedNode = _root.Nodes[floorIndex].Nodes[LinksIndex].Nodes[linkIndex];
+            _mapView.SelectedNode = _root.Nodes[floorIndex].Nodes[Constant.LinksIndex].Nodes[linkIndex];
         }
 
         public void SelectNode(int floorIndex, NodeType type, int nodeIndex)
