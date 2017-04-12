@@ -43,6 +43,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._closeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._saveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._rightPanel = new System.Windows.Forms.SplitContainer();
             this._mapView = new IndoorNavigator.MapEditor.Controls.MapView();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this._saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
@@ -173,6 +173,15 @@ namespace IndoorNavigator.MapEditor.Windows
             this._saveMenuItem.Text = "Save";
             this._saveMenuItem.Click += new System.EventHandler(this.SaveMenuItemClick);
             // 
+            // _saveAsMenuItem
+            // 
+            this._saveAsMenuItem.Name = "_saveAsMenuItem";
+            this._saveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this._saveAsMenuItem.Size = new System.Drawing.Size(184, 22);
+            this._saveAsMenuItem.Text = "Save as";
+            this._saveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItemClick);
+            // 
             // _toolStripSeparator3
             // 
             this._toolStripSeparator3.Name = "_toolStripSeparator3";
@@ -264,7 +273,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             // _designerView
             // 
-            this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._designerView.Location = new System.Drawing.Point(3, 3);
             this._designerView.Name = "_designerView";
@@ -307,15 +316,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._propertyGrid.Size = new System.Drawing.Size(294, 262);
             this._propertyGrid.TabIndex = 0;
             this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
-            // 
-            // _saveAsMenuItem
-            // 
-            this._saveAsMenuItem.Name = "_saveAsMenuItem";
-            this._saveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this._saveAsMenuItem.Size = new System.Drawing.Size(184, 22);
-            this._saveAsMenuItem.Text = "Save as";
-            this._saveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItemClick);
             // 
             // MainWindow
             // 
