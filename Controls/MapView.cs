@@ -1,7 +1,9 @@
 ﻿namespace IndoorNavigator.MapEditor.Controls
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Windows.Forms;
     using Windows;
     using Models;
@@ -10,6 +12,40 @@
 
     public partial class MapView : TreeView
     {
+        public sealed class MapViewTreeNode :
+            TreeNode
+        {
+            public object MapElement { get; set; }
+
+            public string StaticText { get; set; }
+
+            public MapViewTreeNode(string text, IEnumerable<MapViewTreeNode> childItems = null, object mapElement = null)
+            {
+                if (text != null)
+                {
+                    StaticText = text;
+                }
+                if (childItems != null)
+                {
+                    foreach (var childItem in childItems)
+                    {
+                        Nodes.Add(childItem);
+                    }
+                }
+                if (mapElement != null) MapElement = mapElement;
+                Update();
+            }
+
+            public void Update()
+            {
+                Text = StaticText ?? MapElement?.ToString() ?? "";
+                foreach (var node in Nodes.OfType<MapViewTreeNode>())
+                {
+                    node.Update();
+                }
+            }
+        }
+
         #region Variables
 
         private MainWindow _parent;
@@ -159,7 +195,7 @@
         {
             try
             {
-                var selectedNode = SelectedNode as MapElementTreeNode;
+                var selectedNode = SelectedNode as MapViewTreeNode;
                 if (selectedNode == null) return;
                 var wizard = new AddLinkWizard(_parent.CurrentMap)
                 {
@@ -212,7 +248,7 @@
         {
             try
             {
-                var selectedNode = e.Node as MapElementTreeNode;
+                var selectedNode = e.Node as MapViewTreeNode;
                 if (selectedNode == null) return;
                 switch (selectedNode.Level)
                 {
@@ -255,7 +291,7 @@
         {
             try
             {
-                var selectedNode = SelectedNode as MapElementTreeNode;
+                var selectedNode = SelectedNode as MapViewTreeNode;
                 if (selectedNode == null) return;
                 switch (selectedNode.Level)
                 {
