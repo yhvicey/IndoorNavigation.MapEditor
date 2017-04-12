@@ -25,5 +25,7 @@
         public const int WallNodesIndex = 2;
 
         public const int LinksIndex = 3;
+
+        public const int NoSelectedFloor = -1;
     }
 }
