@@ -16,7 +16,7 @@
     {
         #region Variables
 
-        private IReadOnlyList<string> _commandLineArgs;
+        private string _mapFileName;
 
         private DesignerViewAdapter _designerViewAdapter;
 
@@ -240,6 +240,8 @@
             OnAddNode(node, floorIndex);
         }
 
+            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, _mapFileName ?? "None",
+                CurrentFloorIndex == -1 ? "None" : (CurrentFloorIndex + 1).ToString());
         internal Map LoadMap()
         {
             var openFileDialog = new OpenFileDialog
@@ -249,6 +251,7 @@
             };
             if (openFileDialog.ShowDialog() == DialogResult.Cancel) return null;
             var map = MapParser.Parse(openFileDialog.FileName);
+            _mapFileName = openFileDialog.FileName;
             StatusBarMessage("Map loaded.");
             return map;
         }
@@ -325,20 +328,25 @@
             OnRemoveNode(floorIndex, type, nodeIndex);
         }
 
-        internal bool SaveMap(Map map)
+        internal bool SaveMap(Map map, bool saveAs = false)
         {
             if (map == null)
             {
                 MessageBox.Show(Resources.NoMapToSaveError);
                 return false;
             }
-            var saveFileDialog = new SaveFileDialog
+            if (_mapFileName == null || saveAs)
             {
-                DefaultExt = ".xml",
-                Filter = Resources.MapFileFilter
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return false;
-            MapSaver.Save(saveFileDialog.FileName, map);
+                var saveFileDialog = new SaveFileDialog
+                {
+                    DefaultExt = ".xml",
+                    Filter = Resources.MapFileFilter,
+                    InitialDirectory = Path.GetDirectoryName(_mapFileName) ?? ""
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return false;
+                _mapFileName = saveFileDialog.FileName;
+            }
+            MapSaver.Save(_mapFileName, map);
             StatusBarMessage("Map saved.");
             return true;
         }
@@ -388,14 +396,15 @@
 
         #endregion // Functions
 
-        public MainWindow(IReadOnlyList<string> args = null)
+        public MainWindow(IReadOnlyCollection<string> args = null)
         {
             InitializeComponent();
 
             InitializeDesignerView();
             InitializeMapView();
 
-            _commandLineArgs = args;
+            if (!(args?.Count > 0)) return;
+            _mapFileName = args.First();
         }
 
         #region Event handlers
@@ -451,9 +460,8 @@
         {
             try
             {
-                if (!(_commandLineArgs?.Count > 0)) return;
-                AddMap(MapParser.Parse(_commandLineArgs[0]));
-                _commandLineArgs = null;
+                if (_mapFileName == null) return;
+                AddMap(MapParser.Parse(_mapFileName));
             }
             catch (Exception ex)
             {
@@ -564,6 +572,18 @@
             try
             {
                 SaveMap(CurrentMap);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SaveAsMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveMap(CurrentMap, true);
             }
             catch (Exception ex)
             {

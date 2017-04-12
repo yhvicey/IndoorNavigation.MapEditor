@@ -54,10 +54,11 @@ namespace IndoorNavigator.MapEditor.Windows
             this._toolStripPlaceholder = new System.Windows.Forms.ToolStripStatusLabel();
             this._mapStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
             this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this._designerView = new IndoorNavigator.MapEditor.Controls.DesignerView();
             this._rightPanel = new System.Windows.Forms.SplitContainer();
             this._mapView = new IndoorNavigator.MapEditor.Controls.MapView();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this._designerView = new IndoorNavigator.MapEditor.Controls.DesignerView();
+            this._saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
@@ -86,6 +87,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._closeMenuItem,
             this._toolStripSeparator2,
             this._saveMenuItem,
+            this._saveAsMenuItem,
             this._toolStripSeparator3,
             this._exitMenuItem});
             this._fileMenuItem.Name = "_fileMenuItem";
@@ -100,7 +102,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._newNodeMenuItem,
             this._newLinkMenuItem});
             this._newMenuItem.Name = "_newMenuItem";
-            this._newMenuItem.Size = new System.Drawing.Size(138, 22);
+            this._newMenuItem.Size = new System.Drawing.Size(184, 22);
             this._newMenuItem.Text = "New";
             // 
             // _newMapMenuItem
@@ -136,7 +138,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._openMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._openMapMenuItem});
             this._openMenuItem.Name = "_openMenuItem";
-            this._openMenuItem.Size = new System.Drawing.Size(138, 22);
+            this._openMenuItem.Size = new System.Drawing.Size(184, 22);
             this._openMenuItem.Text = "Open";
             // 
             // _openMapMenuItem
@@ -149,38 +151,38 @@ namespace IndoorNavigator.MapEditor.Windows
             // _toolStripSeparator1
             // 
             this._toolStripSeparator1.Name = "_toolStripSeparator1";
-            this._toolStripSeparator1.Size = new System.Drawing.Size(135, 6);
+            this._toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
             // 
             // _closeMenuItem
             // 
             this._closeMenuItem.Name = "_closeMenuItem";
-            this._closeMenuItem.Size = new System.Drawing.Size(138, 22);
+            this._closeMenuItem.Size = new System.Drawing.Size(184, 22);
             this._closeMenuItem.Text = "Close";
             this._closeMenuItem.Click += new System.EventHandler(this.CloseMenuItemClick);
             // 
             // _toolStripSeparator2
             // 
             this._toolStripSeparator2.Name = "_toolStripSeparator2";
-            this._toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
+            this._toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
             // 
             // _saveMenuItem
             // 
             this._saveMenuItem.Name = "_saveMenuItem";
             this._saveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this._saveMenuItem.Size = new System.Drawing.Size(138, 22);
+            this._saveMenuItem.Size = new System.Drawing.Size(184, 22);
             this._saveMenuItem.Text = "Save";
             this._saveMenuItem.Click += new System.EventHandler(this.SaveMenuItemClick);
             // 
             // _toolStripSeparator3
             // 
             this._toolStripSeparator3.Name = "_toolStripSeparator3";
-            this._toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
+            this._toolStripSeparator3.Size = new System.Drawing.Size(181, 6);
             // 
             // _exitMenuItem
             // 
             this._exitMenuItem.Name = "_exitMenuItem";
             this._exitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this._exitMenuItem.Size = new System.Drawing.Size(138, 22);
+            this._exitMenuItem.Size = new System.Drawing.Size(184, 22);
             this._exitMenuItem.Text = "Exit";
             this._exitMenuItem.Click += new System.EventHandler(this.ExitMenuItemClick);
             // 
@@ -260,6 +262,15 @@ namespace IndoorNavigator.MapEditor.Windows
             this._tableLayoutPanel.Size = new System.Drawing.Size(1008, 683);
             this._tableLayoutPanel.TabIndex = 4;
             // 
+            // _designerView
+            // 
+            this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._designerView.Location = new System.Drawing.Point(3, 3);
+            this._designerView.Name = "_designerView";
+            this._designerView.Size = new System.Drawing.Size(702, 677);
+            this._designerView.TabIndex = 9;
+            // 
             // _rightPanel
             // 
             this._rightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -297,14 +308,14 @@ namespace IndoorNavigator.MapEditor.Windows
             this._propertyGrid.TabIndex = 0;
             this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
             // 
-            // _designerView
+            // _saveAsMenuItem
             // 
-            this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._designerView.Location = new System.Drawing.Point(3, 3);
-            this._designerView.Name = "_designerView";
-            this._designerView.Size = new System.Drawing.Size(702, 677);
-            this._designerView.TabIndex = 9;
+            this._saveAsMenuItem.Name = "_saveAsMenuItem";
+            this._saveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this._saveAsMenuItem.Size = new System.Drawing.Size(184, 22);
+            this._saveAsMenuItem.Text = "Save as";
+            this._saveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItemClick);
             // 
             // MainWindow
             // 
@@ -363,6 +374,7 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _newLinkMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _openMapMenuItem;
         private Controls.DesignerView _designerView;
+        private System.Windows.Forms.ToolStripMenuItem _saveAsMenuItem;
     }
 }
 
