@@ -22,13 +22,19 @@
 
         private MapViewAdapter _mapViewAdapter;
 
-        internal int CurrentFloorIndex { get; private set; } = -1;
-
-        internal Map CurrentMap { get; private set; }
-
-        internal string CurrentMapFile { get; private set; }
-
         #endregion // Variables
+
+        #region Properties
+
+        public int CurrentFloorIndex { get; private set; } = Constant.NoSelectedFloor;
+
+        public Map CurrentMap { get; private set; }
+
+        public string CurrentMapFile { get; private set; }
+
+        public int Scale { get; private set; }
+
+        #endregion // Properties
 
         #region Initialize functions
 
@@ -440,7 +446,7 @@
                 CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString());
         }
 
-        internal void AddMap(Map map)
+        public void AddMap(Map map)
         {
             Debug.Assert(map != null);
 
@@ -451,7 +457,7 @@
             OnAddMap();
         }
 
-        internal void AddFloor(Floor floor)
+        public void AddFloor(Floor floor)
         {
             Debug.Assert(floor != null);
 
@@ -460,7 +466,7 @@
             OnAddFloor(floor);
         }
 
-        internal void AddLink(Link link, int floorIndex)
+        public void AddLink(Link link, int floorIndex)
         {
             Debug.Assert(link != null);
             Debug.Assert(floorIndex >= 0);
@@ -470,7 +476,7 @@
             OnAddLink(link, floorIndex);
         }
 
-        internal void AddNode(NodeBase node, int floorIndex)
+        public void AddNode(NodeBase node, int floorIndex)
         {
             Debug.Assert(node != null);
             Debug.Assert(floorIndex >= 0);
@@ -480,7 +486,7 @@
             OnAddNode(node, floorIndex);
         }
 
-        internal Map LoadMap()
+        public Map LoadMap()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -494,7 +500,7 @@
             return map;
         }
 
-        internal void RemoveCatalogue(int floorIndex, int catalogueIndex)
+        public void RemoveCatalogue(int floorIndex, int catalogueIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(catalogueIndex >= 0);
@@ -528,7 +534,7 @@
             OnRemoveCatalogue(floorIndex, catalogueIndex);
         }
 
-        internal void RemoveMap()
+        public void RemoveMap()
         {
             var mapToRemove = CurrentMap;
             CurrentMapFile = null;
@@ -538,7 +544,7 @@
             OnRemoveMap(mapToRemove);
         }
 
-        internal void RemoveFloor(int floorIndex)
+        public void RemoveFloor(int floorIndex)
         {
             Debug.Assert(floorIndex >= 0);
 
@@ -547,7 +553,7 @@
             OnRemoveFloor(floorIndex);
         }
 
-        internal void RemoveLink(int floorIndex, int linkIndex)
+        public void RemoveLink(int floorIndex, int linkIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(linkIndex >= 0);
@@ -557,7 +563,7 @@
             OnRemoveLink(floorIndex, linkIndex);
         }
 
-        internal void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
+        public void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
@@ -569,7 +575,7 @@
             OnRemoveNode(floorIndex, type, nodeIndex);
         }
 
-        internal bool SaveMap(Map map, bool saveAs = false)
+        public bool SaveMap(Map map, bool saveAs = false)
         {
             if (map == null)
             {
@@ -592,7 +598,7 @@
             return true;
         }
 
-        internal void SelectCatalogue(int floorIndex, int catalogueIndex)
+        public void SelectCatalogue(int floorIndex, int catalogueIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(catalogueIndex >= 0);
@@ -602,7 +608,7 @@
             OnSelectCatalogue(floorIndex, catalogueIndex);
         }
 
-        internal void SelectMap(Map map)
+        public void SelectMap(Map map)
         {
             Debug.Assert(map != null);
 
@@ -612,7 +618,7 @@
             OnSelectMap(map);
         }
 
-        internal void SelectFloor(int floorIndex)
+        public void SelectFloor(int floorIndex)
         {
             Debug.Assert(floorIndex >= 0);
 
@@ -621,7 +627,7 @@
             OnSelectFloor(floorIndex);
         }
 
-        internal void SelectLink(int floorIndex, int linkIndex)
+        public void SelectLink(int floorIndex, int linkIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(linkIndex >= 0);
@@ -631,7 +637,7 @@
             OnSelectLink(floorIndex, linkIndex);
         }
 
-        internal void SelectNode(int floorIndex, NodeType type, int nodeIndex)
+        public void SelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
@@ -642,12 +648,12 @@
             OnSelectNode(floorIndex, type, nodeIndex);
         }
 
-        internal void StatusBarMessage(string message = null)
+        public void StatusBarMessage(string message = null)
         {
             _messageStatusLabel.Text = message ?? Resources.Ready;
         }
 
-        internal void Unselect()
+        public void Unselect()
         {
             _propertyGrid.SelectedObject = null;
         }
