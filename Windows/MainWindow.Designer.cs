@@ -246,14 +246,13 @@ namespace IndoorNavigator.MapEditor.Windows
             // _toolStripPlaceholder
             // 
             this._toolStripPlaceholder.Name = "_toolStripPlaceholder";
-            this._toolStripPlaceholder.Size = new System.Drawing.Size(887, 17);
+            this._toolStripPlaceholder.Size = new System.Drawing.Size(923, 17);
             this._toolStripPlaceholder.Spring = true;
             // 
             // _mapStatusLable
             // 
             this._mapStatusLable.Name = "_mapStatusLable";
-            this._mapStatusLable.Size = new System.Drawing.Size(67, 17);
-            this._mapStatusLable.Text = "Map: Floor:";
+            this._mapStatusLable.Size = new System.Drawing.Size(0, 17);
             // 
             // _tableLayoutPanel
             // 

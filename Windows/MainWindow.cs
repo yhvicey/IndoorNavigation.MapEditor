@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -84,6 +85,7 @@
         {
             try
             {
+                StatusBarMessage("Loading background...");
                 var openFileDialog = new OpenFileDialog
                 {
                     Filter = Resources.ImageFilter
@@ -91,9 +93,10 @@
                 if (openFileDialog.ShowDialog(this) != DialogResult.OK) return;
                 using (var stream = openFileDialog.OpenFile())
                 {
-                    var background = Image.FromStream(stream);
-                    _designerView.BackgroundImage = background;
+                    _designerView.LoadBackground(Image.FromStream(stream));
                 }
+                StatusBarMessage("Background loaded.");
+                Flush();
             }
             catch (Exception ex)
             {
@@ -204,7 +207,7 @@
         {
             try
             {
-                _designerView.BackgroundImage = null;
+                _designerView.RemoveBackground();
             }
             catch (Exception ex)
             {
@@ -278,7 +281,6 @@
         {
             Debug.Assert(link != null);
             Debug.Assert(floorIndex >= 0);
-
 
             StatusBarMessage("Adding link...");
 
@@ -452,8 +454,10 @@
         {
             _designerViewAdapter.OnFlush();
             _mapViewAdapter.OnFlush();
-            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate, CurrentMapFile ?? "None",
-                CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString());
+            _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate,
+                CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString(),
+                $"{_designerView.MapSize.Width}, {_designerView.MapSize.Height}");
+            Text = Resources.MainWindowTitle + (CurrentMapFile == null ? "" : $" - {CurrentMapFile}");
         }
 
         public void AddMap(Map map)

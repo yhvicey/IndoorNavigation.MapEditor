@@ -174,6 +174,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editor.
+        /// </summary>
+        internal static string MainWindowTitle {
+            get {
+                return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Map file|*.xml|All files|*.*.
         /// </summary>
         internal static string MapFileFilter {
@@ -183,7 +192,7 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Map file: {0} Current floor: {1}.
+        ///   Looks up a localized string similar to Current floor: {0} Size: {1}.
         /// </summary>
         internal static string MapStatusTemplate {
             get {
