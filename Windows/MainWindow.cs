@@ -247,6 +247,8 @@
 
         private void OnAddFloor(Floor floor)
         {
+            Debug.Assert(floor != null);
+
             StatusBarMessage("Adding floor...");
 
             _designerViewAdapter.OnAddFloor(floor);
@@ -258,6 +260,10 @@
 
         private void OnAddLink(Link link, int floorIndex)
         {
+            Debug.Assert(link != null);
+            Debug.Assert(floorIndex >= 0);
+
+
             StatusBarMessage("Adding link...");
 
             _designerViewAdapter.OnAddLink(link, floorIndex);
@@ -269,6 +275,10 @@
 
         private void OnAddNode(NodeBase node, int floorIndex)
         {
+            Debug.Assert(node != null);
+            Debug.Assert(floorIndex >= 0);
+
+
             StatusBarMessage("Adding node...");
 
             _designerViewAdapter.OnAddNode(node, floorIndex);
@@ -280,6 +290,9 @@
 
         private void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(catalogueIndex >= 0);
+
             Unselect();
 
             StatusBarMessage("Removing catalogue...");
@@ -293,11 +306,13 @@
 
         private void OnRemoveMap(Map map)
         {
+            Debug.Assert(map != null);
+
             Unselect();
 
             StatusBarMessage("Removing map...");
 
-            if (map != null &&
+            if (
                 MessageBox.Show(Resources.SaveMapNotification, Resources.InfoDialogTitle, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information) == DialogResult.Yes) SaveMap(map);
 
@@ -310,6 +325,8 @@
 
         private void OnRemoveFloor(int floorIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+
             Unselect();
 
             StatusBarMessage("Removing floor...");
@@ -323,6 +340,9 @@
 
         private void OnRemoveLink(int floorIndex, int linkIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(linkIndex >= 0);
+
             Unselect();
 
             StatusBarMessage("Removing link...");
@@ -336,6 +356,10 @@
 
         private void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(nodeIndex >= 0);
+
             Unselect();
 
             StatusBarMessage("Removing node...");
@@ -349,6 +373,9 @@
 
         private void OnSelectCatalogue(int floorIndex, int catalogueIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(catalogueIndex >= 0);
+
             _designerViewAdapter.OnSelectCatalogue(floorIndex, catalogueIndex);
             _mapViewAdapter.OnSelectCatalogue(floorIndex, catalogueIndex);
             _propertyGrid.SelectedObject = CurrentMap;
@@ -358,6 +385,8 @@
 
         private void OnSelectMap(Map map)
         {
+            Debug.Assert(map != null);
+
             _designerViewAdapter.OnSelectMap(map);
             _mapViewAdapter.OnSelectMap(map);
             _propertyGrid.SelectedObject = map;
@@ -367,6 +396,8 @@
 
         private void OnSelectFloor(int floorIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+
             _designerViewAdapter.OnSelectFloor(floorIndex);
             _mapViewAdapter.OnSelectFloor(floorIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex];
@@ -376,6 +407,9 @@
 
         private void OnSelectLink(int floorIndex, int linkIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(linkIndex >= 0);
+
             _designerViewAdapter.OnSelectLink(floorIndex, linkIndex);
             _mapViewAdapter.OnSelectLink(floorIndex, linkIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].Links[linkIndex];
@@ -385,6 +419,10 @@
 
         private void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(nodeIndex >= 0);
+
             _designerViewAdapter.OnSelectNode(floorIndex, type, nodeIndex);
             _mapViewAdapter.OnSelectNode(floorIndex, type, nodeIndex);
             _propertyGrid.SelectedObject = CurrentMap.Floors[floorIndex].GetNode(type, nodeIndex);
@@ -404,6 +442,8 @@
 
         internal void AddMap(Map map)
         {
+            Debug.Assert(map != null);
+
             if (CurrentMap != null && !SaveMap(CurrentMap)) return;
             if (map == null) return;
             SelectMap(map);
@@ -413,6 +453,8 @@
 
         internal void AddFloor(Floor floor)
         {
+            Debug.Assert(floor != null);
+
             CurrentMap?.AddFloor(floor);
 
             OnAddFloor(floor);
@@ -420,6 +462,9 @@
 
         internal void AddLink(Link link, int floorIndex)
         {
+            Debug.Assert(link != null);
+            Debug.Assert(floorIndex >= 0);
+
             CurrentMap?.Floors[floorIndex].AddLink(link);
 
             OnAddLink(link, floorIndex);
@@ -427,6 +472,9 @@
 
         internal void AddNode(NodeBase node, int floorIndex)
         {
+            Debug.Assert(node != null);
+            Debug.Assert(floorIndex >= 0);
+
             CurrentMap?.Floors[floorIndex].AddNode(node);
 
             OnAddNode(node, floorIndex);
@@ -448,6 +496,9 @@
 
         internal void RemoveCatalogue(int floorIndex, int catalogueIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(catalogueIndex >= 0);
+
             var floor = CurrentMap?.Floors[floorIndex];
             if (floor == null) return;
             switch (catalogueIndex)
@@ -489,6 +540,8 @@
 
         internal void RemoveFloor(int floorIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+
             CurrentMap?.RemoveFloor(floorIndex);
 
             OnRemoveFloor(floorIndex);
@@ -496,6 +549,9 @@
 
         internal void RemoveLink(int floorIndex, int linkIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(linkIndex >= 0);
+
             CurrentMap?.Floors[floorIndex].RemoveLink(linkIndex);
 
             OnRemoveLink(floorIndex, linkIndex);
@@ -503,6 +559,10 @@
 
         internal void RemoveNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(nodeIndex >= 0);
+
             CurrentMap?.Floors[floorIndex].GetLinkIndices(type, nodeIndex).ForEach(linkIndex => RemoveLink(floorIndex, linkIndex));
             CurrentMap?.Floors[floorIndex].RemoveNode(type, nodeIndex);
 
@@ -534,6 +594,9 @@
 
         internal void SelectCatalogue(int floorIndex, int catalogueIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(catalogueIndex >= 0);
+
             if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectCatalogue(floorIndex, catalogueIndex);
@@ -541,6 +604,8 @@
 
         internal void SelectMap(Map map)
         {
+            Debug.Assert(map != null);
+
             CurrentFloorIndex = Constant.NoSelectedFloor;
             CurrentMap = map;
 
@@ -549,6 +614,8 @@
 
         internal void SelectFloor(int floorIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+
             CurrentFloorIndex = floorIndex;
 
             OnSelectFloor(floorIndex);
@@ -556,6 +623,9 @@
 
         internal void SelectLink(int floorIndex, int linkIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(linkIndex >= 0);
+
             if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectLink(floorIndex, linkIndex);
@@ -563,6 +633,10 @@
 
         internal void SelectNode(int floorIndex, NodeType type, int nodeIndex)
         {
+            Debug.Assert(floorIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(nodeIndex >= 0);
+
             if (floorIndex != CurrentFloorIndex) SelectFloor(floorIndex);
 
             OnSelectNode(floorIndex, type, nodeIndex);

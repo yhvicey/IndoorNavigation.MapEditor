@@ -100,36 +100,51 @@
 
         public EntryNode GetEntryNode(int index)
         {
+            Debug.Assert(index >= 0);
+
             return EntryNodes[index];
         }
 
         public int GetEntryNodeIndex(EntryNode entry)
         {
+            Debug.Assert(entry != null);
+
             return EntryNodes.IndexOf(entry);
         }
 
         public GuideNode GetGuideNode(int index)
         {
+            Debug.Assert(index >= 0);
+
             return GuideNodes[index];
         }
 
         public int GetGuideNodeIndex(GuideNode guide)
         {
+            Debug.Assert(guide != null);
+
             return GuideNodes.IndexOf(guide);
         }
 
         public WallNode GetWallNode(int index)
         {
+            Debug.Assert(index >= 0);
+
             return WallNodes[index];
         }
 
         public int GetWallNodeIndex(WallNode wall)
         {
+            Debug.Assert(wall != null);
+
             return WallNodes.IndexOf(wall);
         }
 
         public NodeBase GetNode(NodeType type, int index)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(index >= 0);
+
             switch (type)
             {
                 case NodeType.EntryNode:
@@ -153,6 +168,8 @@
 
         public List<NodeBase> GetNodes(NodeType type)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+
             switch (type)
             {
                 case NodeType.EntryNode:
@@ -176,6 +193,8 @@
 
         public int GetNodeIndex(NodeBase node)
         {
+            Debug.Assert(node != null);
+
             switch (node)
             {
                 case EntryNode entryNode:
@@ -199,6 +218,9 @@
 
         public IEnumerable<int> GetLinkIndices(NodeType type, int index)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(index >= 0);
+
             for (var i = 0; i < Links.Count; i++)
             {
                 var link = Links[i];
@@ -209,6 +231,11 @@
 
         public Link Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), startType));
+            Debug.Assert(startIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), endType));
+            Debug.Assert(endIndex >= 0);
+
             var target = Links.Find(link =>
                         link.StartType == startType && link.StartIndex == startIndex && link.EndType == endType &&
                         link.EndIndex == endIndex);
@@ -220,11 +247,16 @@
 
         public void RemoveLink(int index)
         {
+            Debug.Assert(index >= 0);
+
             Links.RemoveAt(index);
         }
 
         public void RemoveNode(NodeType type, int index)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
+            Debug.Assert(index >= 0);
+
             switch (type)
             {
                 case NodeType.EntryNode:

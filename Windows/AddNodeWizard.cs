@@ -1,6 +1,7 @@
 ﻿namespace IndoorNavigator.MapEditor.Windows
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Windows.Forms;
     using Models;
@@ -29,6 +30,8 @@
 
         public AddNodeWizard(Map map)
         {
+            Debug.Assert(map != null);
+
             InitializeComponent();
             _map = map;
             for (var i = 0; i < _map.Floors.Count; i++)

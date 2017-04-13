@@ -1,5 +1,6 @@
 ﻿namespace IndoorNavigator.MapEditor.Models
 {
+    using System;
     using System.Diagnostics;
     using Nodes;
     using Share;
@@ -22,6 +23,11 @@
 
         public Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
         {
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), startType));
+            Debug.Assert(startIndex >= 0);
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), endType));
+            Debug.Assert(endIndex >= 0);
+
             StartType = startType;
             StartIndex = startIndex;
             EndType = endType;

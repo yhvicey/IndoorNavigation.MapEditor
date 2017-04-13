@@ -44,6 +44,9 @@
 
         private void OnMapViewMenuShow(int itemLevel, int catalogueIndex, object mapElement)
         {
+            Debug.Assert(itemLevel >= 0);
+            Debug.Assert(catalogueIndex >= 0);
+
             _mapViewAddMenuItem.Visible = false;
             _mapViewAddFloorMenuItem.Visible = false;
             _mapViewAddEntryNodeMenuItem.Visible = false;
@@ -126,6 +129,7 @@
         public void SetParent(MainWindow parent)
         {
             Debug.Assert(parent != null);
+
             _parent = parent;
         }
 
