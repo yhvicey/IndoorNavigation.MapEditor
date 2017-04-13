@@ -1,5 +1,7 @@
 ﻿namespace IndoorNavigator.MapEditor.Share
 {
+    using System.Drawing;
+
     public static class Constant
     {
         public const string EntryNodesLabelText = "Entry nodes";
@@ -27,5 +29,11 @@
         public const int LinksIndex = 3;
 
         public const int NoSelectedFloor = -1;
+
+        public static readonly Color EntryNodeColor = Color.FromArgb(76, 255, 0);
+
+        public static readonly Color GuideNodeColor = Color.FromArgb(0, 148, 255);
+
+        public static readonly Color WallNodeColor = Color.FromArgb(128, 128, 128);
     }
 }
