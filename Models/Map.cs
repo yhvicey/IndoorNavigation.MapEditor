@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using Nodes;
-    using Share;
 
     [DebuggerDisplay("Count = {" + nameof(Floors) + ".Count}")]
     public class Map :

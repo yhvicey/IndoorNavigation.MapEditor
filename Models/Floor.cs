@@ -8,7 +8,6 @@
     using Extensions;
     using Nodes;
     using Properties;
-    using Share;
 
     [DebuggerDisplay("Count = {" + nameof(EntryNodes) + ".Count + " + nameof(GuideNodes) + ".Count + " + nameof(WallNodes) + ".Count}")]
     public class Floor :

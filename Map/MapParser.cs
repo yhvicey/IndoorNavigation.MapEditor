@@ -8,7 +8,6 @@
     using Models;
     using Models.Nodes;
     using Properties;
-    using Share;
 
     public static class MapParser
     {

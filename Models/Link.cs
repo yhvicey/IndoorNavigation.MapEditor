@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics;
     using Nodes;
-    using Share;
 
     [DebuggerDisplay(nameof(Distance) + " = {" + nameof(Distance) + "}")]
     public class Link :

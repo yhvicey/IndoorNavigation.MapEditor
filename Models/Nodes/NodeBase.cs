@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using Share;
 
     [DebuggerDisplay("{" + nameof(X) + "}, {" + nameof(Y) + "}")]
     public abstract class NodeBase :
