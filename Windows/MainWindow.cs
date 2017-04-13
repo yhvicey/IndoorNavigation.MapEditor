@@ -216,6 +216,11 @@
         {
             try
             {
+                if (CurrentMap == null)
+                {
+                    MessageBox.Show(Resources.NoMapToSaveError);
+                    return;
+                }
                 SaveMap(CurrentMap);
             }
             catch (Exception ex)
@@ -228,6 +233,11 @@
         {
             try
             {
+                if (CurrentMap == null)
+                {
+                    MessageBox.Show(Resources.NoMapToSaveError);
+                    return;
+                }
                 SaveMap(CurrentMap, true);
             }
             catch (Exception ex)
@@ -451,7 +461,6 @@
             Debug.Assert(map != null);
 
             if (CurrentMap != null && !SaveMap(CurrentMap)) return;
-            if (map == null) return;
             SelectMap(map);
 
             OnAddMap();
@@ -536,6 +545,8 @@
 
         public void RemoveMap()
         {
+            if (CurrentMap == null) return;
+
             var mapToRemove = CurrentMap;
             CurrentMapFile = null;
             CurrentFloorIndex = Constant.NoSelectedFloor;
@@ -577,11 +588,8 @@
 
         public bool SaveMap(Map map, bool saveAs = false)
         {
-            if (map == null)
-            {
-                MessageBox.Show(Resources.NoMapToSaveError);
-                return false;
-            }
+            Debug.Assert(map != null);
+
             if (CurrentMapFile == null || saveAs)
             {
                 var saveFileDialog = new SaveFileDialog
