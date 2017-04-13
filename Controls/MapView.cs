@@ -13,7 +13,7 @@
 
     public partial class MapView : TreeView
     {
-        public sealed class MapViewTreeNode :
+        public class MapViewTreeNode :
             TreeNode
         {
             public IMapModel MapModel { get; set; }
