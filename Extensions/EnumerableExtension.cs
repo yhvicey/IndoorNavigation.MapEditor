@@ -12,7 +12,6 @@
             Debug.Assert(source != null);
             Debug.Assert(action != null);
 
-
             var index = 0;
             foreach (var item in source)
             {
@@ -25,7 +24,6 @@
             Debug.Assert(source != null);
             Debug.Assert(action != null);
 
-
             foreach (var item in source)
             {
                 action(item);
@@ -36,7 +34,6 @@
         {
             Debug.Assert(source != null);
             Debug.Assert(action != null);
-
 
             var index = 0;
             foreach (var item in source)
@@ -49,7 +46,6 @@
         {
             Debug.Assert(source != null);
             Debug.Assert(action != null);
-
 
             foreach (var item in source)
             {

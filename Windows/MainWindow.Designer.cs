@@ -46,10 +46,11 @@ namespace IndoorNavigator.MapEditor.Windows
             this._saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._toolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._loadBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._removeBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._setScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._changeCanvasSizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._messageStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._toolStripPlaceholder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -72,7 +73,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
-            this._layerMenuItem});
+            this._toolsMenuItem});
             this._menuStrip.Location = new System.Drawing.Point(0, 0);
             this._menuStrip.Name = "_menuStrip";
             this._menuStrip.Size = new System.Drawing.Size(1008, 24);
@@ -195,15 +196,16 @@ namespace IndoorNavigator.MapEditor.Windows
             this._exitMenuItem.Text = "Exit";
             this._exitMenuItem.Click += new System.EventHandler(this.ExitMenuItemClick);
             // 
-            // _layerMenuItem
+            // _toolsMenuItem
             // 
-            this._layerMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._loadBackgroundMenuItem,
             this._removeBackgroundMenuItem,
-            this._setScaleMenuItem});
-            this._layerMenuItem.Name = "_layerMenuItem";
-            this._layerMenuItem.Size = new System.Drawing.Size(47, 20);
-            this._layerMenuItem.Text = "Layer";
+            this._setScaleMenuItem,
+            this._changeCanvasSizeMenuItem});
+            this._toolsMenuItem.Name = "_toolsMenuItem";
+            this._toolsMenuItem.Size = new System.Drawing.Size(47, 20);
+            this._toolsMenuItem.Text = "Tools";
             // 
             // _loadBackgroundMenuItem
             // 
@@ -224,6 +226,13 @@ namespace IndoorNavigator.MapEditor.Windows
             this._setScaleMenuItem.Name = "_setScaleMenuItem";
             this._setScaleMenuItem.Size = new System.Drawing.Size(184, 22);
             this._setScaleMenuItem.Text = "Set scale";
+            // 
+            // _changeCanvasSizeMenuItem
+            // 
+            this._changeCanvasSizeMenuItem.Name = "_changeCanvasSizeMenuItem";
+            this._changeCanvasSizeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this._changeCanvasSizeMenuItem.Text = "Change canvas size";
+            this._changeCanvasSizeMenuItem.Click += new System.EventHandler(this.ChangeCanvasSizeMenuItemClick);
             // 
             // _statusStrip
             // 
@@ -246,7 +255,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // _toolStripPlaceholder
             // 
             this._toolStripPlaceholder.Name = "_toolStripPlaceholder";
-            this._toolStripPlaceholder.Size = new System.Drawing.Size(923, 17);
+            this._toolStripPlaceholder.Size = new System.Drawing.Size(954, 17);
             this._toolStripPlaceholder.Spring = true;
             // 
             // _mapStatusLable
@@ -272,7 +281,9 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             // _designerView
             // 
+            this._designerView.Background = null;
             this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this._designerView.CanvasSize = new System.Drawing.Size(100, 100);
             this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._designerView.Location = new System.Drawing.Point(3, 3);
             this._designerView.Name = "_designerView";
@@ -359,7 +370,7 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _exitMenuItem;
         private System.Windows.Forms.StatusStrip _statusStrip;
         private System.Windows.Forms.TableLayoutPanel _tableLayoutPanel;
-        private System.Windows.Forms.ToolStripMenuItem _layerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _toolsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _loadBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _removeBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _setScaleMenuItem;
@@ -374,6 +385,7 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _openMapMenuItem;
         private Controls.DesignerView _designerView;
         private System.Windows.Forms.ToolStripMenuItem _saveAsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _changeCanvasSizeMenuItem;
     }
 }
 

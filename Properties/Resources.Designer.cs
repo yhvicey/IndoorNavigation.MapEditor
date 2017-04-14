@@ -192,7 +192,7 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current floor: {0} Size: {1}.
+        ///   Looks up a localized string similar to Current floor: {0} Canvas size: {1} Map size: {2}.
         /// </summary>
         internal static string MapStatusTemplate {
             get {
@@ -206,6 +206,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static string NoMapToSaveError {
             get {
                 return ResourceManager.GetString("NoMapToSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No selected floor.
+        /// </summary>
+        internal static string NoSelectedFloorNotification {
+            get {
+                return ResourceManager.GetString("NoSelectedFloorNotification", resourceCulture);
             }
         }
         
@@ -224,6 +233,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static string Ready {
             get {
                 return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset canvas size to mininal map size?.
+        /// </summary>
+        internal static string ResetCanvasSizeToMinimalNotification {
+            get {
+                return ResourceManager.GetString("ResetCanvasSizeToMinimalNotification", resourceCulture);
             }
         }
         
@@ -251,6 +269,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static string UnsupportedVersionError {
             get {
                 return ResourceManager.GetString("UnsupportedVersionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use background image size for current canvas size?.
+        /// </summary>
+        internal static string UseBackgroundImageSizeNotification {
+            get {
+                return ResourceManager.GetString("UseBackgroundImageSizeNotification", resourceCulture);
             }
         }
         

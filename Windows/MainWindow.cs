@@ -15,7 +15,8 @@
     using Properties;
     using Share;
 
-    public partial class MainWindow : Form
+    public partial class MainWindow :
+        Form
     {
         #region Variables
 
@@ -33,7 +34,7 @@
 
         public string CurrentMapFile { get; private set; }
 
-        public int Scale { get; private set; }
+        public int MapScale { get; private set; } = 1;
 
         #endregion // Properties
 
@@ -113,6 +114,12 @@
         {
             try
             {
+                if (CurrentFloorIndex == Constant.NoSelectedFloor)
+                {
+                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    return;
+                }
+
                 StatusBarMessage("Loading background...");
                 var openFileDialog = new OpenFileDialog
                 {
@@ -240,7 +247,13 @@
         {
             try
             {
-                _designerView.RemoveBackground();
+                if (CurrentFloorIndex == Constant.NoSelectedFloor)
+                {
+                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    return;
+                }
+
+                _designerViewAdapter.RemoveBackground();
             }
             catch (Exception ex)
             {
@@ -489,6 +502,7 @@
             _mapViewAdapter.OnFlush();
             _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate,
                 CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString(),
+                $"{_designerView.CanvasSize.Width}, {_designerView.CanvasSize.Height}",
                 $"{_designerView.MapSize.Width}, {_designerView.MapSize.Height}");
             Text = Resources.MainWindowTitle + (CurrentMapFile == null ? "" : $" - {CurrentMapFile}");
         }
@@ -579,6 +593,8 @@
                 }
             }
 
+            SelectFloor(floorIndex);
+
             OnRemoveCatalogue(floorIndex, catalogueIndex);
         }
 
@@ -599,6 +615,9 @@
             Debug.Assert(floorIndex >= 0);
 
             CurrentMap?.RemoveFloor(floorIndex);
+            CurrentFloorIndex = Constant.NoSelectedFloor;
+
+            SelectMap(CurrentMap);
 
             OnRemoveFloor(floorIndex);
         }
@@ -609,6 +628,8 @@
             Debug.Assert(linkIndex >= 0);
 
             CurrentMap?.Floors[floorIndex].RemoveLink(linkIndex);
+
+            SelectCatalogue(floorIndex, Constant.LinksIndex);
 
             OnRemoveLink(floorIndex, linkIndex);
         }
