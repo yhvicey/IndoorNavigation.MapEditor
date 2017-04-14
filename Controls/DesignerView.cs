@@ -93,6 +93,7 @@
 
         #region Variables
 
+        private Point _clickLocation;
 
         private readonly SolidBrush _entryNodeBrush = new SolidBrush(Constant.EntryNodeColor);
 
@@ -142,7 +143,12 @@
             {
                 if (CurrentFloorIndex == Constant.NoSelectedFloor) return;
 
-                OnClick(e.X, e.Y);
+                _clickLocation.X = e.X;
+                _clickLocation.Y = e.Y;
+
+                OnClick();
+                OnDesignerViewMenuShow();
+
                 switch (_selection)
                 {
                     case ToolStripSelection.EntryNode:
@@ -215,12 +221,12 @@
             }
         }
 
-        private void DesignToolStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void DesignerToolStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             try
             {
                 SelectTarget(null);
-                _designToolStrip.Items.OfType<ToolStripButton>().ForEach(item =>
+                _designerToolStrip.Items.OfType<ToolStripButton>().ForEach(item =>
                 {
                     if (item != e.ClickedItem) item.Checked = false;
                     else
@@ -240,11 +246,60 @@
             }
         }
 
-        private void DesignerViewLoad(object sender, EventArgs e)
+        private void DesignerViewAddEntryNodeMenuItemClick(object sender, EventArgs e)
         {
             try
             {
+                if (_selectedTarget != null) return;
+                _parent.AddNode(new EntryNode(_clickLocation.X, _clickLocation.Y), CurrentFloorIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString());
+            }
+        }
 
+        private void DesignerViewAddGuideNodeMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_selectedTarget != null) return;
+                _parent.AddNode(new GuideNode(_clickLocation.X, _clickLocation.Y), CurrentFloorIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString());
+            }
+        }
+
+        private void DesignerViewAddWallNodeMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_selectedTarget != null) return;
+                _parent.AddNode(new WallNode(_clickLocation.X, _clickLocation.Y), CurrentFloorIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString());
+            }
+        }
+
+        private void DesignerViewMenuStripOpening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var location = _canvas.PointToClient(Cursor.Position);
+            CanvasMouseClick(sender, new MouseEventArgs(MouseButtons.Right, 1, location.X, location.Y, 0));
+        }
+
+        private void DesignerViewRemoveMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var node = _selectedTarget.MapModel as NodeBase;
+                if (node == null) return;
+                var floor = _parent.CurrentMap.Floors[CurrentFloorIndex];
+                var nodeIndex = floor.GetNodeIndex(node);
+                _parent.RemoveNode(CurrentFloorIndex, node.Type, nodeIndex);
             }
             catch (Exception ex)
             {
@@ -313,19 +368,37 @@
             return x >= rect.X && x <= rect.X + rect.Width && y >= rect.Y && y <= rect.Y + rect.Height;
         }
 
-        private void OnClick(int x, int y)
+        private void OnClick()
         {
             if (CurrentFloorIndex == Constant.NoSelectedFloor) return;
 
             var floorTarget = Targets[CurrentFloorIndex];
             var floor = floorTarget.MapModel as Floor;
             Debug.Assert(floor != null);
-            SelectTarget(
+            var target =
                 floorTarget.Targets.SelectMany(
-                        catalogueTarget =>
-                            catalogueTarget.Targets.Where(
-                                elementTarget => elementTarget.MapModel is NodeBase && InsideNodeArea(elementTarget, x, y)))
-                    .FirstOrDefault());
+                    catalogueTarget =>
+                        catalogueTarget.Targets.Where(
+                            elementTarget =>
+                                elementTarget.MapModel is NodeBase &&
+                                InsideNodeArea(elementTarget, _clickLocation.X, _clickLocation.Y))).FirstOrDefault();
+            SelectTarget(target);
+            if (target?.MapModel is NodeBase node)
+                _parent.SelectNode(CurrentFloorIndex, node.Type, floor.GetNodeIndex(node));
+        }
+
+        private void OnDesignerViewMenuShow()
+        {
+            if (_selectedTarget != null)
+            {
+                _designerViewAddMenuItem.Visible = false;
+                _designerViewRemoveMenuItem.Visible = true;
+            }
+            else
+            {
+                _designerViewAddMenuItem.Visible = true;
+                _designerViewRemoveMenuItem.Visible = false;
+            }
         }
 
         public DesignerView()

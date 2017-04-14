@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._designToolStrip = new System.Windows.Forms.ToolStrip();
+            this.components = new System.ComponentModel.Container();
+            this._designerToolStrip = new System.Windows.Forms.ToolStrip();
             this._entryNodeButton = new System.Windows.Forms.ToolStripButton();
             this._guideNodeButton = new System.Windows.Forms.ToolStripButton();
             this._wallNodeButton = new System.Windows.Forms.ToolStripButton();
@@ -36,24 +37,31 @@
             this._linkButton = new System.Windows.Forms.ToolStripButton();
             this._workspace = new System.Windows.Forms.Panel();
             this._canvas = new System.Windows.Forms.PictureBox();
-            this._designToolStrip.SuspendLayout();
+            this._designerViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._designerViewAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerViewAddEntryNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerViewAddGuideNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerViewAddWallNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerViewRemoveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._designerToolStrip.SuspendLayout();
             this._workspace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).BeginInit();
+            this._designerViewMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // _designToolStrip
+            // _designerToolStrip
             // 
-            this._designToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._designerToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._entryNodeButton,
             this._guideNodeButton,
             this._wallNodeButton,
             this._toolStripSeparator4,
             this._linkButton});
-            this._designToolStrip.Location = new System.Drawing.Point(0, 0);
-            this._designToolStrip.Name = "_designToolStrip";
-            this._designToolStrip.Size = new System.Drawing.Size(500, 25);
-            this._designToolStrip.TabIndex = 3;
-            this._designToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignToolStripItemClicked);
+            this._designerToolStrip.Location = new System.Drawing.Point(0, 0);
+            this._designerToolStrip.Name = "_designerToolStrip";
+            this._designerToolStrip.Size = new System.Drawing.Size(500, 25);
+            this._designerToolStrip.TabIndex = 3;
+            this._designerToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignerToolStripItemClicked);
             // 
             // _entryNodeButton
             // 
@@ -112,17 +120,64 @@
             // 
             this._canvas.BackColor = System.Drawing.Color.Transparent;
             this._canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this._canvas.ContextMenuStrip = this._designerViewMenuStrip;
             this._canvas.ErrorImage = null;
             this._canvas.InitialImage = null;
             this._canvas.Location = new System.Drawing.Point(0, 0);
-            this._canvas.MinimumSize = new System.Drawing.Size(100, 100);
             this._canvas.Name = "_canvas";
-            this._canvas.Size = new System.Drawing.Size(100, 100);
+            this._canvas.Size = new System.Drawing.Size(0, 0);
             this._canvas.TabIndex = 1;
             this._canvas.TabStop = false;
             this._canvas.SizeChanged += new System.EventHandler(this.CanvasSizeChanged);
             this._canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseClick);
             this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WorkspaceMouseMove);
+            // 
+            // _designerViewMenuStrip
+            // 
+            this._designerViewMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._designerViewAddMenuItem,
+            this._designerViewRemoveMenuItem});
+            this._designerViewMenuStrip.Name = "_designerViewMenuStrip";
+            this._designerViewMenuStrip.Size = new System.Drawing.Size(118, 48);
+            this._designerViewMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DesignerViewMenuStripOpening);
+            // 
+            // _designerViewAddMenuItem
+            // 
+            this._designerViewAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._designerViewAddEntryNodeMenuItem,
+            this._designerViewAddGuideNodeMenuItem,
+            this._designerViewAddWallNodeMenuItem});
+            this._designerViewAddMenuItem.Name = "_designerViewAddMenuItem";
+            this._designerViewAddMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._designerViewAddMenuItem.Text = "Add";
+            // 
+            // _designerViewAddEntryNodeMenuItem
+            // 
+            this._designerViewAddEntryNodeMenuItem.Name = "_designerViewAddEntryNodeMenuItem";
+            this._designerViewAddEntryNodeMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._designerViewAddEntryNodeMenuItem.Text = "Entry node";
+            this._designerViewAddEntryNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddEntryNodeMenuItemClick);
+            // 
+            // _designerViewAddGuideNodeMenuItem
+            // 
+            this._designerViewAddGuideNodeMenuItem.Name = "_designerViewAddGuideNodeMenuItem";
+            this._designerViewAddGuideNodeMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._designerViewAddGuideNodeMenuItem.Text = "Guide node";
+            this._designerViewAddGuideNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddGuideNodeMenuItemClick);
+            // 
+            // _designerViewAddWallNodeMenuItem
+            // 
+            this._designerViewAddWallNodeMenuItem.Name = "_designerViewAddWallNodeMenuItem";
+            this._designerViewAddWallNodeMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._designerViewAddWallNodeMenuItem.Text = "Wall node";
+            this._designerViewAddWallNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddWallNodeMenuItemClick);
+            // 
+            // _designerViewRemoveMenuItem
+            // 
+            this._designerViewRemoveMenuItem.Name = "_designerViewRemoveMenuItem";
+            this._designerViewRemoveMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._designerViewRemoveMenuItem.Text = "Remove";
+            this._designerViewRemoveMenuItem.Click += new System.EventHandler(this.DesignerViewRemoveMenuItemClick);
             // 
             // DesignerView
             // 
@@ -130,14 +185,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this._workspace);
-            this.Controls.Add(this._designToolStrip);
+            this.Controls.Add(this._designerToolStrip);
             this.Name = "DesignerView";
             this.Size = new System.Drawing.Size(500, 400);
-            this.Load += new System.EventHandler(this.DesignerViewLoad);
-            this._designToolStrip.ResumeLayout(false);
-            this._designToolStrip.PerformLayout();
+            this._designerToolStrip.ResumeLayout(false);
+            this._designerToolStrip.PerformLayout();
             this._workspace.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).EndInit();
+            this._designerViewMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,7 +200,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip _designToolStrip;
+        private System.Windows.Forms.ToolStrip _designerToolStrip;
         private System.Windows.Forms.ToolStripButton _entryNodeButton;
         private System.Windows.Forms.ToolStripButton _guideNodeButton;
         private System.Windows.Forms.ToolStripButton _wallNodeButton;
@@ -153,5 +208,11 @@
         private System.Windows.Forms.ToolStripButton _linkButton;
         private System.Windows.Forms.Panel _workspace;
         private System.Windows.Forms.PictureBox _canvas;
+        private System.Windows.Forms.ContextMenuStrip _designerViewMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewAddMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewAddEntryNodeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewRemoveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewAddGuideNodeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewAddWallNodeMenuItem;
     }
 }
