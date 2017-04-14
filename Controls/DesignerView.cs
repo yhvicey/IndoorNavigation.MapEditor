@@ -314,8 +314,8 @@
             Debug.Assert(node != null);
 
             var halfSideLength = highlighted ? Constant.HighlightedNodeHalfSideLength : Constant.NodeHalfSideLength;
-            return new Rectangle((int)node.X * _parent.MapScale - halfSideLength + Constant.MapPadding,
-                (int)node.Y * _parent.MapScale - halfSideLength + Constant.MapPadding, halfSideLength * 2, halfSideLength * 2);
+            return new Rectangle((int)node.X - halfSideLength + Constant.MapPadding,
+                (int)node.Y - halfSideLength + Constant.MapPadding, halfSideLength * 2, halfSideLength * 2);
         }
 
         private bool InsideNodeArea(RenderTarget nodeTarget, int x, int y)

@@ -49,7 +49,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._toolsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._loadBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._removeBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._setScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._changeCanvasSizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._messageStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -202,7 +201,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._toolsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._loadBackgroundMenuItem,
             this._removeBackgroundMenuItem,
-            this._setScaleMenuItem,
             this._changeCanvasSizeMenuItem});
             this._toolsMenuItem.Name = "_toolsMenuItem";
             this._toolsMenuItem.Size = new System.Drawing.Size(47, 20);
@@ -221,12 +219,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._removeBackgroundMenuItem.Size = new System.Drawing.Size(184, 22);
             this._removeBackgroundMenuItem.Text = "Remove background";
             this._removeBackgroundMenuItem.Click += new System.EventHandler(this.RemoveBackgroundMenuItemClick);
-            // 
-            // _setScaleMenuItem
-            // 
-            this._setScaleMenuItem.Name = "_setScaleMenuItem";
-            this._setScaleMenuItem.Size = new System.Drawing.Size(184, 22);
-            this._setScaleMenuItem.Text = "Set scale";
             // 
             // _changeCanvasSizeMenuItem
             // 
@@ -381,7 +373,6 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _toolsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _loadBackgroundMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _removeBackgroundMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _setScaleMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel _messageStatusLabel;
         private System.Windows.Forms.SplitContainer _rightPanel;
         private Controls.MapView _mapView;

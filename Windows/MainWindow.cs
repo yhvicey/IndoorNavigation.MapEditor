@@ -34,8 +34,6 @@
 
         public string CurrentMapFile { get; private set; }
 
-        public int MapScale { get; private set; } = 1;
-
         #endregion // Properties
 
         #region Initialize functions
