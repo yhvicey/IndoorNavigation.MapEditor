@@ -201,7 +201,7 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current floor: {0} Canvas size: {1} Map size: {2}.
+        ///   Looks up a localized string similar to Current floor: {0} Canvas size: {1}.
         /// </summary>
         internal static string MapStatusTemplate {
             get {

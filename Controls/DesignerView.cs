@@ -8,7 +8,6 @@
     using Models;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
     using Models.Nodes;
     using Share;
@@ -94,10 +93,6 @@
 
         #region Variables
 
-        private readonly Pen _borderPen = new Pen(Color.Black, 1)
-        {
-            DashStyle = DashStyle.Dot
-        };
 
         private readonly SolidBrush _entryNodeBrush = new SolidBrush(Constant.EntryNodeColor);
 
@@ -135,8 +130,6 @@
             set { _canvas.Size = value; }
         }
 
-        public Size MapSize => new Size(CanvasSize.Width - Constant.MapPadding * 2, CanvasSize.Height - Constant.MapPadding * 2);
-
         public List<RenderTarget> Targets { get; } = new List<RenderTarget>();
 
         #endregion // Properties
@@ -155,19 +148,19 @@
                     case ToolStripSelection.EntryNode:
                     {
                         if (_selectedTarget != null) return;
-                        _parent.AddNode(new EntryNode(e.X - Constant.MapPadding, e.Y - Constant.MapPadding), CurrentFloorIndex);
+                        _parent.AddNode(new EntryNode(e.X, e.Y), CurrentFloorIndex);
                         return;
                     }
                     case ToolStripSelection.GuideNode:
                     {
                         if (_selectedTarget != null) return;
-                        _parent.AddNode(new GuideNode(e.X - Constant.MapPadding, e.Y - Constant.MapPadding), CurrentFloorIndex);
+                        _parent.AddNode(new GuideNode(e.X, e.Y), CurrentFloorIndex);
                         return;
                     }
                     case ToolStripSelection.WallNode:
                     {
                         if (_selectedTarget != null) return;
-                        _parent.AddNode(new WallNode(e.X - Constant.MapPadding, e.Y - Constant.MapPadding), CurrentFloorIndex);
+                        _parent.AddNode(new WallNode(e.X, e.Y), CurrentFloorIndex);
                         return;
                     }
                     case ToolStripSelection.Link:
@@ -280,11 +273,6 @@
             _graphics?.FillEllipse(_guideNodeBrush, GetNodeRectangle(node, highlighted));
         }
 
-        private void DrawMapBorder()
-        {
-            _graphics.DrawRectangle(_borderPen, new Rectangle(Constant.MapPadding, Constant.MapPadding, _canvas.Size.Width - Constant.MapPadding * 2, _canvas.Size.Height - Constant.MapPadding * 2));
-        }
-
         private void DrawWallNode(WallNode node, bool highlighted = false)
         {
             Debug.Assert(node != null);
@@ -304,9 +292,7 @@
             var endNode =
                 Targets[CurrentFloorIndex].Targets[(int)link.EndType].Targets[link.EndIndex].MapModel as NodeBase;
             Debug.Assert(endNode != null);
-            _graphics?.DrawLine(_linkPen, (int)startNode.X + Constant.MapPadding,
-                (int)startNode.Y + Constant.MapPadding, (int)endNode.X + Constant.MapPadding,
-                (int)endNode.Y + Constant.MapPadding);
+            _graphics?.DrawLine(_linkPen, (int)startNode.X, (int)startNode.Y, (int)endNode.X, (int)endNode.Y);
         }
 
         private Rectangle GetNodeRectangle(NodeBase node, bool highlighted = false)
@@ -314,8 +300,8 @@
             Debug.Assert(node != null);
 
             var halfSideLength = highlighted ? Constant.HighlightedNodeHalfSideLength : Constant.NodeHalfSideLength;
-            return new Rectangle((int)node.X - halfSideLength + Constant.MapPadding,
-                (int)node.Y - halfSideLength + Constant.MapPadding, halfSideLength * 2, halfSideLength * 2);
+            return new Rectangle((int)node.X - halfSideLength, (int)node.Y - halfSideLength, halfSideLength * 2,
+                halfSideLength * 2);
         }
 
         private bool InsideNodeArea(RenderTarget nodeTarget, int x, int y)
@@ -358,7 +344,6 @@
 
             if (CurrentFloorIndex != Constant.NoSelectedFloor)
             {
-                DrawMapBorder();
                 Targets[CurrentFloorIndex].Render();
             }
 
@@ -388,7 +373,8 @@
                 if (wallNode.X > width) width = wallNode.X;
                 if (wallNode.Y > height) height = wallNode.Y;
             });
-            return new Size((int)width + Constant.MapPadding * 2, (int)height + Constant.MapPadding * 2);
+            return new Size((int)width + Constant.NodeHalfSideLength * 2,
+                (int)height + Constant.NodeHalfSideLength * 2);
         }
 
         public void SelectTarget(RenderTarget target, bool highlight = true)

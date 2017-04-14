@@ -283,7 +283,6 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             this._designerView.Background = null;
             this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this._designerView.CanvasSize = new System.Drawing.Size(100, 100);
             this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._designerView.Location = new System.Drawing.Point(3, 3);
             this._designerView.Name = "_designerView";

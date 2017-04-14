@@ -531,8 +531,7 @@
             _mapViewAdapter.OnFlush();
             _mapStatusLable.Text = string.Format(Resources.MapStatusTemplate,
                 CurrentFloorIndex == Constant.NoSelectedFloor ? "None" : (CurrentFloorIndex + 1).ToString(),
-                $"{_designerView.CanvasSize.Width}, {_designerView.CanvasSize.Height}",
-                $"{_designerView.MapSize.Width}, {_designerView.MapSize.Height}");
+                $"{_designerView.CanvasSize.Width}, {_designerView.CanvasSize.Height}");
             Text = Resources.MainWindowTitle + (CurrentMapFile == null ? "" : $" - {CurrentMapFile}");
         }
 

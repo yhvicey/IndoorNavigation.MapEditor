@@ -38,8 +38,6 @@
 
         public const int HighlightedLinkWidth = 2;
 
-        public const int MapPadding = 50;
-
         public static readonly Color EntryNodeColor = Color.FromArgb(76, 255, 0);
 
         public static readonly Color GuideNodeColor = Color.FromArgb(0, 148, 255);
