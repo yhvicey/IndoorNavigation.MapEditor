@@ -55,6 +55,34 @@
 
         #region Event handlers
 
+        private void ChangeCanvasSizeMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CurrentFloorIndex == Constant.NoSelectedFloor)
+                {
+                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    return;
+                }
+
+                var wizard = new ChangeSizeWizard
+                {
+                    WidthProperty = _designerView.CanvasSize.Width,
+                    HeightProperty = _designerView.CanvasSize.Height
+                };
+
+                if (wizard.ShowDialog() != DialogResult.Yes) return;
+                if (!wizard.Ready) return;
+
+                _designerViewAdapter.ChangeCanvasSize(wizard.Make());
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void CloseMenuItemClick(object sender, EventArgs e)
         {
             try
