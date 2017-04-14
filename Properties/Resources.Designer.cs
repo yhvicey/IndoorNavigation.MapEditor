@@ -210,20 +210,20 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No map to save.
+        ///   Looks up a localized string similar to No current map.
         /// </summary>
-        internal static string NoMapToSaveError {
+        internal static string NoCurrentMapError {
             get {
-                return ResourceManager.GetString("NoMapToSaveError", resourceCulture);
+                return ResourceManager.GetString("NoCurrentMapError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No selected floor.
         /// </summary>
-        internal static string NoSelectedFloorNotification {
+        internal static string NoSelectedFloorError {
             get {
-                return ResourceManager.GetString("NoSelectedFloorNotification", resourceCulture);
+                return ResourceManager.GetString("NoSelectedFloorError", resourceCulture);
             }
         }
         

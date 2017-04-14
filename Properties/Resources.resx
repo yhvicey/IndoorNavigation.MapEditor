@@ -178,8 +178,8 @@
   <data name="MapFileFilter" xml:space="preserve">
     <value>Map file|*.xml|All files|*.*</value>
   </data>
-  <data name="NoMapToSaveError" xml:space="preserve">
-    <value>No map to save</value>
+  <data name="NoCurrentMapError" xml:space="preserve">
+    <value>No current map</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Editor</value>
@@ -190,7 +190,7 @@
   <data name="ResetCanvasSizeToMinimalNotification" xml:space="preserve">
     <value>Reset canvas size to mininal map size?</value>
   </data>
-  <data name="NoSelectedFloorNotification" xml:space="preserve">
+  <data name="NoSelectedFloorError" xml:space="preserve">
     <value>No selected floor</value>
   </data>
   <data name="CursorStatusTemplate" xml:space="preserve">
