@@ -25,14 +25,16 @@
             _designerView = designerView;
         }
 
-        public void ChangeCanvasSize(Size size)
+        public void ChangeCanvasSize(Size size, int floorIndex)
         {
-            var minimalSize = _designerView.GetMininalDisplaySize(_designerView.CurrentFloorIndex);
+            Debug.Assert(floorIndex >= 0);
+
+            var minimalSize = _designerView.GetMininalDisplaySize(floorIndex);
             size.Width = size.Width < minimalSize.Width ? minimalSize.Width : size.Width;
             size.Height = size.Height < minimalSize.Height ? minimalSize.Height : size.Height;
 
             _designerView.CanvasSize = size;
-            _canvasSizeTable[_designerView.CurrentFloorIndex] = size;
+            _canvasSizeTable[floorIndex] = size;
         }
 
         public void LoadBackground(Image image, int floorIndex)
@@ -152,7 +154,7 @@
             if (floorIndex != _designerView.CurrentFloorIndex) return;
 
             if (!_canvasSizeTable.ContainsKey(floorIndex)) _canvasSizeTable[floorIndex] = new Size();
-            ChangeCanvasSize(_canvasSizeTable[floorIndex]);
+            ChangeCanvasSize(_canvasSizeTable[floorIndex], floorIndex);
             if (!_backgroundTable.ContainsKey(floorIndex)) _backgroundTable[floorIndex] = null;
             _designerView.Background = _backgroundTable[floorIndex];
             _designerView.SelectTarget(_designerView.Targets[floorIndex], false);

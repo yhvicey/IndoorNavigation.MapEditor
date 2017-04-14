@@ -64,16 +64,6 @@
                     return;
                 }
 
-                var wizard = new ChangeSizeWizard
-                {
-                    WidthProperty = _designerView.CanvasSize.Width,
-                    HeightProperty = _designerView.CanvasSize.Height
-                };
-
-                if (wizard.ShowDialog() != DialogResult.Yes) return;
-                if (!wizard.Ready) return;
-
-                _designerViewAdapter.ChangeCanvasSize(wizard.Make());
                 Flush();
             }
             catch (Exception ex)
@@ -119,20 +109,24 @@
                 }
 
                 StatusBarMessage("Loading background...");
+
                 var openFileDialog = new OpenFileDialog
                 {
                     Filter = Resources.ImageFilter
                 };
+
                 if (openFileDialog.ShowDialog(this) != DialogResult.OK) return;
+
                 using (var stream = openFileDialog.OpenFile())
                 {
                     var image = Image.FromStream(stream);
                     if (CurrentFloorIndex != Constant.NoSelectedFloor &&
                         MessageBox.Show(this, Resources.UseBackgroundImageSizeNotification, Resources.InfoDialogTitle,
                             MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        _designerViewAdapter.ChangeCanvasSize(image.Size);
+                        _designerViewAdapter.ChangeCanvasSize(image.Size, CurrentFloorIndex);
                     _designerViewAdapter.LoadBackground(image, CurrentFloorIndex);
                 }
+
                 StatusBarMessage("Background loaded.");
                 Flush();
             }
@@ -147,8 +141,7 @@
             try
             {
                 Flush();
-                if (CurrentMapFile == null) return;
-                AddMap(MapParser.Parse(CurrentMapFile));
+                if (CurrentMapFile != null) AddMap(MapParser.Parse(CurrentMapFile));
             }
             catch (Exception ex)
             {
@@ -167,6 +160,7 @@
                 }
 
                 AddFloor(new Floor());
+                Flush();
             }
             catch (Exception ex)
             {
@@ -281,6 +275,7 @@
                 }
 
                 _designerViewAdapter.RemoveBackground();
+                Flush();
             }
             catch (Exception ex)
             {
@@ -299,6 +294,7 @@
                 }
 
                 SaveMap(CurrentMap);
+                Flush();
             }
             catch (Exception ex)
             {
@@ -317,6 +313,7 @@
                 }
 
                 SaveMap(CurrentMap, true);
+                Flush();
             }
             catch (Exception ex)
             {
@@ -328,15 +325,19 @@
 
         #region View functions
 
-        private void OnAddMap()
+        private void OnAddMap(Map map)
         {
+            Debug.Assert(map != null);
+
             StatusBarMessage("Adding map...");
 
-            _designerViewAdapter.OnAddMap(CurrentMap);
-            _mapViewAdapter.OnAddMap(CurrentMap);
+            _designerViewAdapter.OnAddMap(map);
+            _mapViewAdapter.OnAddMap(map);
 
-            Flush();
+            SelectMap(map);
+
             StatusBarMessage("Map added.");
+            Flush();
         }
 
         private void OnAddFloor(Floor floor)
@@ -348,8 +349,21 @@
             _designerViewAdapter.OnAddFloor(floor);
             _mapViewAdapter.OnAddFloor(floor);
 
-            Flush();
+            var wizard = new ChangeSizeWizard
+            {
+                WidthProperty = _designerView.CanvasSize.Width,
+                HeightProperty = _designerView.CanvasSize.Height
+            };
+
+            if (wizard.ShowDialog() != DialogResult.Yes) return;
+            if (!wizard.Ready) return;
+
+            var floorIndex = CurrentMap.Floors.Count - 1;
+            _designerViewAdapter.ChangeCanvasSize(wizard.Make(), floorIndex);
+            SelectFloor(floorIndex);
+
             StatusBarMessage("Floor added.");
+            Flush();
         }
 
         private void OnAddLink(Link link, int floorIndex)
@@ -362,8 +376,10 @@
             _designerViewAdapter.OnAddLink(link, floorIndex);
             _mapViewAdapter.OnAddLink(link, floorIndex);
 
-            Flush();
+            SelectLink(floorIndex, CurrentMap.Floors[floorIndex].Links.Count - 1);
+
             StatusBarMessage("Link added.");
+            Flush();
         }
 
         private void OnAddNode(NodeBase node, int floorIndex)
@@ -377,8 +393,10 @@
             _designerViewAdapter.OnAddNode(node, floorIndex);
             _mapViewAdapter.OnAddNode(node, floorIndex);
 
-            Flush();
+            SelectNode(floorIndex, node.Type, CurrentMap.Floors[CurrentFloorIndex].GetNodeIndex(node));
+
             StatusBarMessage("Node added.");
+            Flush();
         }
 
         private void OnRemoveCatalogue(int floorIndex, int catalogueIndex)
@@ -393,8 +411,8 @@
             _designerViewAdapter.OnRemoveCatalogue(floorIndex, catalogueIndex);
             _mapViewAdapter.OnRemoveCatalogue(floorIndex, catalogueIndex);
 
-            Flush();
             StatusBarMessage("Catalogue removed.");
+            Flush();
         }
 
         private void OnRemoveMap(Map map)
@@ -412,8 +430,8 @@
             _designerViewAdapter.OnRemoveMap();
             _mapViewAdapter.OnRemoveMap();
 
-            Flush();
             StatusBarMessage("Map removed.");
+            Flush();
         }
 
         private void OnRemoveFloor(int floorIndex)
@@ -427,8 +445,8 @@
             _designerViewAdapter.OnRemoveFloor(floorIndex);
             _mapViewAdapter.OnRemoveFloor(floorIndex);
 
-            Flush();
             StatusBarMessage("Floor removed.");
+            Flush();
         }
 
         private void OnRemoveLink(int floorIndex, int linkIndex)
@@ -443,8 +461,8 @@
             _designerViewAdapter.OnRemoveLink(floorIndex, linkIndex);
             _mapViewAdapter.OnRemoveLink(floorIndex, linkIndex);
 
-            Flush();
             StatusBarMessage("Link removed.");
+            Flush();
         }
 
         private void OnRemoveNode(int floorIndex, NodeType type, int nodeIndex)
@@ -460,8 +478,8 @@
             _designerViewAdapter.OnRemoveNode(floorIndex, type, nodeIndex);
             _mapViewAdapter.OnRemoveNode(floorIndex, type, nodeIndex);
 
-            Flush();
             StatusBarMessage("Node removed.");
+            Flush();
         }
 
         private void OnSelectCatalogue(int floorIndex, int catalogueIndex)
@@ -540,16 +558,16 @@
             Debug.Assert(map != null);
 
             if (CurrentMap != null && !SaveMap(CurrentMap)) return;
-            SelectMap(map);
+            CurrentMap = map;
 
-            OnAddMap();
+            OnAddMap(map);
         }
 
         public void AddFloor(Floor floor)
         {
             Debug.Assert(floor != null);
 
-            CurrentMap?.AddFloor(floor);
+            CurrentMap.AddFloor(floor);
 
             OnAddFloor(floor);
         }
@@ -559,8 +577,8 @@
             Debug.Assert(link != null);
             Debug.Assert(floorIndex >= 0);
 
-            var floor = CurrentMap?.Floors[floorIndex];
-            if (floor?.Links.Contains(link) ?? true) return;
+            var floor = CurrentMap.Floors[floorIndex];
+            if (floor.Links.Contains(link)) return;
             floor.AddLink(link);
 
             OnAddLink(link, floorIndex);
@@ -571,7 +589,8 @@
             Debug.Assert(node != null);
             Debug.Assert(floorIndex >= 0);
 
-            CurrentMap?.Floors[floorIndex].AddNode(node);
+            var floor = CurrentMap.Floors[floorIndex];
+            floor.AddNode(node);
 
             OnAddNode(node, floorIndex);
         }
@@ -595,7 +614,7 @@
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(catalogueIndex >= 0);
 
-            var floor = CurrentMap?.Floors[floorIndex];
+            var floor = CurrentMap.Floors[floorIndex];
             if (floor == null) return;
             switch (catalogueIndex)
             {
@@ -642,7 +661,7 @@
         {
             Debug.Assert(floorIndex >= 0);
 
-            CurrentMap?.RemoveFloor(floorIndex);
+            CurrentMap.RemoveFloor(floorIndex);
             CurrentFloorIndex = Constant.NoSelectedFloor;
 
             SelectMap(CurrentMap);
@@ -655,7 +674,7 @@
             Debug.Assert(floorIndex >= 0);
             Debug.Assert(linkIndex >= 0);
 
-            CurrentMap?.Floors[floorIndex].RemoveLink(linkIndex);
+            CurrentMap.Floors[floorIndex].RemoveLink(linkIndex);
 
             SelectCatalogue(floorIndex, Constant.LinksIndex);
 
@@ -668,7 +687,7 @@
             Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
             Debug.Assert(nodeIndex >= 0);
 
-            var floor = CurrentMap?.Floors[floorIndex];
+            var floor = CurrentMap.Floors[floorIndex];
             floor?.GetRelatedLinkIndices(type, nodeIndex).ForEach(index => RemoveLink(floorIndex, index));
             floor?.RemoveNode(type, nodeIndex);
 
