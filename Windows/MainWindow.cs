@@ -121,7 +121,12 @@
                 if (openFileDialog.ShowDialog(this) != DialogResult.OK) return;
                 using (var stream = openFileDialog.OpenFile())
                 {
-                    _designerView.LoadBackground(Image.FromStream(stream));
+                    var image = Image.FromStream(stream);
+                    if (CurrentFloorIndex != Constant.NoSelectedFloor &&
+                        MessageBox.Show(Resources.UseBackgroundImageSizeNotification, Resources.InfoDialogTitle,
+                            MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        _designerViewAdapter.ChangeCanvasSize(image.Size);
+                    _designerViewAdapter.LoadBackground(image, CurrentFloorIndex);
                 }
                 StatusBarMessage("Background loaded.");
                 Flush();

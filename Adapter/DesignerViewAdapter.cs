@@ -1,7 +1,9 @@
 ﻿namespace IndoorNavigator.MapEditor.Adapter
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Drawing;
     using Controls;
     using Models;
     using Models.Nodes;
@@ -10,6 +12,10 @@
     public class DesignerViewAdapter :
         IAdapter
     {
+        private readonly Dictionary<int, Image> _backgroundTable = new Dictionary<int, Image>();
+
+        private readonly Dictionary<int, Size> _canvasSizeTable = new Dictionary<int, Size>();
+
         private readonly DesignerView _designerView;
 
         public DesignerViewAdapter(DesignerView designerView)
@@ -17,6 +23,28 @@
             Debug.Assert(designerView != null);
 
             _designerView = designerView;
+        }
+
+        public void ChangeCanvasSize(Size size)
+        {
+            var minimalSize = _designerView.GetMininalDisplaySize(_designerView.CurrentFloorIndex);
+            size.Width = size.Width < minimalSize.Width ? minimalSize.Width : size.Width;
+            size.Height = size.Height < minimalSize.Height ? minimalSize.Height : size.Height;
+
+            _designerView.CanvasSize = size;
+            _canvasSizeTable[_designerView.CurrentFloorIndex] = size;
+        }
+
+        public void LoadBackground(Image image, int floorIndex)
+        {
+            _backgroundTable[floorIndex] = image;
+            _designerView.Background = image;
+        }
+
+        public void RemoveBackground()
+        {
+            _backgroundTable[_designerView.CurrentFloorIndex] = null;
+            _designerView.Background = null;
         }
 
         public void OnAddMap(Map map)
@@ -107,16 +135,14 @@
 
             if (floorIndex != _designerView.CurrentFloorIndex) return;
 
-            _designerView.Unhighlight();
-            _designerView.Targets[floorIndex].Targets[catalogueIndex].Highlight();
+            _designerView.SelectTarget(_designerView.Targets[floorIndex].Targets[catalogueIndex]);
         }
 
         public void OnSelectMap(Map map)
         {
             Debug.Assert(map != null);
 
-            _designerView.UpdateFloorSize();
-            _designerView.Unhighlight();
+            _designerView.SelectTarget(null);
         }
 
         public void OnSelectFloor(int floorIndex)
@@ -125,8 +151,11 @@
 
             if (floorIndex != _designerView.CurrentFloorIndex) return;
 
-            _designerView.UpdateFloorSize();
-            _designerView.Unhighlight();
+            if (!_canvasSizeTable.ContainsKey(floorIndex)) _canvasSizeTable[floorIndex] = new Size();
+            ChangeCanvasSize(_canvasSizeTable[floorIndex]);
+            if (!_backgroundTable.ContainsKey(floorIndex)) _backgroundTable[floorIndex] = null;
+            _designerView.Background = _backgroundTable[floorIndex];
+            _designerView.SelectTarget(_designerView.Targets[floorIndex], false);
         }
 
         public void OnSelectLink(int floorIndex, int linkIndex)
@@ -136,8 +165,7 @@
 
             if (floorIndex != _designerView.CurrentFloorIndex) return;
 
-            _designerView.Unhighlight();
-            _designerView.Targets[floorIndex].Targets[Constant.LinksIndex].Targets[linkIndex].Highlight();
+            _designerView.SelectTarget(_designerView.Targets[floorIndex].Targets[Constant.LinksIndex].Targets[linkIndex]);
         }
 
         public void OnSelectNode(int floorIndex, NodeType type, int nodeIndex)
@@ -148,8 +176,7 @@
 
             if (floorIndex != _designerView.CurrentFloorIndex) return;
 
-            _designerView.Unhighlight();
-            _designerView.Targets[floorIndex].Targets[(int)type].Targets[nodeIndex].Highlight();
+            _designerView.SelectTarget(_designerView.Targets[floorIndex].Targets[(int)type].Targets[nodeIndex]);
         }
     }
 }

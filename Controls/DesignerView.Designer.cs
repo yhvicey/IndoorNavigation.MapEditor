@@ -35,11 +35,9 @@
             this._toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this._linkButton = new System.Windows.Forms.ToolStripButton();
             this._workspace = new System.Windows.Forms.Panel();
-            this._background = new System.Windows.Forms.Panel();
             this._canvas = new System.Windows.Forms.PictureBox();
             this._designToolStrip.SuspendLayout();
             this._workspace.SuspendLayout();
-            this._background.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,32 +99,25 @@
             // _workspace
             // 
             this._workspace.AutoScroll = true;
-            this._workspace.Controls.Add(this._background);
+            this._workspace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this._workspace.Controls.Add(this._canvas);
             this._workspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this._workspace.Location = new System.Drawing.Point(0, 25);
             this._workspace.Name = "_workspace";
             this._workspace.Size = new System.Drawing.Size(500, 375);
             this._workspace.TabIndex = 4;
             // 
-            // _background
-            // 
-            this._background.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this._background.Controls.Add(this._canvas);
-            this._background.Location = new System.Drawing.Point(0, 0);
-            this._background.Name = "_background";
-            this._background.Size = new System.Drawing.Size(0, 0);
-            this._background.TabIndex = 0;
-            // 
             // _canvas
             // 
             this._canvas.BackColor = System.Drawing.Color.Transparent;
-            this._canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this._canvas.ErrorImage = null;
             this._canvas.InitialImage = null;
             this._canvas.Location = new System.Drawing.Point(0, 0);
+            this._canvas.MinimumSize = new System.Drawing.Size(100, 100);
             this._canvas.Name = "_canvas";
-            this._canvas.Size = new System.Drawing.Size(0, 0);
-            this._canvas.TabIndex = 0;
+            this._canvas.Size = new System.Drawing.Size(100, 100);
+            this._canvas.TabIndex = 1;
             this._canvas.TabStop = false;
             this._canvas.SizeChanged += new System.EventHandler(this.CanvasSizeChanged);
             this._canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseClick);
@@ -144,7 +135,6 @@
             this._designToolStrip.ResumeLayout(false);
             this._designToolStrip.PerformLayout();
             this._workspace.ResumeLayout(false);
-            this._background.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -160,7 +150,6 @@
         private System.Windows.Forms.ToolStripSeparator _toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton _linkButton;
         private System.Windows.Forms.Panel _workspace;
-        private System.Windows.Forms.Panel _background;
         private System.Windows.Forms.PictureBox _canvas;
     }
 }
