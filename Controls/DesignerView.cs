@@ -127,7 +127,7 @@
             set { _canvas.BackgroundImage = value; }
         }
 
-        public int CurrentFloorIndex => _parent.CurrentFloorIndex;
+        public int CurrentFloorIndex => _parent?.CurrentFloorIndex ?? Constant.NoSelectedFloor;
 
         public Size CanvasSize
         {
