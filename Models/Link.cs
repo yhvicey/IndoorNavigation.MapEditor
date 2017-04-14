@@ -40,6 +40,28 @@
             _parent = parent;
         }
 
+        public override bool Equals(object obj)
+        {
+            var link = obj as Link;
+            if (link == null) return false;
+            return StartType == link.StartType && StartIndex == link.StartIndex && EndType == link.EndType &&
+                   EndIndex == link.EndIndex ||
+                   StartType == link.EndType && StartIndex == link.EndIndex && EndType == link.StartType &&
+                   EndIndex == link.StartIndex;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var leftHashCode = StartIndex;
+                leftHashCode = (leftHashCode * 397) ^ (int)StartType;
+                var rightHashCode = EndIndex;
+                rightHashCode = (rightHashCode * 397) ^ (int)EndType;
+                return leftHashCode ^ rightHashCode;
+            }
+        }
+
         public override string ToString()
         {
             return $"Link Start({StartType}, {StartIndex}) End({EndType}, {EndIndex})";

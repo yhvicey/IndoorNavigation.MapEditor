@@ -484,7 +484,9 @@
             Debug.Assert(link != null);
             Debug.Assert(floorIndex >= 0);
 
-            CurrentMap?.Floors[floorIndex].AddLink(link);
+            var floor = CurrentMap?.Floors[floorIndex];
+            if (floor?.Links.Contains(link) ?? true) return;
+            floor.AddLink(link);
 
             OnAddLink(link, floorIndex);
         }
