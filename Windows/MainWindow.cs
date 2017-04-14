@@ -729,6 +729,11 @@
             _propertyGrid.SelectedObject = null;
         }
 
+        public void UpdateCursorLocation(int x, int y)
+        {
+            _cursorStatusLabel.Text = string.Format(Resources.CursorStatusTemplate, x, y);
+        }
+
         public MainWindow(IReadOnlyCollection<string> args = null)
         {
             InitializeComponent();

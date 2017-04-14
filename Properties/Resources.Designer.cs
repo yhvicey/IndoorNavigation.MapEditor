@@ -61,6 +61,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}, {1}.
+        /// </summary>
+        internal static string CursorStatusTemplate {
+            get {
+                return ResourceManager.GetString("CursorStatusTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap EntryNode {

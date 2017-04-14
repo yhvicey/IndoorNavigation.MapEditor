@@ -54,6 +54,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._messageStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._toolStripPlaceholder = new System.Windows.Forms.ToolStripStatusLabel();
+            this._cursorStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._mapStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
             this._tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this._designerView = new IndoorNavigator.MapEditor.Controls.DesignerView();
@@ -239,6 +240,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._messageStatusLabel,
             this._toolStripPlaceholder,
+            this._cursorStatusLabel,
             this._mapStatusLable});
             this._statusStrip.Location = new System.Drawing.Point(0, 707);
             this._statusStrip.Name = "_statusStrip";
@@ -255,8 +257,14 @@ namespace IndoorNavigator.MapEditor.Windows
             // _toolStripPlaceholder
             // 
             this._toolStripPlaceholder.Name = "_toolStripPlaceholder";
-            this._toolStripPlaceholder.Size = new System.Drawing.Size(954, 17);
+            this._toolStripPlaceholder.Size = new System.Drawing.Size(929, 17);
             this._toolStripPlaceholder.Spring = true;
+            // 
+            // _cursorStatusLabel
+            // 
+            this._cursorStatusLabel.Name = "_cursorStatusLabel";
+            this._cursorStatusLabel.Size = new System.Drawing.Size(25, 17);
+            this._cursorStatusLabel.Text = "0, 0";
             // 
             // _mapStatusLable
             // 
@@ -386,6 +394,7 @@ namespace IndoorNavigator.MapEditor.Windows
         private Controls.DesignerView _designerView;
         private System.Windows.Forms.ToolStripMenuItem _saveAsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _changeCanvasSizeMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel _cursorStatusLabel;
     }
 }
 

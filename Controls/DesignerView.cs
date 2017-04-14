@@ -259,6 +259,11 @@
             }
         }
 
+        private void WorkspaceMouseMove(object sender, MouseEventArgs e)
+        {
+            _parent.UpdateCursorLocation(e.X, e.Y);
+        }
+
         #endregion // Event handlers
 
         private void DrawEntryNode(EntryNode node, bool highlighted = false)

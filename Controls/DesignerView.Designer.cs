@@ -106,6 +106,7 @@
             this._workspace.Name = "_workspace";
             this._workspace.Size = new System.Drawing.Size(500, 375);
             this._workspace.TabIndex = 4;
+            this._workspace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WorkspaceMouseMove);
             // 
             // _canvas
             // 
@@ -121,6 +122,7 @@
             this._canvas.TabStop = false;
             this._canvas.SizeChanged += new System.EventHandler(this.CanvasSizeChanged);
             this._canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseClick);
+            this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WorkspaceMouseMove);
             // 
             // DesignerView
             // 

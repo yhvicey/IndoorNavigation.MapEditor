@@ -193,4 +193,7 @@
   <data name="NoSelectedFloorNotification" xml:space="preserve">
     <value>No selected floor</value>
   </data>
+  <data name="CursorStatusTemplate" xml:space="preserve">
+    <value>{0}, {1}</value>
+  </data>
 </root>
