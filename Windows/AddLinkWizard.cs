@@ -71,27 +71,27 @@
         {
             if (_floorComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.PleaseSelectFloorAlert);
+                MessageBox.Show(this, Resources.PleaseSelectFloorAlert);
                 return false;
             }
             if (_startTypeComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
             if (_startNodeComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
             if (_endTypeComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
             if (_endNodeComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
 

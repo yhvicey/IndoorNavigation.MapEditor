@@ -60,7 +60,7 @@
             {
                 if (CurrentFloorIndex == Constant.NoSelectedFloor)
                 {
-                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    MessageBox.Show(this, Resources.NoSelectedFloorError);
                     return;
                 }
 
@@ -78,7 +78,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -91,7 +91,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -104,7 +104,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -114,7 +114,7 @@
             {
                 if (CurrentFloorIndex == Constant.NoSelectedFloor)
                 {
-                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    MessageBox.Show(this, Resources.NoSelectedFloorError);
                     return;
                 }
 
@@ -128,7 +128,7 @@
                 {
                     var image = Image.FromStream(stream);
                     if (CurrentFloorIndex != Constant.NoSelectedFloor &&
-                        MessageBox.Show(Resources.UseBackgroundImageSizeNotification, Resources.InfoDialogTitle,
+                        MessageBox.Show(this, Resources.UseBackgroundImageSizeNotification, Resources.InfoDialogTitle,
                             MessageBoxButtons.YesNo) == DialogResult.Yes)
                         _designerViewAdapter.ChangeCanvasSize(image.Size);
                     _designerViewAdapter.LoadBackground(image, CurrentFloorIndex);
@@ -138,7 +138,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -146,12 +146,13 @@
         {
             try
             {
+                Flush();
                 if (CurrentMapFile == null) return;
                 AddMap(MapParser.Parse(CurrentMapFile));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -159,11 +160,17 @@
         {
             try
             {
+                if (CurrentMap == null)
+                {
+                    MessageBox.Show(this, Resources.NoCurrentMapError);
+                    return;
+                }
+
                 AddFloor(new Floor());
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -171,6 +178,17 @@
         {
             try
             {
+                if (CurrentMap == null)
+                {
+                    MessageBox.Show(this, Resources.NoCurrentMapError);
+                    return;
+                }
+                if (CurrentFloorIndex == Constant.NoSelectedFloor)
+                {
+                    MessageBox.Show(this, Resources.NoSelectedFloorError);
+                    return;
+                }
+
                 var wizard = new AddLinkWizard(CurrentMap)
                 {
                     Floor = CurrentFloorIndex
@@ -181,7 +199,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -194,7 +212,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -202,6 +220,17 @@
         {
             try
             {
+                if (CurrentMap == null)
+                {
+                    MessageBox.Show(this, Resources.NoCurrentMapError);
+                    return;
+                }
+                if (CurrentFloorIndex == Constant.NoSelectedFloor)
+                {
+                    MessageBox.Show(this, Resources.NoSelectedFloorError);
+                    return;
+                }
+
                 var wizard = new AddNodeWizard(CurrentMap)
                 {
                     Floor = CurrentFloorIndex
@@ -212,7 +241,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -225,7 +254,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -237,7 +266,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -247,7 +276,7 @@
             {
                 if (CurrentFloorIndex == Constant.NoSelectedFloor)
                 {
-                    MessageBox.Show(Resources.NoSelectedFloorNotification);
+                    MessageBox.Show(this, Resources.NoSelectedFloorError);
                     return;
                 }
 
@@ -255,7 +284,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -265,14 +294,15 @@
             {
                 if (CurrentMap == null)
                 {
-                    MessageBox.Show(Resources.NoMapToSaveError);
+                    MessageBox.Show(this, Resources.NoCurrentMapError);
                     return;
                 }
+
                 SaveMap(CurrentMap);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -282,14 +312,15 @@
             {
                 if (CurrentMap == null)
                 {
-                    MessageBox.Show(Resources.NoMapToSaveError);
+                    MessageBox.Show(this, Resources.NoCurrentMapError);
                     return;
                 }
+
                 SaveMap(CurrentMap, true);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString());
             }
         }
 
@@ -375,7 +406,7 @@
             StatusBarMessage("Removing map...");
 
             if (
-                MessageBox.Show(Resources.SaveMapNotification, Resources.InfoDialogTitle, MessageBoxButtons.YesNo,
+                MessageBox.Show(this, Resources.SaveMapNotification, Resources.InfoDialogTitle, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information) == DialogResult.Yes) SaveMap(map);
 
             _designerViewAdapter.OnRemoveMap();

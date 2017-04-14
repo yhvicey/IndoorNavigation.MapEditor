@@ -22,12 +22,12 @@
         {
             if (!int.TryParse(_widthTextBox.Text, out var width))
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
             if (!int.TryParse(_heightTextBox.Text, out var height))
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
 

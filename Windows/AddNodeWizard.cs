@@ -118,17 +118,17 @@
         {
             if (_floorComboBox.SelectedIndex == -1)
             {
-                MessageBox.Show(Resources.PleaseSelectFloorAlert);
+                MessageBox.Show(this, Resources.PleaseSelectFloorAlert);
                 return false;
             }
             if (!double.TryParse(_xTextBox.Text, out var x))
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
             if (!double.TryParse(_yTextBox.Text, out var y))
             {
-                MessageBox.Show(Resources.InvalidValueError);
+                MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
 
