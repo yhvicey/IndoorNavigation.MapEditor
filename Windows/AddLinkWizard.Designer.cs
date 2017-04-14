@@ -38,9 +38,15 @@
             this._endNodeComboBox = new System.Windows.Forms.ComboBox();
             this._label1 = new System.Windows.Forms.Label();
             this._floorComboBox = new System.Windows.Forms.ComboBox();
-            this._cancelButton = new System.Windows.Forms.Button();
-            this._confirmButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // _confirmButton
+            // 
+            this._confirmButton.Location = new System.Drawing.Point(12, 150);
+            // 
+            // _cancelButton
+            // 
+            this._cancelButton.Location = new System.Drawing.Point(116, 150);
             // 
             // _label2
             // 
@@ -143,36 +149,11 @@
             this._floorComboBox.TabIndex = 16;
             this._floorComboBox.SelectedIndexChanged += new System.EventHandler(this.FloorComboBoxSelectedIndexChanged);
             // 
-            // _cancelButton
-            // 
-            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(116, 146);
-            this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(79, 22);
-            this._cancelButton.TabIndex = 19;
-            this._cancelButton.Text = "Cancel";
-            this._cancelButton.UseVisualStyleBackColor = true;
-            this._cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
-            // 
-            // _confirmButton
-            // 
-            this._confirmButton.Location = new System.Drawing.Point(12, 146);
-            this._confirmButton.Name = "_confirmButton";
-            this._confirmButton.Size = new System.Drawing.Size(79, 22);
-            this._confirmButton.TabIndex = 18;
-            this._confirmButton.Text = "Confirm";
-            this._confirmButton.UseVisualStyleBackColor = true;
-            this._confirmButton.Click += new System.EventHandler(this.ConfirmButtonClick);
-            // 
             // AddLinkWizard
             // 
-            this.AcceptButton = this._confirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(207, 180);
-            this.Controls.Add(this._cancelButton);
-            this.Controls.Add(this._confirmButton);
+            this.ClientSize = new System.Drawing.Size(207, 187);
             this.Controls.Add(this._label1);
             this.Controls.Add(this._floorComboBox);
             this.Controls.Add(this._label5);
@@ -183,15 +164,21 @@
             this.Controls.Add(this._endTypeComboBox);
             this.Controls.Add(this._label2);
             this.Controls.Add(this._startTypeComboBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "AddLinkWizard";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add link";
             this.Load += new System.EventHandler(this.AddLinkWizardLoad);
+            this.Controls.SetChildIndex(this._startTypeComboBox, 0);
+            this.Controls.SetChildIndex(this._label2, 0);
+            this.Controls.SetChildIndex(this._endTypeComboBox, 0);
+            this.Controls.SetChildIndex(this._label4, 0);
+            this.Controls.SetChildIndex(this._label3, 0);
+            this.Controls.SetChildIndex(this._startNodeComboBox, 0);
+            this.Controls.SetChildIndex(this._endNodeComboBox, 0);
+            this.Controls.SetChildIndex(this._label5, 0);
+            this.Controls.SetChildIndex(this._floorComboBox, 0);
+            this.Controls.SetChildIndex(this._label1, 0);
+            this.Controls.SetChildIndex(this._confirmButton, 0);
+            this.Controls.SetChildIndex(this._cancelButton, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,7 +196,5 @@
         private System.Windows.Forms.ComboBox _endNodeComboBox;
         private System.Windows.Forms.Label _label1;
         private System.Windows.Forms.ComboBox _floorComboBox;
-        private System.Windows.Forms.Button _cancelButton;
-        private System.Windows.Forms.Button _confirmButton;
     }
 }

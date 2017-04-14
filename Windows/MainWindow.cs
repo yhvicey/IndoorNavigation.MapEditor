@@ -139,7 +139,7 @@
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                AddLink(wizard.MakeLink(), wizard.Floor);
+                AddLink(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {
@@ -170,7 +170,7 @@
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                AddNode(wizard.MakeNode(), wizard.Floor);
+                AddNode(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {

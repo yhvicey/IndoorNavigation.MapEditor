@@ -146,7 +146,7 @@
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                _parent.AddNode(wizard.MakeNode(), wizard.Floor);
+                _parent.AddNode(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {
@@ -177,7 +177,7 @@
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                _parent.AddNode(wizard.MakeNode(), wizard.Floor);
+                _parent.AddNode(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {
@@ -211,7 +211,7 @@
                 }
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                _parent.AddLink(wizard.MakeLink(), wizard.Floor);
+                _parent.AddLink(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {
@@ -230,7 +230,7 @@
                 };
                 if (wizard.ShowDialog() == DialogResult.Cancel) return;
                 if (!wizard.Ready) return;
-                _parent.AddNode(wizard.MakeNode(), wizard.Floor);
+                _parent.AddNode(wizard.Make(), wizard.Floor);
             }
             catch (Exception ex)
             {

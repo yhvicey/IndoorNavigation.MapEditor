@@ -38,13 +38,19 @@
             this._label5 = new System.Windows.Forms.Label();
             this._label6 = new System.Windows.Forms.Label();
             this._label7 = new System.Windows.Forms.Label();
-            this._confirmButton = new System.Windows.Forms.Button();
-            this._cancelButton = new System.Windows.Forms.Button();
             this._label2 = new System.Windows.Forms.Label();
             this._floorComboBox = new System.Windows.Forms.ComboBox();
             this._prevComboBox = new System.Windows.Forms.ComboBox();
             this._nextComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
+            // 
+            // _confirmButton
+            // 
+            this._confirmButton.Location = new System.Drawing.Point(15, 199);
+            // 
+            // _cancelButton
+            // 
+            this._cancelButton.Location = new System.Drawing.Point(116, 199);
             // 
             // _nodeTypeComboBox
             // 
@@ -135,27 +141,6 @@
             this._label7.TabIndex = 10;
             this._label7.Text = "Next";
             // 
-            // _confirmButton
-            // 
-            this._confirmButton.Location = new System.Drawing.Point(12, 197);
-            this._confirmButton.Name = "_confirmButton";
-            this._confirmButton.Size = new System.Drawing.Size(79, 22);
-            this._confirmButton.TabIndex = 12;
-            this._confirmButton.Text = "Confirm";
-            this._confirmButton.UseVisualStyleBackColor = true;
-            this._confirmButton.Click += new System.EventHandler(this.ConfirmButtonClick);
-            // 
-            // _cancelButton
-            // 
-            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(116, 197);
-            this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(79, 22);
-            this._cancelButton.TabIndex = 13;
-            this._cancelButton.Text = "Cancel";
-            this._cancelButton.UseVisualStyleBackColor = true;
-            this._cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
-            // 
             // _label2
             // 
             this._label2.AutoSize = true;
@@ -195,17 +180,13 @@
             // 
             // AddNodeWizard
             // 
-            this.AcceptButton = this._confirmButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(207, 228);
+            this.ClientSize = new System.Drawing.Size(207, 236);
             this.Controls.Add(this._nextComboBox);
             this.Controls.Add(this._prevComboBox);
             this.Controls.Add(this._label2);
             this.Controls.Add(this._floorComboBox);
-            this.Controls.Add(this._cancelButton);
-            this.Controls.Add(this._confirmButton);
             this.Controls.Add(this._label7);
             this.Controls.Add(this._label6);
             this.Controls.Add(this._nameTextBox);
@@ -216,15 +197,25 @@
             this.Controls.Add(this._label3);
             this.Controls.Add(this._label1);
             this.Controls.Add(this._nodeTypeComboBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "AddNodeWizard";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add node";
             this.Load += new System.EventHandler(this.AddNodeWizardLoad);
+            this.Controls.SetChildIndex(this._nodeTypeComboBox, 0);
+            this.Controls.SetChildIndex(this._label1, 0);
+            this.Controls.SetChildIndex(this._label3, 0);
+            this.Controls.SetChildIndex(this._xTextBox, 0);
+            this.Controls.SetChildIndex(this._label4, 0);
+            this.Controls.SetChildIndex(this._yTextBox, 0);
+            this.Controls.SetChildIndex(this._label5, 0);
+            this.Controls.SetChildIndex(this._nameTextBox, 0);
+            this.Controls.SetChildIndex(this._label6, 0);
+            this.Controls.SetChildIndex(this._label7, 0);
+            this.Controls.SetChildIndex(this._confirmButton, 0);
+            this.Controls.SetChildIndex(this._cancelButton, 0);
+            this.Controls.SetChildIndex(this._floorComboBox, 0);
+            this.Controls.SetChildIndex(this._label2, 0);
+            this.Controls.SetChildIndex(this._prevComboBox, 0);
+            this.Controls.SetChildIndex(this._nextComboBox, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,8 +233,6 @@
         private System.Windows.Forms.Label _label5;
         private System.Windows.Forms.Label _label6;
         private System.Windows.Forms.Label _label7;
-        private System.Windows.Forms.Button _confirmButton;
-        private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Label _label2;
         private System.Windows.Forms.ComboBox _floorComboBox;
         private System.Windows.Forms.ComboBox _prevComboBox;

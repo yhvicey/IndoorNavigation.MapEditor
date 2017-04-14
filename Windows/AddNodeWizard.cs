@@ -8,7 +8,8 @@
     using Models.Nodes;
     using Properties;
 
-    public partial class AddNodeWizard : Form
+    public partial class AddNodeWizard :
+        Wizard<NodeBase>
     {
         private readonly Map _map;
 
@@ -19,8 +20,6 @@
         public int? Next { get; set; }
 
         public int? Prev { get; set; }
-
-        public bool Ready { get; private set; }
 
         public NodeType Type { get; set; }
 
@@ -115,29 +114,22 @@
             if (index < _map.Floors.Count - 1) _map.Floors[index + 1].EntryNodes.ForEach(entryNode => _nextComboBox.Items.Add(entryNode));
         }
 
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Ready = false;
-            Close();
-        }
-
-        private void ConfirmButtonClick(object sender, EventArgs e)
+        protected override bool Prepare()
         {
             if (_floorComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.PleaseSelectFloorAlert);
-                return;
+                return false;
             }
             if (!double.TryParse(_xTextBox.Text, out var x))
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
             if (!double.TryParse(_yTextBox.Text, out var y))
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
 
             Type = (NodeType)_nodeTypeComboBox.SelectedIndex;
@@ -148,12 +140,10 @@
             Prev = _prevComboBox.SelectedIndex == 0 ? (int?)null : _prevComboBox.SelectedIndex - 1;
             Next = _nextComboBox.SelectedIndex == 0 ? (int?)null : _nextComboBox.SelectedIndex - 1;
 
-            DialogResult = DialogResult.Yes;
-            Ready = true;
-            Close();
+            return true;
         }
 
-        public NodeBase MakeNode()
+        public override NodeBase Make()
         {
             if (!Ready) return null;
             switch (Type)

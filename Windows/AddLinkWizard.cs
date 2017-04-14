@@ -7,7 +7,8 @@
     using Models.Nodes;
     using Properties;
 
-    public partial class AddLinkWizard : Form
+    public partial class AddLinkWizard :
+        Wizard<Link>
     {
         private readonly Map _map;
 
@@ -16,8 +17,6 @@
         public int EndIndex { get; set; } = -1;
 
         public int Floor { get; set; }
-
-        public bool Ready { get; private set; }
 
         public NodeType StartType { get; set; }
 
@@ -68,39 +67,32 @@
                 floor.GetNodes((NodeType)endTypeIndex).ForEach(node => _endNodeComboBox.Items.Add(node));
         }
 
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Ready = false;
-            Close();
-        }
-
-        private void ConfirmButtonClick(object sender, EventArgs e)
+        protected override bool Prepare()
         {
             if (_floorComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.PleaseSelectFloorAlert);
-                return;
+                return false;
             }
             if (_startTypeComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
             if (_startNodeComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
             if (_endTypeComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
             if (_endNodeComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show(Resources.InvalidValueError);
-                return;
+                return false;
             }
 
             Floor = _floorComboBox.SelectedIndex;
@@ -109,12 +101,10 @@
             EndType = (NodeType)_endTypeComboBox.SelectedIndex;
             EndIndex = _endNodeComboBox.SelectedIndex;
 
-            DialogResult = DialogResult.Yes;
-            Ready = true;
-            Close();
+            return true;
         }
 
-        public Link MakeLink()
+        public override Link Make()
         {
             return !Ready ? null : new Link(StartType, StartIndex, EndType, EndIndex);
         }
