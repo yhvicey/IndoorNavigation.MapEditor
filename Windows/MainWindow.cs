@@ -526,22 +526,22 @@
             {
                 case Constant.EntryNodesIndex:
                 {
-                    floor.EntryNodes.Clear();
+                    for (var i = floor.EntryNodes.Count - 1; i >= 0; i--) RemoveNode(floorIndex, NodeType.EntryNode, i);
                     break;
                 }
                 case Constant.GuideNodesIndex:
                 {
-                    floor.GuideNodes.Clear();
+                    for (var i = floor.GuideNodes.Count - 1; i >= 0; i--) RemoveNode(floorIndex, NodeType.GuideNode, i);
                     break;
                 }
                 case Constant.WallNodesIndex:
                 {
-                    floor.WallNodes.Clear();
+                    for (var i = floor.WallNodes.Count - 1; i >= 0; i--) RemoveNode(floorIndex, NodeType.WallNode, i);
                     break;
                 }
                 case Constant.LinksIndex:
                 {
-                    floor.Links.Clear();
+                    for (var i = floor.Links.Count - 1; i >= 0; i--) RemoveLink(floorIndex, i);
                     break;
                 }
             }
@@ -586,8 +586,11 @@
             Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
             Debug.Assert(nodeIndex >= 0);
 
-            CurrentMap?.Floors[floorIndex].GetLinkIndices(type, nodeIndex).ForEach(linkIndex => RemoveLink(floorIndex, linkIndex));
-            CurrentMap?.Floors[floorIndex].RemoveNode(type, nodeIndex);
+            var floor = CurrentMap?.Floors[floorIndex];
+            floor?.GetRelatedLinkIndices(type, nodeIndex).ForEach(index => RemoveLink(floorIndex, index));
+            floor?.RemoveNode(type, nodeIndex);
+
+            SelectCatalogue(floorIndex, (int)type);
 
             OnRemoveNode(floorIndex, type, nodeIndex);
         }

@@ -215,12 +215,12 @@
             }
         }
 
-        public IEnumerable<int> GetLinkIndices(NodeType type, int index)
+        public IEnumerable<int> GetRelatedLinkIndices(NodeType type, int index)
         {
             Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
             Debug.Assert(index >= 0);
 
-            for (var i = 0; i < Links.Count; i++)
+            for (var i = Links.Count - 1; i >= 0; i--)
             {
                 var link = Links[i];
                 if (link.StartType == type && link.StartIndex == index || link.EndType == type && link.EndIndex == index)
@@ -274,7 +274,6 @@
                     break;
                 }
             }
-            GetLinkIndices(type, index).ForEach(RemoveLink);
             Links.ForEach(link =>
             {
                 if (link.StartType == type && link.StartIndex > index) link.StartIndex--;
