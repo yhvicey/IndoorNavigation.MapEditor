@@ -30,10 +30,22 @@
 
         public const int NoSelectedFloor = -1;
 
+        public const int NodeHalfSideLength = 5;
+
+        public const int HighlightedNodeHalfSideLength = 7;
+
+        public const int LinkWidth = 1;
+
+        public const int HighlightedLinkWidth = 2;
+
+        public const int MapPadding = 50;
+
         public static readonly Color EntryNodeColor = Color.FromArgb(76, 255, 0);
 
         public static readonly Color GuideNodeColor = Color.FromArgb(0, 148, 255);
 
         public static readonly Color WallNodeColor = Color.FromArgb(128, 128, 128);
+
+        public static readonly Color LinkColor = Color.Black;
     }
 }
