@@ -99,6 +99,12 @@
     <Compile Include="Windows\ChangeSizeWizard.Designer.cs">
       <DependentUpon>ChangeSizeWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ExceptionDialog.Designer.cs">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\ChangeSizeWizard.resx">
       <DependentUpon>ChangeSizeWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\ExceptionDialog.resx">
+      <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

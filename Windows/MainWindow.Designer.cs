@@ -38,7 +38,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._newNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._newLinkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._openMapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._closeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,6 +59,7 @@ namespace IndoorNavigator.MapEditor.Windows
             this._rightPanel = new System.Windows.Forms.SplitContainer();
             this._mapView = new IndoorNavigator.MapEditor.Controls.MapView();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
+            this._debugButton = new System.Windows.Forms.ToolStripMenuItem();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
@@ -73,7 +73,8 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
-            this._toolsMenuItem});
+            this._toolsMenuItem,
+            this._debugButton});
             this._menuStrip.Location = new System.Drawing.Point(0, 0);
             this._menuStrip.Name = "_menuStrip";
             this._menuStrip.Size = new System.Drawing.Size(1008, 24);
@@ -136,18 +137,10 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             // _openMenuItem
             // 
-            this._openMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._openMapMenuItem});
             this._openMenuItem.Name = "_openMenuItem";
             this._openMenuItem.Size = new System.Drawing.Size(184, 22);
             this._openMenuItem.Text = "Open";
-            // 
-            // _openMapMenuItem
-            // 
-            this._openMapMenuItem.Name = "_openMapMenuItem";
-            this._openMapMenuItem.Size = new System.Drawing.Size(98, 22);
-            this._openMapMenuItem.Text = "Map";
-            this._openMapMenuItem.Click += new System.EventHandler(this.OpenMapMenuItemClick);
+            this._openMenuItem.Click += new System.EventHandler(this.OpenMenuItemClick);
             // 
             // _toolStripSeparator1
             // 
@@ -283,6 +276,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // 
             this._designerView.Background = null;
             this._designerView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this._designerView.CanvasSize = new System.Drawing.Size(0, 0);
             this._designerView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._designerView.Location = new System.Drawing.Point(3, 3);
             this._designerView.Name = "_designerView";
@@ -325,6 +319,14 @@ namespace IndoorNavigator.MapEditor.Windows
             this._propertyGrid.Size = new System.Drawing.Size(294, 262);
             this._propertyGrid.TabIndex = 0;
             this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
+            // 
+            // _debugButton
+            // 
+            this._debugButton.Name = "_debugButton";
+            this._debugButton.Size = new System.Drawing.Size(54, 20);
+            this._debugButton.Text = "Debug";
+            this._debugButton.Visible = false;
+            this._debugButton.Click += new System.EventHandler(this.DebugButtonClick);
             // 
             // MainWindow
             // 
@@ -380,11 +382,11 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripStatusLabel _mapStatusLable;
         private System.Windows.Forms.ToolStripMenuItem _newNodeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _newLinkMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _openMapMenuItem;
         private Controls.DesignerView _designerView;
         private System.Windows.Forms.ToolStripMenuItem _saveAsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _changeCanvasSizeMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel _cursorStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem _debugButton;
     }
 }
 

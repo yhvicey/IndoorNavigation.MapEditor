@@ -75,7 +75,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -93,7 +93,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -123,7 +123,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -168,7 +168,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -198,7 +198,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -241,7 +241,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -291,7 +291,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 

@@ -68,7 +68,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -81,8 +81,13 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
+        }
+
+        private void DebugButtonClick(object sender, EventArgs e)
+        {
+            ExceptionDialog.Show(this, new Exception("This is message"));
         }
 
         private void ExitMenuItemClick(object sender, EventArgs e)
@@ -94,7 +99,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -132,7 +137,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -145,7 +150,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -164,7 +169,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -193,7 +198,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -206,7 +211,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -235,11 +240,11 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
-        private void OpenMapMenuItemClick(object sender, EventArgs e)
+        private void OpenMenuItemClick(object sender, EventArgs e)
         {
             try
             {
@@ -248,7 +253,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -260,7 +265,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -279,7 +284,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -298,7 +303,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -317,7 +322,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString());
+                ExceptionDialog.Show(this, ex);
             }
         }
 
@@ -787,6 +792,9 @@
 
             InitializeDesignerView();
             InitializeMapView();
+#if DEBUG
+            _debugButton.Visible = true;
+#endif
 
             if (!(args?.Count > 0)) return;
             CurrentMapFile = args.First();
