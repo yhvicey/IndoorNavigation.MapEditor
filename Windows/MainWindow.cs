@@ -373,6 +373,9 @@
             _designerViewAdapter.OnAddFloor(floor);
             _mapViewAdapter.OnAddFloor(floor);
 
+            var floorIndex = CurrentMap.Floors.Count - 1;
+            SelectFloor(floorIndex);
+
             var wizard = new ChangeSizeWizard
             {
                 WidthProperty = _designerView.CanvasSize.Width,
@@ -380,11 +383,7 @@
             };
 
             if (wizard.ShowDialog() != DialogResult.Yes) return;
-            if (!wizard.Ready) return;
-
-            var floorIndex = CurrentMap.Floors.Count - 1;
-            _designerViewAdapter.ChangeCanvasSize(wizard.Make(), floorIndex);
-            SelectFloor(floorIndex);
+            if (wizard.Ready) _designerViewAdapter.ChangeCanvasSize(wizard.Make(), floorIndex);
 
             StatusBarMessage("Floor added.");
             Flush();
@@ -400,8 +399,6 @@
             _designerViewAdapter.OnAddLink(link, floorIndex);
             _mapViewAdapter.OnAddLink(link, floorIndex);
 
-            SelectLink(floorIndex, CurrentMap.Floors[floorIndex].Links.Count - 1);
-
             StatusBarMessage("Link added.");
             Flush();
         }
@@ -411,13 +408,10 @@
             Debug.Assert(node != null);
             Debug.Assert(floorIndex >= 0);
 
-
             StatusBarMessage("Adding node...");
 
             _designerViewAdapter.OnAddNode(node, floorIndex);
             _mapViewAdapter.OnAddNode(node, floorIndex);
-
-            SelectNode(floorIndex, node.Type, CurrentMap.Floors[CurrentFloorIndex].GetNodeIndex(node));
 
             StatusBarMessage("Node added.");
             Flush();
