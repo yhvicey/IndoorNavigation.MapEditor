@@ -54,6 +54,18 @@
 
         #region Event handlers
 
+        private void AboutMenuItemClick(object sender, EventArgs e)
+        {
+            try
+            {
+                new AboutBox().ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog.Show(this, ex);
+            }
+        }
+
         private void ChangeCanvasSizeMenuItemClick(object sender, EventArgs e)
         {
             try
@@ -87,7 +99,14 @@
 
         private void DebugButtonClick(object sender, EventArgs e)
         {
-            ExceptionDialog.Show(this, new Exception("This is message"));
+            try
+            {
+                var value = int.Parse("Hello world");
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog.Show(this, ex);
+            }
         }
 
         private void ExitMenuItemClick(object sender, EventArgs e)
@@ -793,7 +812,7 @@
             InitializeDesignerView();
             InitializeMapView();
 #if DEBUG
-            _debugButton.Visible = true;
+            _debugMenuItem.Visible = true;
 #endif
 
             if (!(args?.Count > 0)) return;

@@ -117,63 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LinkIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LinkIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ErrorDialogTitle" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImageFilter" xml:space="preserve">
-    <value>JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*</value>
-  </data>
-  <data name="UnexpectedTypeError" xml:space="preserve">
-    <value>Unexpected node type</value>
-  </data>
-  <data name="InvalidElementError" xml:space="preserve">
-    <value>Invalid element</value>
-  </data>
-  <data name="InvalidArgument" xml:space="preserve">
-    <value>Invalid argument</value>
-  </data>
-  <data name="InvalidMapFileError" xml:space="preserve">
-    <value>Invalid map file</value>
-  </data>
-  <data name="UnsupportedVersionError" xml:space="preserve">
-    <value>Unsupported version</value>
-  </data>
-  <data name="InvalidValueError" xml:space="preserve">
-    <value>Invalid value</value>
-  </data>
-  <data name="PleaseSelectFloorAlert" xml:space="preserve">
-    <value>Please select a floor</value>
-  </data>
-  <data name="MapStatusTemplate" xml:space="preserve">
-    <value>Current floor: {0} Canvas size: {1}</value>
-  </data>
-  <data name="EntryNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EntryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GuideNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GuideNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WallNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WallNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
+  <data name="NoSelectedFloorError" xml:space="preserve">
+    <value>No selected floor</value>
   </data>
   <data name="SaveMapNotification" xml:space="preserve">
     <value>Do you want to save map?</value>
   </data>
-  <data name="InfoDialogTitle" xml:space="preserve">
-    <value>Info</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="EntryNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EntryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MapFileFilter" xml:space="preserve">
     <value>Map file|*.xml|All files|*.*</value>
@@ -184,16 +136,73 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Editor</value>
   </data>
-  <data name="UseBackgroundImageSizeNotification" xml:space="preserve">
-    <value>Use background image size for current canvas size?</value>
+  <data name="MapStatusTemplate" xml:space="preserve">
+    <value>Current floor: {0} Canvas size: {1}</value>
+  </data>
+  <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ResetCanvasSizeToMinimalNotification" xml:space="preserve">
     <value>Reset canvas size to mininal map size?</value>
   </data>
-  <data name="NoSelectedFloorError" xml:space="preserve">
-    <value>No selected floor</value>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="InfoDialogTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>Invalid argument</value>
+  </data>
+  <data name="InvalidMapFileError" xml:space="preserve">
+    <value>Invalid map file</value>
+  </data>
+  <data name="ErrorDialogTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="UnexpectedTypeError" xml:space="preserve">
+    <value>Unexpected node type</value>
+  </data>
+  <data name="GuideNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GuideNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UnsupportedVersionError" xml:space="preserve">
+    <value>Unsupported version</value>
+  </data>
+  <data name="LinkIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LinkIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PleaseSelectFloorAlert" xml:space="preserve">
+    <value>Please select a floor</value>
+  </data>
+  <data name="InvalidElementError" xml:space="preserve">
+    <value>Invalid element</value>
+  </data>
+  <data name="InvalidValueError" xml:space="preserve">
+    <value>Invalid value</value>
+  </data>
+  <data name="ImageFilter" xml:space="preserve">
+    <value>JPG|*.jpg|PNG|*.png|BMP|*.bmp|All files|*.*</value>
+  </data>
+  <data name="UseBackgroundImageSizeNotification" xml:space="preserve">
+    <value>Use background image size for current canvas size?</value>
+  </data>
+  <data name="WallNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WallNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CursorStatusTemplate" xml:space="preserve">
     <value>{0}, {1}</value>
+  </data>
+  <data name="VersionInfoTemplate" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="AboutBoxTitle" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Vicey Wang</value>
   </data>
 </root>

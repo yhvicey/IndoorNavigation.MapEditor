@@ -49,6 +49,8 @@ namespace IndoorNavigator.MapEditor.Windows
             this._loadBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._removeBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._changeCanvasSizeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._debugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._messageStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._toolStripPlaceholder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -59,7 +61,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._rightPanel = new System.Windows.Forms.SplitContainer();
             this._mapView = new IndoorNavigator.MapEditor.Controls.MapView();
             this._propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this._debugButton = new System.Windows.Forms.ToolStripMenuItem();
             this._menuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this._tableLayoutPanel.SuspendLayout();
@@ -74,7 +75,8 @@ namespace IndoorNavigator.MapEditor.Windows
             this._menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
             this._toolsMenuItem,
-            this._debugButton});
+            this._aboutMenuItem,
+            this._debugMenuItem});
             this._menuStrip.Location = new System.Drawing.Point(0, 0);
             this._menuStrip.Name = "_menuStrip";
             this._menuStrip.Size = new System.Drawing.Size(1008, 24);
@@ -170,7 +172,7 @@ namespace IndoorNavigator.MapEditor.Windows
             // _saveAsMenuItem
             // 
             this._saveAsMenuItem.Name = "_saveAsMenuItem";
-            this._saveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this._saveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this._saveAsMenuItem.Size = new System.Drawing.Size(184, 22);
             this._saveAsMenuItem.Text = "Save as";
@@ -219,6 +221,21 @@ namespace IndoorNavigator.MapEditor.Windows
             this._changeCanvasSizeMenuItem.Size = new System.Drawing.Size(184, 22);
             this._changeCanvasSizeMenuItem.Text = "Change canvas size";
             this._changeCanvasSizeMenuItem.Click += new System.EventHandler(this.ChangeCanvasSizeMenuItemClick);
+            // 
+            // _aboutMenuItem
+            // 
+            this._aboutMenuItem.Name = "_aboutMenuItem";
+            this._aboutMenuItem.Size = new System.Drawing.Size(52, 20);
+            this._aboutMenuItem.Text = "About";
+            this._aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItemClick);
+            // 
+            // _debugMenuItem
+            // 
+            this._debugMenuItem.Name = "_debugMenuItem";
+            this._debugMenuItem.Size = new System.Drawing.Size(54, 20);
+            this._debugMenuItem.Text = "Debug";
+            this._debugMenuItem.Visible = false;
+            this._debugMenuItem.Click += new System.EventHandler(this.DebugButtonClick);
             // 
             // _statusStrip
             // 
@@ -320,14 +337,6 @@ namespace IndoorNavigator.MapEditor.Windows
             this._propertyGrid.TabIndex = 0;
             this._propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGridPropertyValueChanged);
             // 
-            // _debugButton
-            // 
-            this._debugButton.Name = "_debugButton";
-            this._debugButton.Size = new System.Drawing.Size(54, 20);
-            this._debugButton.Text = "Debug";
-            this._debugButton.Visible = false;
-            this._debugButton.Click += new System.EventHandler(this.DebugButtonClick);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,7 +395,8 @@ namespace IndoorNavigator.MapEditor.Windows
         private System.Windows.Forms.ToolStripMenuItem _saveAsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _changeCanvasSizeMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel _cursorStatusLabel;
-        private System.Windows.Forms.ToolStripMenuItem _debugButton;
+        private System.Windows.Forms.ToolStripMenuItem _debugMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _aboutMenuItem;
     }
 }
 

@@ -61,6 +61,24 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About {0}.
+        /// </summary>
+        internal static string AboutBoxTitle {
+            get {
+                return ResourceManager.GetString("AboutBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vicey Wang.
+        /// </summary>
+        internal static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}, {1}.
         /// </summary>
         internal static string CursorStatusTemplate {
@@ -173,12 +191,12 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon Logo {
+        internal static System.Drawing.Bitmap Logo {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -287,6 +305,15 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static string UseBackgroundImageSizeNotification {
             get {
                 return ResourceManager.GetString("UseBackgroundImageSizeNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        internal static string VersionInfoTemplate {
+            get {
+                return ResourceManager.GetString("VersionInfoTemplate", resourceCulture);
             }
         }
         
