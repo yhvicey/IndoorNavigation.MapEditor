@@ -85,6 +85,7 @@
             this._detailsTextBox.Multiline = true;
             this._detailsTextBox.Name = "_detailsTextBox";
             this._detailsTextBox.ReadOnly = true;
+            this._detailsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._detailsTextBox.Size = new System.Drawing.Size(340, 124);
             this._detailsTextBox.TabIndex = 5;
             this._detailsTextBox.Visible = false;
