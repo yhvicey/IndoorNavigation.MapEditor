@@ -44,8 +44,8 @@
             Debug.Assert(doc != null);
 
             var nodeElement = doc.CreateElement(node.Type.ToString());
-            nodeElement.SetAttribute(AttrX, node.X.ToString("F2"));
-            nodeElement.SetAttribute(AttrY, node.Y.ToString("F2"));
+            nodeElement.SetAttribute(AttrX, node.X.ToString());
+            nodeElement.SetAttribute(AttrY, node.Y.ToString());
             switch (node)
             {
                 case EntryNode entryNode:
