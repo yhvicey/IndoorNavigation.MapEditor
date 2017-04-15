@@ -88,16 +88,6 @@ namespace IndoorNavigator.MapEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EntryNode {
-            get {
-                object obj = ResourceManager.GetObject("EntryNode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorDialogTitle {
@@ -112,16 +102,6 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static System.Drawing.Bitmap ErrorIcon {
             get {
                 object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap GuideNode {
-            get {
-                object obj = ResourceManager.GetObject("GuideNode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -314,16 +294,6 @@ namespace IndoorNavigator.MapEditor.Properties {
         internal static string VersionInfoTemplate {
             get {
                 return ResourceManager.GetString("VersionInfoTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WallNode {
-            get {
-                object obj = ResourceManager.GetObject("WallNode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

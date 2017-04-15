@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\MapEditor\bin\Debug\</OutputPath>
-	<IntermediateOutputPath>..\..\build\MapEditor\int\Debug</IntermediateOutputPath>
+    <IntermediateOutputPath>..\..\build\MapEditor\int\Debug</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\MapEditor\bin\Release\</OutputPath>
-	<IntermediateOutputPath>..\..\build\MapEditor\int\Release</IntermediateOutputPath>
+    <IntermediateOutputPath>..\..\build\MapEditor\int\Release</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -173,25 +173,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LinkIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EntryIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GuideNode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WallNode.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ErrorIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\LinkIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
