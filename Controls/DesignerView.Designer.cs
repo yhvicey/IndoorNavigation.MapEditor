@@ -117,6 +117,7 @@
             // 
             this._canvas.BackColor = System.Drawing.Color.Transparent;
             this._canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this._canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._canvas.ContextMenuStrip = this._designerViewMenuStrip;
             this._canvas.ErrorImage = null;
             this._canvas.InitialImage = null;
@@ -126,8 +127,9 @@
             this._canvas.TabIndex = 1;
             this._canvas.TabStop = false;
             this._canvas.SizeChanged += new System.EventHandler(this.CanvasSizeChanged);
-            this._canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseClick);
-            this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WorkspaceMouseMove);
+            this._canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseDown);
+            this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseMove);
+            this._canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseUp);
             // 
             // _designerViewMenuStrip
             // 

@@ -102,6 +102,8 @@
 
         private readonly SolidBrush _guideNodeBrush = new SolidBrush(Constant.GuideNodeColor);
 
+        private bool _isPressingLeftButton;
+
         private readonly Pen _linkPen = new Pen(Constant.LinkColor)
         {
             DashStyle = DashStyle.Dot
@@ -141,7 +143,7 @@
 
         #region Event handlers
 
-        private void CanvasMouseClick(object sender, MouseEventArgs e)
+        private void CanvasMouseDown(object sender, MouseEventArgs e)
         {
             try
             {
@@ -150,50 +152,30 @@
                 _clickLocation.X = e.X;
                 _clickLocation.Y = e.Y;
 
-                OnClick();
-                OnDesignerViewMenuShow();
+                var floorTarget = Targets[CurrentFloorIndex];
+                var floor = floorTarget.MapModel as Floor;
+                Debug.Assert(floor != null);
+                var target =
+                    floorTarget.Targets.SelectMany(
+                        catalogueTarget =>
+                            catalogueTarget.Targets.Where(
+                                elementTarget =>
+                                    elementTarget.MapModel is NodeBase &&
+                                    InsideNodeArea(elementTarget, e.X, e.Y))).FirstOrDefault();
+                SelectTarget(target);
+                if (target?.MapModel is NodeBase node)
+                    _parent.SelectNode(CurrentFloorIndex, node.Type, floor.GetNodeIndex(node));
 
-                switch (_selection)
+                switch (e.Button)
                 {
-                    case ToolStripSelection.EntryNode:
+                    case MouseButtons.Left:
                     {
-                        if (_selectedTarget != null) return;
-                        _parent.AddNode(new EntryNode(e.X, e.Y), CurrentFloorIndex);
+                        OnCanvasMouseDown(e);
                         return;
                     }
-                    case ToolStripSelection.GuideNode:
+                    case MouseButtons.Right:
                     {
-                        if (_selectedTarget != null) return;
-                        _parent.AddNode(new GuideNode(e.X, e.Y), CurrentFloorIndex);
-                        return;
-                    }
-                    case ToolStripSelection.WallNode:
-                    {
-                        if (_selectedTarget != null) return;
-                        _parent.AddNode(new WallNode(e.X, e.Y), CurrentFloorIndex);
-                        return;
-                    }
-                    case ToolStripSelection.Link:
-                    {
-                        if (_selectedTarget == null || _prevSelectedTarget == null)
-                        {
-                            _prevSelectedTarget = _selectedTarget;
-                            return;
-                        }
-                        var startNode = _prevSelectedTarget.MapModel as NodeBase;
-                        if (startNode == null) return;
-                        var endNode = _selectedTarget.MapModel as NodeBase;
-                        if (endNode == null) return;
-                        var floor = _parent.CurrentMap.Floors[CurrentFloorIndex];
-                        _parent.AddLink(
-                            new Link(startNode.Type, floor.GetNodeIndex(startNode), endNode.Type,
-                                floor.GetNodeIndex(endNode)), CurrentFloorIndex);
-                        _prevSelectedTarget = null;
-                        SelectTarget(null);
-                        return;
-                    }
-                    default:
-                    {
+                        OnDesignerViewMenuShow();
                         return;
                     }
                 }
@@ -202,6 +184,27 @@
             {
                 ExceptionDialog.Show(this, ex);
             }
+        }
+
+        private void CanvasMouseMove(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                WorkspaceMouseMove(sender, e);
+                if (!_isPressingLeftButton || !(_selectedTarget?.MapModel is NodeBase node)) return;
+                node.X = e.X;
+                node.Y = e.Y;
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog.Show(this, ex);
+            }
+        }
+
+        private void CanvasMouseUp(object sender, MouseEventArgs e)
+        {
+            _isPressingLeftButton = false;
         }
 
         private void CanvasSizeChanged(object sender, EventArgs e)
@@ -293,7 +296,7 @@
         {
             ClearSelection();
             var location = _canvas.PointToClient(Cursor.Position);
-            CanvasMouseClick(sender, new MouseEventArgs(MouseButtons.Right, 1, location.X, location.Y, 0));
+            CanvasMouseDown(sender, new MouseEventArgs(MouseButtons.Right, 1, location.X, location.Y, 0));
         }
 
         private void DesignerViewLoad(object sender, EventArgs e)
@@ -403,23 +406,45 @@
             return x >= rect.X && x <= rect.X + rect.Width && y >= rect.Y && y <= rect.Y + rect.Height;
         }
 
-        private void OnClick()
+        private void OnCanvasMouseDown(MouseEventArgs e)
         {
             if (CurrentFloorIndex == Constant.NoSelectedFloor) return;
 
-            var floorTarget = Targets[CurrentFloorIndex];
-            var floor = floorTarget.MapModel as Floor;
-            Debug.Assert(floor != null);
-            var target =
-                floorTarget.Targets.SelectMany(
-                    catalogueTarget =>
-                        catalogueTarget.Targets.Where(
-                            elementTarget =>
-                                elementTarget.MapModel is NodeBase &&
-                                InsideNodeArea(elementTarget, _clickLocation.X, _clickLocation.Y))).FirstOrDefault();
-            SelectTarget(target);
-            if (target?.MapModel is NodeBase node)
-                _parent.SelectNode(CurrentFloorIndex, node.Type, floor.GetNodeIndex(node));
+            _isPressingLeftButton = true;
+
+            switch (_selection)
+            {
+                case ToolStripSelection.EntryNode:
+                {
+                    if (_selectedTarget == null) _parent.AddNode(new EntryNode(e.X, e.Y), CurrentFloorIndex);
+                    return;
+                }
+                case ToolStripSelection.GuideNode:
+                {
+                    if (_selectedTarget == null) _parent.AddNode(new GuideNode(e.X, e.Y), CurrentFloorIndex);
+                    return;
+                }
+                case ToolStripSelection.WallNode:
+                {
+                    if (_selectedTarget == null) _parent.AddNode(new WallNode(e.X, e.Y), CurrentFloorIndex);
+                    return;
+                }
+                case ToolStripSelection.Link:
+                {
+                    if (_selectedTarget == null || _prevSelectedTarget == null) return;
+                    var startNode = _prevSelectedTarget.MapModel as NodeBase;
+                    if (startNode == null) return;
+                    var endNode = _selectedTarget.MapModel as NodeBase;
+                    if (endNode == null) return;
+                    var floor = Targets[CurrentFloorIndex].MapModel as Floor;
+                    Debug.Assert(floor != null);
+                    _parent.AddLink(
+                        new Link(startNode.Type, floor.GetNodeIndex(startNode), endNode.Type,
+                            floor.GetNodeIndex(endNode)), CurrentFloorIndex);
+                    SelectTarget(null);
+                    return;
+                }
+            }
         }
 
         private void OnDesignerViewMenuShow()
@@ -487,6 +512,7 @@
 
         public void SelectTarget(RenderTarget target, bool highlight = true)
         {
+            _prevSelectedTarget = _selectedTarget;
             _selectedTarget?.Unhighlight();
             _selectedTarget = target;
             if (highlight) _selectedTarget?.Highlight();
