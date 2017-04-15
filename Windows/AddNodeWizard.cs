@@ -23,9 +23,9 @@
 
         public NodeType Type { get; set; }
 
-        public double X { get; set; }
+        public int X { get; set; }
 
-        public double Y { get; set; }
+        public int Y { get; set; }
 
         public AddNodeWizard(Map map)
         {
@@ -121,12 +121,12 @@
                 MessageBox.Show(this, Resources.PleaseSelectFloorAlert);
                 return false;
             }
-            if (!double.TryParse(_xTextBox.Text, out var x))
+            if (!int.TryParse(_xTextBox.Text, out var x))
             {
                 MessageBox.Show(this, Resources.InvalidValueError);
                 return false;
             }
-            if (!double.TryParse(_yTextBox.Text, out var y))
+            if (!int.TryParse(_yTextBox.Text, out var y))
             {
                 MessageBox.Show(this, Resources.InvalidValueError);
                 return false;

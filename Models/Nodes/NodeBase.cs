@@ -9,11 +9,11 @@
     {
         public abstract NodeType Type { get; }
 
-        public double X { get; set; }
+        public int X { get; set; }
 
-        public double Y { get; set; }
+        public int Y { get; set; }
 
-        protected NodeBase(double x, double y)
+        protected NodeBase(int x, int y)
         {
             X = x;
             Y = y;

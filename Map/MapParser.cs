@@ -43,8 +43,8 @@
             Debug.Assert(element != null);
 
             if (!Enum.TryParse(element.Name, out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
-            if (!double.TryParse(element.GetAttribute(AttrX), out var x)) throw new Exception(Resources.InvalidElementError);
-            if (!double.TryParse(element.GetAttribute(AttrY), out var y)) throw new Exception(Resources.InvalidElementError);
+            if (!int.TryParse(element.GetAttribute(AttrX), out var x)) throw new Exception(Resources.InvalidElementError);
+            if (!int.TryParse(element.GetAttribute(AttrY), out var y)) throw new Exception(Resources.InvalidElementError);
 
             switch (type)
             {
