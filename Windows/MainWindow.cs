@@ -706,8 +706,6 @@
 
             CurrentMap.Floors[floorIndex].RemoveLink(linkIndex);
 
-            SelectCatalogue(floorIndex, Constant.LinksIndex);
-
             OnRemoveLink(floorIndex, linkIndex);
         }
 
@@ -720,8 +718,6 @@
             var floor = CurrentMap.Floors[floorIndex];
             floor?.GetRelatedLinkIndices(type, nodeIndex).ForEach(index => RemoveLink(floorIndex, index));
             floor?.RemoveNode(type, nodeIndex);
-
-            SelectCatalogue(floorIndex, (int)type);
 
             OnRemoveNode(floorIndex, type, nodeIndex);
         }
