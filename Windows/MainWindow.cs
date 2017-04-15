@@ -76,6 +76,18 @@
                     return;
                 }
 
+                var wizard = new ChangeSizeWizard
+                {
+                    WidthProperty = _designerView.CanvasSize.Width,
+                    HeightProperty = _designerView.CanvasSize.Height
+                };
+
+                if (wizard.ShowDialog() != DialogResult.Yes) return;
+                if (!wizard.Ready) return;
+
+                var floorIndex = CurrentMap.Floors.Count - 1;
+                _designerViewAdapter.ChangeCanvasSize(wizard.Make(), floorIndex);
+
                 Flush();
             }
             catch (Exception ex)

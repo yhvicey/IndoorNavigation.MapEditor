@@ -287,6 +287,7 @@
 
         private void DesignerViewMenuStripOpening(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ClearSelection();
             var location = _canvas.PointToClient(Cursor.Position);
             CanvasMouseClick(sender, new MouseEventArgs(MouseButtons.Right, 1, location.X, location.Y, 0));
         }
@@ -313,6 +314,12 @@
         }
 
         #endregion // Event handlers
+
+        private void ClearSelection()
+        {
+            _designerToolStrip.Items.OfType<ToolStripButton>().ForEach(button => button.Checked = false);
+            _selection = ToolStripSelection.None;
+        }
 
         private void DrawEntryNode(EntryNode node, bool highlighted = false)
         {
