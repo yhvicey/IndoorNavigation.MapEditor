@@ -66,7 +66,6 @@
             // _entryNodeButton
             // 
             this._entryNodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._entryNodeButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.EntryNode;
             this._entryNodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._entryNodeButton.Name = "_entryNodeButton";
             this._entryNodeButton.Size = new System.Drawing.Size(23, 22);
@@ -75,7 +74,6 @@
             // _guideNodeButton
             // 
             this._guideNodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._guideNodeButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.GuideNode;
             this._guideNodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._guideNodeButton.Name = "_guideNodeButton";
             this._guideNodeButton.Size = new System.Drawing.Size(23, 22);
@@ -84,7 +82,6 @@
             // _wallNodeButton
             // 
             this._wallNodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._wallNodeButton.Image = global::IndoorNavigator.MapEditor.Properties.Resources.WallNode;
             this._wallNodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._wallNodeButton.Name = "_wallNodeButton";
             this._wallNodeButton.Size = new System.Drawing.Size(23, 22);
@@ -188,6 +185,7 @@
             this.Controls.Add(this._designerToolStrip);
             this.Name = "DesignerView";
             this.Size = new System.Drawing.Size(500, 400);
+            this.Load += new System.EventHandler(this.DesignerViewLoad);
             this._designerToolStrip.ResumeLayout(false);
             this._designerToolStrip.PerformLayout();
             this._workspace.ResumeLayout(false);

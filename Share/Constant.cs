@@ -34,16 +34,16 @@
 
         public const int HighlightedNodeHalfSideLength = 7;
 
-        public const int LinkWidth = 1;
+        public const int LinkWidth = 2;
 
-        public const int HighlightedLinkWidth = 2;
+        public const int HighlightedLinkWidth = 4;
 
-        public static readonly Color EntryNodeColor = Color.FromArgb(76, 255, 0);
+        public static readonly Color EntryNodeColor = Color.LawnGreen;
 
-        public static readonly Color GuideNodeColor = Color.FromArgb(0, 148, 255);
+        public static readonly Color GuideNodeColor = Color.Cyan;
 
         public static readonly Color WallNodeColor = Color.Red;
 
-        public static readonly Color LinkColor = Color.GreenYellow;
+        public static readonly Color LinkColor = Color.LimeGreen;
     }
 }

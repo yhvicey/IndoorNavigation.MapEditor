@@ -8,6 +8,7 @@
     using Models;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
     using Models.Nodes;
     using Share;
@@ -101,7 +102,10 @@
 
         private readonly SolidBrush _guideNodeBrush = new SolidBrush(Constant.GuideNodeColor);
 
-        private readonly Pen _linkPen = new Pen(Constant.LinkColor);
+        private readonly Pen _linkPen = new Pen(Constant.LinkColor)
+        {
+            DashStyle = DashStyle.Dot
+        };
 
         private MainWindow _parent;
 
@@ -290,6 +294,30 @@
             ClearSelection();
             var location = _canvas.PointToClient(Cursor.Position);
             CanvasMouseClick(sender, new MouseEventArgs(MouseButtons.Right, 1, location.X, location.Y, 0));
+        }
+
+        private void DesignerViewLoad(object sender, EventArgs e)
+        {
+            try
+            {
+                const int sideLength = Constant.NodeHalfSideLength * 2;
+
+                var entryNodeImage = new Bitmap(sideLength, sideLength);
+                Graphics.FromImage(entryNodeImage).FillEllipse(_entryNodeBrush, 0, 0, sideLength, sideLength);
+                _entryNodeButton.Image = entryNodeImage;
+
+                var guideNodeImage = new Bitmap(sideLength, sideLength);
+                Graphics.FromImage(guideNodeImage).FillEllipse(_guideNodeBrush, 0, 0, sideLength, sideLength);
+                _guideNodeButton.Image = guideNodeImage;
+
+                var wallNodeImage = new Bitmap(sideLength, sideLength);
+                Graphics.FromImage(wallNodeImage).FillEllipse(_wallNodeBrush, 0, 0, sideLength, sideLength);
+                _wallNodeButton.Image = wallNodeImage;
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog.Show(this, ex);
+            }
         }
 
         private void DesignerViewRemoveMenuItemClick(object sender, EventArgs e)
