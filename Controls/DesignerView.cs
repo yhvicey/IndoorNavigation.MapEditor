@@ -155,16 +155,16 @@
                 var floorTarget = Targets[CurrentFloorIndex];
                 var floor = floorTarget.MapModel as Floor;
                 Debug.Assert(floor != null);
-                var target =
+                var targetNode =
                     floorTarget.Targets.SelectMany(
-                        catalogueTarget =>
-                            catalogueTarget.Targets.Where(
-                                elementTarget =>
-                                    elementTarget.MapModel is NodeBase &&
-                                    InsideNodeArea(elementTarget, e.X, e.Y))).FirstOrDefault();
-                SelectTarget(target);
-                if (target?.MapModel is NodeBase node)
-                    _parent.SelectNode(CurrentFloorIndex, node.Type, floor.GetNodeIndex(node));
+                            catalogueTarget =>
+                                catalogueTarget.Targets.Where(
+                                    elementTarget =>
+                                        elementTarget.MapModel is NodeBase && InsideNodeArea(elementTarget, e.X, e.Y)))
+                        .FirstOrDefault()?.MapModel as NodeBase;
+                if (targetNode != null)
+                    _parent.SelectNode(CurrentFloorIndex, targetNode.Type, floor.GetNodeIndex(targetNode));
+                else SelectTarget(null);
 
                 switch (e.Button)
                 {
@@ -410,7 +410,7 @@
         {
             if (CurrentFloorIndex == Constant.NoSelectedFloor) return;
 
-            _isPressingLeftButton = true;
+            _isPressingLeftButton = _prevSelectedTarget != null;
 
             switch (_selection)
             {
