@@ -155,22 +155,20 @@
                 var floorTarget = Targets[CurrentFloorIndex];
                 var floor = floorTarget.MapModel as Floor;
                 Debug.Assert(floor != null);
-                var targetNode =
+                var target =
                     floorTarget.Targets.SelectMany(
                             catalogueTarget =>
                                 catalogueTarget.Targets.Where(
                                     elementTarget =>
                                         elementTarget.MapModel is NodeBase && InsideNodeArea(elementTarget, e.X, e.Y)))
-                        .FirstOrDefault()?.MapModel as NodeBase;
-                if (targetNode != null)
-                    _parent.SelectNode(CurrentFloorIndex, targetNode.Type, floor.GetNodeIndex(targetNode));
-                else SelectTarget(null);
+                        .FirstOrDefault();
+                SelectTarget(target);
 
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
                     {
-                        OnCanvasMouseDown(e);
+                        OnCanvasMouseDown(target, e);
                         return;
                     }
                     case MouseButtons.Right:
@@ -406,7 +404,7 @@
             return x >= rect.X && x <= rect.X + rect.Width && y >= rect.Y && y <= rect.Y + rect.Height;
         }
 
-        private void OnCanvasMouseDown(MouseEventArgs e)
+        private void OnCanvasMouseDown(RenderTarget target, MouseEventArgs e)
         {
             if (CurrentFloorIndex == Constant.NoSelectedFloor) return;
 
@@ -442,6 +440,14 @@
                         new Link(startNode.Type, floor.GetNodeIndex(startNode), endNode.Type,
                             floor.GetNodeIndex(endNode)), CurrentFloorIndex);
                     SelectTarget(null);
+                    return;
+                }
+                default:
+                {
+                    var node = target?.MapModel as NodeBase;
+                    if (node != null)
+                        _parent.SelectNode(CurrentFloorIndex, node.Type,
+                            _parent.CurrentMap.Floors[CurrentFloorIndex].GetNodeIndex(node));
                     return;
                 }
             }
