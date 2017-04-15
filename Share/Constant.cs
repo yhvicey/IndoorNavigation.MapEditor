@@ -42,8 +42,8 @@
 
         public static readonly Color GuideNodeColor = Color.FromArgb(0, 148, 255);
 
-        public static readonly Color WallNodeColor = Color.FromArgb(128, 128, 128);
+        public static readonly Color WallNodeColor = Color.Red;
 
-        public static readonly Color LinkColor = Color.Black;
+        public static readonly Color LinkColor = Color.GreenYellow;
     }
 }
