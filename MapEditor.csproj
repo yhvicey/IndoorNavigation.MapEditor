@@ -63,7 +63,6 @@
     <Compile Include="Models\Floor.cs" />
     <Compile Include="Models\IMapModel.cs" />
     <Compile Include="Models\Map.cs" />
-    <Compile Include="Models\Nodes\EntryNode.cs" />
     <Compile Include="Models\Nodes\GuideNode.cs" />
     <Compile Include="Models\Nodes\WallNode.cs" />
     <Compile Include="Models\Nodes\NodeType.cs" />

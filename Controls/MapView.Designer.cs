@@ -32,7 +32,6 @@
             this._mapViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this._mapViewAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mapViewAddFloorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._mapViewAddEntryNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mapViewAddGuideNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mapViewAddWallNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mapViewAddLinkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +51,6 @@
             // 
             this._mapViewAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._mapViewAddFloorMenuItem,
-            this._mapViewAddEntryNodeMenuItem,
             this._mapViewAddGuideNodeMenuItem,
             this._mapViewAddWallNodeMenuItem,
             this._mapViewAddLinkMenuItem});
@@ -66,13 +64,6 @@
             this._mapViewAddFloorMenuItem.Size = new System.Drawing.Size(135, 22);
             this._mapViewAddFloorMenuItem.Text = "Floor";
             this._mapViewAddFloorMenuItem.Click += new System.EventHandler(this.MapViewAddFloorMenuItemClick);
-            // 
-            // _mapViewAddEntryNodeMenuItem
-            // 
-            this._mapViewAddEntryNodeMenuItem.Name = "_mapViewAddEntryNodeMenuItem";
-            this._mapViewAddEntryNodeMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._mapViewAddEntryNodeMenuItem.Text = "Entry node";
-            this._mapViewAddEntryNodeMenuItem.Click += new System.EventHandler(this.MapViewAddEntryNodeMenuItemClick);
             // 
             // _mapViewAddGuideNodeMenuItem
             // 
@@ -116,7 +107,6 @@
         private System.Windows.Forms.ContextMenuStrip _mapViewMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem _mapViewAddMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _mapViewAddFloorMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _mapViewAddEntryNodeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _mapViewAddGuideNodeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _mapViewAddWallNodeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _mapViewAddLinkMenuItem;

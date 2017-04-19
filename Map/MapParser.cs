@@ -24,7 +24,7 @@
         private const string ElementMap = "Map";
         private const string ElementFloor = "Floor";
         private const string ElementLink = "Link";
-        private const string SupportedVersion = "1.0";
+        private const string SupportedVersion = "1.1";
 
         private static Link GenerateLink(XmlElement element)
         {
@@ -48,7 +48,7 @@
 
             switch (type)
             {
-                case NodeType.EntryNode:
+                case NodeType.GuideNode:
                 {
                     var name = element.GetAttribute(AttrName);
                     var prev = int.TryParse(element.GetAttribute(AttrPrev), out var prevEntry)
@@ -57,12 +57,7 @@
                     var next = int.TryParse(element.GetAttribute(AttrNext), out var nextEntry)
                         ? nextEntry
                         : (int?)null;
-                    return new EntryNode(x, y, string.IsNullOrEmpty(name) ? null : name, prev, next);
-                }
-                case NodeType.GuideNode:
-                {
-                    var name = element.GetAttribute(AttrName);
-                    return new GuideNode(x, y, string.IsNullOrEmpty(name) ? null : name);
+                    return new GuideNode(x, y, string.IsNullOrEmpty(name) ? null : name, prev, next);
                 }
                 case NodeType.WallNode:
                 {
@@ -96,13 +91,9 @@
             {
                 var floor = new Floor();
 
-                var entryNodeElements = floorElement.SelectNodes(NodeType.EntryNode.ToString())?.OfType<XmlElement>();
+                var entryNodeElements = floorElement.SelectNodes(NodeType.GuideNode.ToString())?.OfType<XmlElement>();
                 Debug.Assert(entryNodeElements != null);
                 floor.AddNodes(entryNodeElements.Select(GenerateNode));
-
-                var guideNodeElements = floorElement.SelectNodes(NodeType.GuideNode.ToString())?.OfType<XmlElement>();
-                Debug.Assert(guideNodeElements != null);
-                floor.AddNodes(guideNodeElements.Select(GenerateNode));
 
                 var wallNodeElements = floorElement.SelectNodes(NodeType.WallNode.ToString())?.OfType<XmlElement>();
                 Debug.Assert(wallNodeElements != null);

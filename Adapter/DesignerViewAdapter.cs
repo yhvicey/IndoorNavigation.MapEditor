@@ -63,7 +63,6 @@
 
             var floorTarget = new DesignerView.RenderTarget(_designerView, floor);
             floorTarget.Targets.Add(new DesignerView.RenderTarget(_designerView, childItems: floor.EntryNodes));
-            floorTarget.Targets.Add(new DesignerView.RenderTarget(_designerView, childItems: floor.GuideNodes));
             floorTarget.Targets.Add(new DesignerView.RenderTarget(_designerView, childItems: floor.WallNodes));
             floorTarget.Targets.Add(new DesignerView.RenderTarget(_designerView, childItems: floor.Links));
             _designerView.Targets.Add(floorTarget);

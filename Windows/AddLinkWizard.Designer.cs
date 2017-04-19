@@ -62,7 +62,6 @@
             this._startTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._startTypeComboBox.FormattingEnabled = true;
             this._startTypeComboBox.Items.AddRange(new object[] {
-            "EntryNode",
             "GuideNode",
             "WallNode"});
             this._startTypeComboBox.Location = new System.Drawing.Point(74, 33);
@@ -85,7 +84,6 @@
             this._endTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._endTypeComboBox.FormattingEnabled = true;
             this._endTypeComboBox.Items.AddRange(new object[] {
-            "EntryNode",
             "GuideNode",
             "WallNode"});
             this._endTypeComboBox.Location = new System.Drawing.Point(74, 87);

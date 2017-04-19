@@ -57,7 +57,6 @@
             this._nodeTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._nodeTypeComboBox.FormattingEnabled = true;
             this._nodeTypeComboBox.Items.AddRange(new object[] {
-            "EntryNode",
             "GuideNode",
             "WallNode"});
             this._nodeTypeComboBox.Location = new System.Drawing.Point(74, 6);

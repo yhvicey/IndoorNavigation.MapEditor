@@ -49,36 +49,6 @@
 
         #region Event handlers
 
-        private void MapViewAddEntryNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_parent.CurrentMap == null)
-                {
-                    MessageBox.Show(this, Resources.NoCurrentMapError);
-                    return;
-                }
-                if (_parent.CurrentFloorIndex == Constant.NoSelectedFloor)
-                {
-                    MessageBox.Show(this, Resources.NoSelectedFloorError);
-                    return;
-                }
-
-                var wizard = new AddNodeWizard(_parent.CurrentMap)
-                {
-                    Floor = _parent.CurrentFloorIndex,
-                    Type = NodeType.EntryNode
-                };
-                if (wizard.ShowDialog() == DialogResult.Cancel) return;
-                if (!wizard.Ready) return;
-                _parent.AddNode(wizard.Make(), wizard.Floor);
-            }
-            catch (Exception ex)
-            {
-                ExceptionDialog.Show(this, ex);
-            }
-        }
-
         private void MapViewAddFloorMenuItemClick(object sender, EventArgs e)
         {
             try
@@ -272,7 +242,6 @@
                     {
                         switch (selectedNode.Parent.Index)
                         {
-                            case Constant.EntryNodesIndex:
                             case Constant.GuideNodesIndex:
                             case Constant.WallNodesIndex:
                             {
@@ -304,7 +273,6 @@
 
             _mapViewAddMenuItem.Visible = false;
             _mapViewAddFloorMenuItem.Visible = false;
-            _mapViewAddEntryNodeMenuItem.Visible = false;
             _mapViewAddGuideNodeMenuItem.Visible = false;
             _mapViewAddWallNodeMenuItem.Visible = false;
             _mapViewAddLinkMenuItem.Visible = false;
@@ -319,7 +287,6 @@
                 case Constant.FloorNodeLevel:
                 {
                     _mapViewAddMenuItem.Visible = true;
-                    _mapViewAddEntryNodeMenuItem.Visible = true;
                     _mapViewAddGuideNodeMenuItem.Visible = true;
                     _mapViewAddWallNodeMenuItem.Visible = true;
                     _mapViewAddLinkMenuItem.Visible = true;
@@ -329,13 +296,6 @@
                 {
                     switch (catalogueIndex)
                     {
-                        case Constant.EntryNodesIndex:
-                        {
-                            _mapViewAddMenuItem.Visible = true;
-                            _mapViewAddEntryNodeMenuItem.Visible = true;
-                            _mapViewAddLinkMenuItem.Visible = true;
-                            return;
-                        }
                         case Constant.GuideNodesIndex:
                         {
                             _mapViewAddMenuItem.Visible = true;

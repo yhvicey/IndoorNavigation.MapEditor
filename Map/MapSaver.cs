@@ -23,7 +23,7 @@
         private const string ElementMap = "Map";
         private const string ElementFloor = "Floor";
         private const string ElementLink = "Link";
-        private const string SupportedVersion = "1.0";
+        private const string SupportedVersion = "1.1";
 
         private static XmlElement GenerateLink(Link link, XmlDocument doc)
         {
@@ -48,16 +48,11 @@
             nodeElement.SetAttribute(AttrY, node.Y.ToString());
             switch (node)
             {
-                case EntryNode entryNode:
+                case GuideNode entryNode:
                 {
                     if (entryNode.Name != null) nodeElement.SetAttribute(AttrName, entryNode.Name);
                     if (entryNode.Prev != null) nodeElement.SetAttribute(AttrPrev, entryNode.Prev.ToString());
                     if (entryNode.Next != null) nodeElement.SetAttribute(AttrNext, entryNode.Next.ToString());
-                    break;
-                }
-                case GuideNode guideNode:
-                {
-                    if (guideNode.Name != null) nodeElement.SetAttribute(AttrName, guideNode.Name);
                     break;
                 }
                 case WallNode wallNode:
@@ -90,7 +85,6 @@
                 var floorElement = doc.CreateElement(ElementFloor);
 
                 floor.EntryNodes.ForEach(entryNode => floorElement.AppendChild(GenerateNode(entryNode, doc)));
-                floor.GuideNodes.ForEach(guideNode => floorElement.AppendChild(GenerateNode(guideNode, doc)));
                 floor.WallNodes.ForEach(wallNode => floorElement.AppendChild(GenerateNode(wallNode, doc)));
                 floor.Links.ForEach(link => floorElement.AppendChild(GenerateLink(link, doc)));
 

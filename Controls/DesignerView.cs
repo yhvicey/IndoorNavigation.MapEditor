@@ -20,7 +20,6 @@
         private enum ToolStripSelection
         {
             None,
-            EntryNode,
             GuideNode,
             WallNode,
             Link
@@ -55,14 +54,9 @@
             {
                 switch (MapModel)
                 {
-                    case EntryNode entryNode:
+                    case GuideNode entryNode:
                     {
                         _parent.DrawEntryNode(entryNode, Highlighted);
-                        return;
-                    }
-                    case GuideNode guideNode:
-                    {
-                        _parent.DrawGuideNode(guideNode, Highlighted);
                         return;
                     }
                     case WallNode wallNode:
@@ -99,8 +93,6 @@
         private readonly SolidBrush _entryNodeBrush = new SolidBrush(Constant.EntryNodeColor);
 
         private Graphics _graphics;
-
-        private readonly SolidBrush _guideNodeBrush = new SolidBrush(Constant.GuideNodeColor);
 
         private bool _isPressingLeftButton;
 
@@ -237,26 +229,12 @@
                     else
                     {
                         item.Checked = !item.Checked;
-                        if (item.Checked && e.ClickedItem.Name == _entryNodeButton.Name) _selection = ToolStripSelection.EntryNode;
-                        else if (item.Checked && e.ClickedItem.Name == _guideNodeButton.Name) _selection = ToolStripSelection.GuideNode;
+                        if (item.Checked && e.ClickedItem.Name == _guideNodeButton.Name) _selection = ToolStripSelection.GuideNode;
                         else if (item.Checked && e.ClickedItem.Name == _wallNodeButton.Name) _selection = ToolStripSelection.WallNode;
                         else if (item.Checked && e.ClickedItem.Name == _linkButton.Name) _selection = ToolStripSelection.Link;
                         else _selection = ToolStripSelection.None;
                     }
                 });
-            }
-            catch (Exception ex)
-            {
-                ExceptionDialog.Show(this, ex);
-            }
-        }
-
-        private void DesignerViewAddEntryNodeMenuItemClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_selectedTarget != null) return;
-                _parent.AddNode(new EntryNode(_clickLocation.X, _clickLocation.Y), CurrentFloorIndex);
             }
             catch (Exception ex)
             {
@@ -305,11 +283,7 @@
 
                 var entryNodeImage = new Bitmap(sideLength, sideLength);
                 Graphics.FromImage(entryNodeImage).FillEllipse(_entryNodeBrush, 0, 0, sideLength, sideLength);
-                _entryNodeButton.Image = entryNodeImage;
-
-                var guideNodeImage = new Bitmap(sideLength, sideLength);
-                Graphics.FromImage(guideNodeImage).FillEllipse(_guideNodeBrush, 0, 0, sideLength, sideLength);
-                _guideNodeButton.Image = guideNodeImage;
+                _guideNodeButton.Image = entryNodeImage;
 
                 var wallNodeImage = new Bitmap(sideLength, sideLength);
                 Graphics.FromImage(wallNodeImage).FillEllipse(_wallNodeBrush, 0, 0, sideLength, sideLength);
@@ -350,18 +324,11 @@
             _selection = ToolStripSelection.None;
         }
 
-        private void DrawEntryNode(EntryNode node, bool highlighted = false)
+        private void DrawEntryNode(GuideNode node, bool highlighted = false)
         {
             Debug.Assert(node != null);
 
             _graphics?.FillEllipse(_entryNodeBrush, GetNodeRectangle(node, highlighted));
-        }
-
-        private void DrawGuideNode(GuideNode node, bool highlighted = false)
-        {
-            Debug.Assert(node != null);
-
-            _graphics?.FillEllipse(_guideNodeBrush, GetNodeRectangle(node, highlighted));
         }
 
         private void DrawWallNode(WallNode node, bool highlighted = false)
@@ -412,11 +379,6 @@
 
             switch (_selection)
             {
-                case ToolStripSelection.EntryNode:
-                {
-                    if (_selectedTarget == null) _parent.AddNode(new EntryNode(e.X, e.Y), CurrentFloorIndex);
-                    return;
-                }
                 case ToolStripSelection.GuideNode:
                 {
                     if (_selectedTarget == null) _parent.AddNode(new GuideNode(e.X, e.Y), CurrentFloorIndex);
@@ -501,11 +463,6 @@
             {
                 if (entryNode.X > width) width = entryNode.X;
                 if (entryNode.Y > height) height = entryNode.Y;
-            });
-            floor.GuideNodes.ForEach(guideNode =>
-            {
-                if (guideNode.X > width) width = guideNode.X;
-                if (guideNode.Y > height) height = guideNode.Y;
             });
             floor.WallNodes.ForEach(wallNode =>
             {

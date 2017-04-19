@@ -148,13 +148,9 @@
             if (!Ready) return null;
             switch (Type)
             {
-                case NodeType.EntryNode:
-                {
-                    return new EntryNode(X, Y, NodeName, Prev, Next);
-                }
                 case NodeType.GuideNode:
                 {
-                    return new GuideNode(X, Y, NodeName);
+                    return new GuideNode(X, Y, NodeName, Prev, Next);
                 }
                 case NodeType.WallNode:
                 {

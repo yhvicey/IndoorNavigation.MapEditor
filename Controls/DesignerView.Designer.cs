@@ -30,16 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this._designerToolStrip = new System.Windows.Forms.ToolStrip();
-            this._entryNodeButton = new System.Windows.Forms.ToolStripButton();
             this._guideNodeButton = new System.Windows.Forms.ToolStripButton();
             this._wallNodeButton = new System.Windows.Forms.ToolStripButton();
-            this._toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this._toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._linkButton = new System.Windows.Forms.ToolStripButton();
             this._workspace = new System.Windows.Forms.Panel();
             this._canvas = new System.Windows.Forms.PictureBox();
             this._designerViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this._designerViewAddMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._designerViewAddEntryNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._designerViewAddGuideNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._designerViewAddWallNodeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._designerViewRemoveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,24 +50,15 @@
             // _designerToolStrip
             // 
             this._designerToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._entryNodeButton,
             this._guideNodeButton,
             this._wallNodeButton,
-            this._toolStripSeparator4,
+            this._toolStripSeparator1,
             this._linkButton});
             this._designerToolStrip.Location = new System.Drawing.Point(0, 0);
             this._designerToolStrip.Name = "_designerToolStrip";
             this._designerToolStrip.Size = new System.Drawing.Size(500, 25);
             this._designerToolStrip.TabIndex = 3;
             this._designerToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DesignerToolStripItemClicked);
-            // 
-            // _entryNodeButton
-            // 
-            this._entryNodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._entryNodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._entryNodeButton.Name = "_entryNodeButton";
-            this._entryNodeButton.Size = new System.Drawing.Size(23, 22);
-            this._entryNodeButton.Text = "Entry node";
             // 
             // _guideNodeButton
             // 
@@ -87,10 +76,10 @@
             this._wallNodeButton.Size = new System.Drawing.Size(23, 22);
             this._wallNodeButton.Text = "Wall node";
             // 
-            // _toolStripSeparator4
+            // _toolStripSeparator1
             // 
-            this._toolStripSeparator4.Name = "_toolStripSeparator4";
-            this._toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this._toolStripSeparator1.Name = "_toolStripSeparator1";
+            this._toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // _linkButton
             // 
@@ -137,44 +126,36 @@
             this._designerViewAddMenuItem,
             this._designerViewRemoveMenuItem});
             this._designerViewMenuStrip.Name = "_designerViewMenuStrip";
-            this._designerViewMenuStrip.Size = new System.Drawing.Size(118, 48);
+            this._designerViewMenuStrip.Size = new System.Drawing.Size(153, 70);
             this._designerViewMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DesignerViewMenuStripOpening);
             // 
             // _designerViewAddMenuItem
             // 
             this._designerViewAddMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._designerViewAddEntryNodeMenuItem,
             this._designerViewAddGuideNodeMenuItem,
             this._designerViewAddWallNodeMenuItem});
             this._designerViewAddMenuItem.Name = "_designerViewAddMenuItem";
-            this._designerViewAddMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._designerViewAddMenuItem.Size = new System.Drawing.Size(152, 22);
             this._designerViewAddMenuItem.Text = "Add";
-            // 
-            // _designerViewAddEntryNodeMenuItem
-            // 
-            this._designerViewAddEntryNodeMenuItem.Name = "_designerViewAddEntryNodeMenuItem";
-            this._designerViewAddEntryNodeMenuItem.Size = new System.Drawing.Size(135, 22);
-            this._designerViewAddEntryNodeMenuItem.Text = "Entry node";
-            this._designerViewAddEntryNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddEntryNodeMenuItemClick);
             // 
             // _designerViewAddGuideNodeMenuItem
             // 
             this._designerViewAddGuideNodeMenuItem.Name = "_designerViewAddGuideNodeMenuItem";
-            this._designerViewAddGuideNodeMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._designerViewAddGuideNodeMenuItem.Size = new System.Drawing.Size(152, 22);
             this._designerViewAddGuideNodeMenuItem.Text = "Guide node";
             this._designerViewAddGuideNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddGuideNodeMenuItemClick);
             // 
             // _designerViewAddWallNodeMenuItem
             // 
             this._designerViewAddWallNodeMenuItem.Name = "_designerViewAddWallNodeMenuItem";
-            this._designerViewAddWallNodeMenuItem.Size = new System.Drawing.Size(135, 22);
+            this._designerViewAddWallNodeMenuItem.Size = new System.Drawing.Size(152, 22);
             this._designerViewAddWallNodeMenuItem.Text = "Wall node";
             this._designerViewAddWallNodeMenuItem.Click += new System.EventHandler(this.DesignerViewAddWallNodeMenuItemClick);
             // 
             // _designerViewRemoveMenuItem
             // 
             this._designerViewRemoveMenuItem.Name = "_designerViewRemoveMenuItem";
-            this._designerViewRemoveMenuItem.Size = new System.Drawing.Size(117, 22);
+            this._designerViewRemoveMenuItem.Size = new System.Drawing.Size(152, 22);
             this._designerViewRemoveMenuItem.Text = "Remove";
             this._designerViewRemoveMenuItem.Click += new System.EventHandler(this.DesignerViewRemoveMenuItemClick);
             // 
@@ -201,18 +182,16 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip _designerToolStrip;
-        private System.Windows.Forms.ToolStripButton _entryNodeButton;
         private System.Windows.Forms.ToolStripButton _guideNodeButton;
         private System.Windows.Forms.ToolStripButton _wallNodeButton;
-        private System.Windows.Forms.ToolStripSeparator _toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator _toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton _linkButton;
         private System.Windows.Forms.Panel _workspace;
         private System.Windows.Forms.PictureBox _canvas;
         private System.Windows.Forms.ContextMenuStrip _designerViewMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem _designerViewAddMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _designerViewAddEntryNodeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem _designerViewRemoveMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _designerViewAddGuideNodeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _designerViewRemoveMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _designerViewAddWallNodeMenuItem;
     }
 }
