@@ -1,4 +1,5 @@
 # IndoorNavigator.MapEditor
+[![Build status](https://ci.appveyor.com/api/projects/status/ykq7yarhcyforyjy?svg=true)](https://ci.appveyor.com/project/yhvicey/indoornavigator-mapeditor)
 
 ## Project homepage
 [IndoorNavigator](http://github.com/yhvicey/IndoorNavigator)
