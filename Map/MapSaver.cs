@@ -11,12 +11,11 @@
     public static class MapSaver
     {
         private const string AttrEndIndex = "EndIndex";
-        private const string AttrEndType = "EndType";
         private const string AttrName = "Name";
         private const string AttrNext = "Next";
         private const string AttrPrev = "Prev";
         private const string AttrStartIndex = "StartIndex";
-        private const string AttrStartType = "StartType";
+        private const string AttrType = "Type";
         private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
@@ -31,9 +30,8 @@
             Debug.Assert(doc != null);
 
             var linkElement = doc.CreateElement(ElementLink);
-            linkElement.SetAttribute(AttrStartType, link.StartType.ToString());
+            linkElement.SetAttribute(AttrType, link.Type.ToString());
             linkElement.SetAttribute(AttrStartIndex, link.StartIndex.ToString());
-            linkElement.SetAttribute(AttrEndType, link.EndType.ToString());
             linkElement.SetAttribute(AttrEndIndex, link.EndIndex.ToString());
             return linkElement;
         }

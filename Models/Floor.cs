@@ -177,23 +177,21 @@
             for (var i = Links.Count - 1; i >= 0; i--)
             {
                 var link = Links[i];
-                if (link.StartType == type && link.StartIndex == index || link.EndType == type && link.EndIndex == index)
+                if (link.Type == type && (link.StartIndex == index ||  link.EndIndex == index))
                     yield return i;
             }
         }
 
-        public Link Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
+        public Link Link(NodeType type, int startIndex, int endIndex)
         {
-            Debug.Assert(Enum.IsDefined(typeof(NodeType), startType));
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
             Debug.Assert(startIndex >= 0);
-            Debug.Assert(Enum.IsDefined(typeof(NodeType), endType));
             Debug.Assert(endIndex >= 0);
 
-            var target = Links.Find(link =>
-                        link.StartType == startType && link.StartIndex == startIndex && link.EndType == endType &&
-                        link.EndIndex == endIndex);
+            var target = Links.Find(link => link.Type == type && link.StartIndex == startIndex &&
+                                            link.EndIndex == endIndex);
             if (target != null) return target;
-            target = new Link(startType, startIndex, endType, endIndex);
+            target = new Link(type, startIndex, endIndex);
             AddLink(target);
             return target;
         }
@@ -225,8 +223,8 @@
             }
             Links.ForEach(link =>
             {
-                if (link.StartType == type && link.StartIndex > index) link.StartIndex--;
-                if (link.EndType == type && link.EndIndex > index) link.EndIndex--;
+                if (link.Type == type && link.StartIndex > index) link.StartIndex--;
+                if (link.Type == type && link.EndIndex > index) link.EndIndex--;
             });
 
         }

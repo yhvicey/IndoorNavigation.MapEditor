@@ -17,7 +17,7 @@
         private const string AttrNext = "Next";
         private const string AttrPrev = "Prev";
         private const string AttrStartIndex = "StartIndex";
-        private const string AttrStartType = "StartType";
+        private const string AttrStartType = "Type";
         private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
@@ -30,12 +30,11 @@
         {
             Debug.Assert(element != null);
 
-            if (!Enum.TryParse(element.GetAttribute(AttrStartType), out NodeType startType)) throw new Exception(Resources.UnexpectedTypeError);
+            if (!Enum.TryParse(element.GetAttribute(AttrStartType), out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
             if (!int.TryParse(element.GetAttribute(AttrStartIndex), out var startIndex)) throw new Exception(Resources.InvalidElementError);
-            if (!Enum.TryParse(element.GetAttribute(AttrEndType), out NodeType endType)) throw new Exception(Resources.UnexpectedTypeError);
             if (!int.TryParse(element.GetAttribute(AttrEndIndex), out var endIndex)) throw new Exception(Resources.InvalidElementError);
 
-            return new Link(startType, startIndex, endType, endIndex);
+            return new Link(type, startIndex, endIndex);
         }
 
         private static NodeBase GenerateNode(XmlElement element)

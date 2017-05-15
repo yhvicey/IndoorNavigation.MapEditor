@@ -122,12 +122,12 @@
                 {
                     case Constant.CatalogueNodeLevel:
                     {
-                        if (selectedNode.Index != Constant.LinksIndex) wizard.StartType = (NodeType)selectedNode.Index;
+                        if (selectedNode.Index != Constant.LinksIndex) wizard.Type = (NodeType)selectedNode.Index;
                         break;
                     }
                     case Constant.ElementNodeLevel:
                     {
-                        if (selectedNode.Parent.Index != Constant.LinksIndex) wizard.StartType = (NodeType)selectedNode.Parent.Index;
+                        if (selectedNode.Parent.Index != Constant.LinksIndex) wizard.Type = (NodeType)selectedNode.Parent.Index;
                         wizard.StartIndex = selectedNode.Index;
                         break;
                     }

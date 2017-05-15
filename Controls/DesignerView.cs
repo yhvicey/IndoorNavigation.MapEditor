@@ -345,12 +345,12 @@
             var linkWidth = highlighted ? Constant.HighlightedLinkWidth : Constant.LinkWidth;
             _linkPen.Width = linkWidth;
             var startNode =
-                Targets[CurrentFloorIndex].Targets[(int)link.StartType].Targets[link.StartIndex].MapModel as NodeBase;
+                Targets[CurrentFloorIndex].Targets[(int)link.Type].Targets[link.StartIndex].MapModel as NodeBase;
             Debug.Assert(startNode != null);
             var endNode =
-                Targets[CurrentFloorIndex].Targets[(int)link.EndType].Targets[link.EndIndex].MapModel as NodeBase;
+                Targets[CurrentFloorIndex].Targets[(int)link.Type].Targets[link.EndIndex].MapModel as NodeBase;
             Debug.Assert(endNode != null);
-            _graphics?.DrawLine(_linkPen, (int)startNode.X, (int)startNode.Y, (int)endNode.X, (int)endNode.Y);
+            _graphics?.DrawLine(_linkPen, startNode.X, startNode.Y, endNode.X, endNode.Y);
         }
 
         private Rectangle GetNodeRectangle(NodeBase node, bool highlighted = false)
@@ -358,7 +358,7 @@
             Debug.Assert(node != null);
 
             var halfSideLength = highlighted ? Constant.HighlightedNodeHalfSideLength : Constant.NodeHalfSideLength;
-            return new Rectangle((int)node.X - halfSideLength, (int)node.Y - halfSideLength, halfSideLength * 2,
+            return new Rectangle(node.X - halfSideLength, node.Y - halfSideLength, halfSideLength * 2,
                 halfSideLength * 2);
         }
 
@@ -399,8 +399,8 @@
                     var floor = Targets[CurrentFloorIndex].MapModel as Floor;
                     Debug.Assert(floor != null);
                     _parent.AddLink(
-                        new Link(startNode.Type, floor.GetNodeIndex(startNode), endNode.Type,
-                            floor.GetNodeIndex(endNode)), CurrentFloorIndex);
+                        new Link(startNode.Type, floor.GetNodeIndex(startNode), floor.GetNodeIndex(endNode)),
+                        CurrentFloorIndex);
                     SelectTarget(null);
                     return;
                 }

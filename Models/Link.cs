@@ -10,26 +10,22 @@
     {
         private Floor _parent;
 
-        public double Distance => _parent.GetDistance(StartType, StartIndex, EndType, EndIndex);
+        public double Distance => _parent.GetDistance(Type, StartIndex, Type, EndIndex);
 
         public int EndIndex { get; set; }
 
-        public NodeType EndType { get; set; }
-
         public int StartIndex { get; set; }
 
-        public NodeType StartType { get; set; }
+        public NodeType Type { get; set; }
 
-        public Link(NodeType startType, int startIndex, NodeType endType, int endIndex)
+        public Link(NodeType type, int startIndex, int endIndex)
         {
-            Debug.Assert(Enum.IsDefined(typeof(NodeType), startType));
+            Debug.Assert(Enum.IsDefined(typeof(NodeType), type));
             Debug.Assert(startIndex >= 0);
-            Debug.Assert(Enum.IsDefined(typeof(NodeType), endType));
             Debug.Assert(endIndex >= 0);
 
-            StartType = startType;
+            Type = type;
             StartIndex = startIndex;
-            EndType = endType;
             EndIndex = endIndex;
         }
 
@@ -44,27 +40,24 @@
         {
             var link = obj as Link;
             if (link == null) return false;
-            return StartType == link.StartType && StartIndex == link.StartIndex && EndType == link.EndType &&
-                   EndIndex == link.EndIndex ||
-                   StartType == link.EndType && StartIndex == link.EndIndex && EndType == link.StartType &&
-                   EndIndex == link.StartIndex;
+            return Type == link.Type && (StartIndex == link.StartIndex && EndIndex == link.EndIndex ||
+                                         StartIndex == link.EndIndex && EndIndex == link.StartIndex);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var leftHashCode = StartIndex;
-                leftHashCode = (leftHashCode * 397) ^ (int)StartType;
-                var rightHashCode = EndIndex;
-                rightHashCode = (rightHashCode * 397) ^ (int)EndType;
-                return leftHashCode ^ rightHashCode;
+                var hashCode = EndIndex;
+                hashCode = (hashCode * 397) ^ StartIndex;
+                hashCode = (hashCode * 397) ^ (int) Type;
+                return hashCode;
             }
         }
 
         public override string ToString()
         {
-            return $"Link Start({StartType}, {StartIndex}) End({EndType}, {EndIndex})";
+            return $"Link Type = {Type} ({StartIndex}, {EndIndex})";
         }
     }
 }

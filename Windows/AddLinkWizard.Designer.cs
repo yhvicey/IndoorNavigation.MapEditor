@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this._label2 = new System.Windows.Forms.Label();
-            this._startTypeComboBox = new System.Windows.Forms.ComboBox();
-            this._label4 = new System.Windows.Forms.Label();
-            this._endTypeComboBox = new System.Windows.Forms.ComboBox();
+            this._typeComboBox = new System.Windows.Forms.ComboBox();
             this._label3 = new System.Windows.Forms.Label();
             this._startNodeComboBox = new System.Windows.Forms.ComboBox();
-            this._label5 = new System.Windows.Forms.Label();
+            this._label4 = new System.Windows.Forms.Label();
             this._endNodeComboBox = new System.Windows.Forms.ComboBox();
             this._label1 = new System.Windows.Forms.Label();
             this._floorComboBox = new System.Windows.Forms.ComboBox();
@@ -42,11 +40,11 @@
             // 
             // _confirmButton
             // 
-            this._confirmButton.Location = new System.Drawing.Point(12, 150);
+            this._confirmButton.Location = new System.Drawing.Point(12, 118);
             // 
             // _cancelButton
             // 
-            this._cancelButton.Location = new System.Drawing.Point(116, 150);
+            this._cancelButton.Location = new System.Drawing.Point(116, 118);
             // 
             // _label2
             // 
@@ -57,40 +55,18 @@
             this._label2.TabIndex = 3;
             this._label2.Text = "Start type";
             // 
-            // _startTypeComboBox
+            // _typeComboBox
             // 
-            this._startTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._startTypeComboBox.FormattingEnabled = true;
-            this._startTypeComboBox.Items.AddRange(new object[] {
+            this._typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._typeComboBox.FormattingEnabled = true;
+            this._typeComboBox.Items.AddRange(new object[] {
             "GuideNode",
             "WallNode"});
-            this._startTypeComboBox.Location = new System.Drawing.Point(74, 33);
-            this._startTypeComboBox.Name = "_startTypeComboBox";
-            this._startTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this._startTypeComboBox.TabIndex = 2;
-            this._startTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.StartTypeComboBoxSelectedIndexChanged);
-            // 
-            // _label4
-            // 
-            this._label4.AutoSize = true;
-            this._label4.Location = new System.Drawing.Point(12, 90);
-            this._label4.Name = "_label4";
-            this._label4.Size = new System.Drawing.Size(49, 13);
-            this._label4.TabIndex = 5;
-            this._label4.Text = "End type";
-            // 
-            // _endTypeComboBox
-            // 
-            this._endTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._endTypeComboBox.FormattingEnabled = true;
-            this._endTypeComboBox.Items.AddRange(new object[] {
-            "GuideNode",
-            "WallNode"});
-            this._endTypeComboBox.Location = new System.Drawing.Point(74, 87);
-            this._endTypeComboBox.Name = "_endTypeComboBox";
-            this._endTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this._endTypeComboBox.TabIndex = 4;
-            this._endTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.EndTypeComboBoxSelectedIndexChanged);
+            this._typeComboBox.Location = new System.Drawing.Point(74, 33);
+            this._typeComboBox.Name = "_typeComboBox";
+            this._typeComboBox.Size = new System.Drawing.Size(121, 21);
+            this._typeComboBox.TabIndex = 2;
+            this._typeComboBox.SelectedIndexChanged += new System.EventHandler(this.TypeComboBoxSelectedIndexChanged);
             // 
             // _label3
             // 
@@ -110,20 +86,20 @@
             this._startNodeComboBox.Size = new System.Drawing.Size(121, 21);
             this._startNodeComboBox.TabIndex = 7;
             // 
-            // _label5
+            // _label4
             // 
-            this._label5.AutoSize = true;
-            this._label5.Location = new System.Drawing.Point(12, 117);
-            this._label5.Name = "_label5";
-            this._label5.Size = new System.Drawing.Size(53, 13);
-            this._label5.TabIndex = 9;
-            this._label5.Text = "End node";
+            this._label4.AutoSize = true;
+            this._label4.Location = new System.Drawing.Point(12, 90);
+            this._label4.Name = "_label4";
+            this._label4.Size = new System.Drawing.Size(53, 13);
+            this._label4.TabIndex = 9;
+            this._label4.Text = "End node";
             // 
             // _endNodeComboBox
             // 
             this._endNodeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._endNodeComboBox.FormattingEnabled = true;
-            this._endNodeComboBox.Location = new System.Drawing.Point(74, 114);
+            this._endNodeComboBox.Location = new System.Drawing.Point(74, 87);
             this._endNodeComboBox.Name = "_endNodeComboBox";
             this._endNodeComboBox.Size = new System.Drawing.Size(121, 21);
             this._endNodeComboBox.TabIndex = 8;
@@ -151,28 +127,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(207, 187);
+            this.ClientSize = new System.Drawing.Size(207, 154);
             this.Controls.Add(this._label1);
             this.Controls.Add(this._floorComboBox);
-            this.Controls.Add(this._label5);
+            this.Controls.Add(this._label4);
             this.Controls.Add(this._endNodeComboBox);
             this.Controls.Add(this._startNodeComboBox);
             this.Controls.Add(this._label3);
-            this.Controls.Add(this._label4);
-            this.Controls.Add(this._endTypeComboBox);
             this.Controls.Add(this._label2);
-            this.Controls.Add(this._startTypeComboBox);
+            this.Controls.Add(this._typeComboBox);
             this.Name = "AddLinkWizard";
             this.Text = "Add link";
             this.Load += new System.EventHandler(this.AddLinkWizardLoad);
-            this.Controls.SetChildIndex(this._startTypeComboBox, 0);
+            this.Controls.SetChildIndex(this._typeComboBox, 0);
             this.Controls.SetChildIndex(this._label2, 0);
-            this.Controls.SetChildIndex(this._endTypeComboBox, 0);
-            this.Controls.SetChildIndex(this._label4, 0);
             this.Controls.SetChildIndex(this._label3, 0);
             this.Controls.SetChildIndex(this._startNodeComboBox, 0);
             this.Controls.SetChildIndex(this._endNodeComboBox, 0);
-            this.Controls.SetChildIndex(this._label5, 0);
+            this.Controls.SetChildIndex(this._label4, 0);
             this.Controls.SetChildIndex(this._floorComboBox, 0);
             this.Controls.SetChildIndex(this._label1, 0);
             this.Controls.SetChildIndex(this._confirmButton, 0);
@@ -185,12 +157,10 @@
         #endregion
 
         private System.Windows.Forms.Label _label2;
-        private System.Windows.Forms.ComboBox _startTypeComboBox;
-        private System.Windows.Forms.Label _label4;
-        private System.Windows.Forms.ComboBox _endTypeComboBox;
+        private System.Windows.Forms.ComboBox _typeComboBox;
         private System.Windows.Forms.Label _label3;
         private System.Windows.Forms.ComboBox _startNodeComboBox;
-        private System.Windows.Forms.Label _label5;
+        private System.Windows.Forms.Label _label4;
         private System.Windows.Forms.ComboBox _endNodeComboBox;
         private System.Windows.Forms.Label _label1;
         private System.Windows.Forms.ComboBox _floorComboBox;
