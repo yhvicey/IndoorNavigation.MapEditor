@@ -20,6 +20,7 @@
         private const string AttrX = "X";
         private const string AttrY = "Y";
         private const string ElementMap = "Map";
+        private const string ElementNode = "Node";
         private const string ElementFloor = "Floor";
         private const string ElementLink = "Link";
         private const string SupportedVersion = "1.1";
@@ -41,7 +42,8 @@
             Debug.Assert(node != null);
             Debug.Assert(doc != null);
 
-            var nodeElement = doc.CreateElement(node.Type.ToString());
+            var nodeElement = doc.CreateElement(ElementNode);
+            nodeElement.SetAttribute(AttrType, node.Type.ToString());
             nodeElement.SetAttribute(AttrX, node.X.ToString());
             nodeElement.SetAttribute(AttrY, node.Y.ToString());
             switch (node)
