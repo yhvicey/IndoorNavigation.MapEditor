@@ -650,7 +650,7 @@
             {
                 case Constant.GuideNodesIndex:
                 {
-                    for (var i = floor.EntryNodes.Count - 1; i >= 0; i--) RemoveNode(floorIndex, NodeType.GuideNode, i);
+                    for (var i = floor.GuideNodes.Count - 1; i >= 0; i--) RemoveNode(floorIndex, NodeType.GuideNode, i);
                     break;
                 }
                 case Constant.WallNodesIndex:

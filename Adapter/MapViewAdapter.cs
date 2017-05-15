@@ -36,7 +36,7 @@
             Debug.Assert(floor != null);
 
             var floorNode = new MapView.MapViewTreeNode($"Floor {_root.Nodes.Count + 1}", floor);
-            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.GuideNodesLabelText, childItems: floor.EntryNodes));
+            floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.GuideNodesLabelText, childItems: floor.GuideNodes));
             floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.WallNodesLabelText, childItems: floor.WallNodes));
             floorNode.Nodes.Add(new MapView.MapViewTreeNode(Constant.LinksLabelText, childItems: floor.Links));
             _root.Nodes.Add(floorNode);

@@ -12,12 +12,11 @@
     public static class MapParser
     {
         private const string AttrEndIndex = "EndIndex";
-        private const string AttrEndType = "EndType";
         private const string AttrName = "Name";
         private const string AttrNext = "Next";
         private const string AttrPrev = "Prev";
         private const string AttrStartIndex = "StartIndex";
-        private const string AttrStartType = "Type";
+        private const string AttrType = "Type";
         private const string AttrVersion = "Version";
         private const string AttrX = "X";
         private const string AttrY = "Y";
@@ -30,7 +29,7 @@
         {
             Debug.Assert(element != null);
 
-            if (!Enum.TryParse(element.GetAttribute(AttrStartType), out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
+            if (!Enum.TryParse(element.GetAttribute(AttrType), out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
             if (!int.TryParse(element.GetAttribute(AttrStartIndex), out var startIndex)) throw new Exception(Resources.InvalidElementError);
             if (!int.TryParse(element.GetAttribute(AttrEndIndex), out var endIndex)) throw new Exception(Resources.InvalidElementError);
 
@@ -41,7 +40,7 @@
         {
             Debug.Assert(element != null);
 
-            if (!Enum.TryParse(element.Name, out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
+            if (!Enum.TryParse(element.GetAttribute(AttrType), out NodeType type)) throw new Exception(Resources.UnexpectedTypeError);
             if (!int.TryParse(element.GetAttribute(AttrX), out var x)) throw new Exception(Resources.InvalidElementError);
             if (!int.TryParse(element.GetAttribute(AttrY), out var y)) throw new Exception(Resources.InvalidElementError);
 
@@ -90,11 +89,11 @@
             {
                 var floor = new Floor();
 
-                var entryNodeElements = floorElement.SelectNodes(NodeType.GuideNode.ToString())?.OfType<XmlElement>();
+                var entryNodeElements = floorElement.SelectNodes($"Node[@{AttrType}='{NodeType.GuideNode}']")?.OfType<XmlElement>();
                 Debug.Assert(entryNodeElements != null);
                 floor.AddNodes(entryNodeElements.Select(GenerateNode));
 
-                var wallNodeElements = floorElement.SelectNodes(NodeType.WallNode.ToString())?.OfType<XmlElement>();
+                var wallNodeElements = floorElement.SelectNodes($"Node[@{AttrType}='{NodeType.WallNode}']")?.OfType<XmlElement>();
                 Debug.Assert(wallNodeElements != null);
                 floor.AddNodes(wallNodeElements.Select(GenerateNode));
 

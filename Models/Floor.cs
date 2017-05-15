@@ -9,11 +9,11 @@
     using Nodes;
     using Properties;
 
-    [DebuggerDisplay("Count = {" + nameof(EntryNodes) + ".Count + " + nameof(WallNodes) + ".Count}")]
+    [DebuggerDisplay("Count = {" + nameof(GuideNodes) + ".Count + " + nameof(WallNodes) + ".Count}")]
     public class Floor :
         IMapModel
     {
-        public List<GuideNode> EntryNodes { get; } = new List<GuideNode>();
+        public List<GuideNode> GuideNodes { get; } = new List<GuideNode>();
 
         public List<Link> Links { get; } = new List<Link>();
 
@@ -42,7 +42,7 @@
             {
                 case GuideNode entryNode:
                 {
-                    EntryNodes.Add(entryNode);
+                    GuideNodes.Add(entryNode);
                     return;
                 }
                 case WallNode wallNode:
@@ -68,7 +68,7 @@
         {
             if (string.IsNullOrEmpty(pattern)) return new List<GuideNode>();
             return
-                EntryNodes.Where(entryNode => entryNode.Name != null)
+                GuideNodes.Where(entryNode => entryNode.Name != null)
                     .Where(entryNode => Regex.IsMatch(entryNode.Name, pattern));
         }
 
@@ -81,14 +81,14 @@
         {
             Debug.Assert(index >= 0);
 
-            return EntryNodes[index];
+            return GuideNodes[index];
         }
 
         public int GetEntryNodeIndex(GuideNode guide)
         {
             Debug.Assert(guide != null);
 
-            return EntryNodes.IndexOf(guide);
+            return GuideNodes.IndexOf(guide);
         }
 
         public WallNode GetWallNode(int index)
@@ -135,7 +135,7 @@
             {
                 case NodeType.GuideNode:
                 {
-                    return new List<NodeBase>(EntryNodes);
+                    return new List<NodeBase>(GuideNodes);
                 }
                 case NodeType.WallNode:
                 {
@@ -212,7 +212,7 @@
             {
                 case NodeType.GuideNode:
                 {
-                    EntryNodes.RemoveAt(index);
+                    GuideNodes.RemoveAt(index);
                     break;
                 }
                 case NodeType.WallNode:
@@ -231,7 +231,7 @@
 
         public void ResetEntryNodes(bool prev = false, bool next = false)
         {
-            EntryNodes.ForEach(entryNode =>
+            GuideNodes.ForEach(entryNode =>
             {
                 if (prev) entryNode.Prev = null;
                 if (next) entryNode.Next = null;

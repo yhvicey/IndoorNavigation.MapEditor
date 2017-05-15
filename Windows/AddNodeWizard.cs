@@ -107,11 +107,11 @@
             _prevComboBox.Items.Clear();
             _prevComboBox.Items.Insert(0, "");
             _prevComboBox.SelectedIndex = 0;
-            if (index > 0) _map.Floors[index - 1].EntryNodes.ForEach(entryNode => _prevComboBox.Items.Add(entryNode));
+            if (index > 0) _map.Floors[index - 1].GuideNodes.ForEach(entryNode => _prevComboBox.Items.Add(entryNode));
             _nextComboBox.Items.Clear();
             _nextComboBox.Items.Insert(0, "");
             _nextComboBox.SelectedIndex = 0;
-            if (index < _map.Floors.Count - 1) _map.Floors[index + 1].EntryNodes.ForEach(entryNode => _nextComboBox.Items.Add(entryNode));
+            if (index < _map.Floors.Count - 1) _map.Floors[index + 1].GuideNodes.ForEach(entryNode => _nextComboBox.Items.Add(entryNode));
         }
 
         protected override bool Prepare()

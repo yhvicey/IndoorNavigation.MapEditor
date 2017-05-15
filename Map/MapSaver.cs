@@ -82,7 +82,7 @@
             {
                 var floorElement = doc.CreateElement(ElementFloor);
 
-                floor.EntryNodes.ForEach(entryNode => floorElement.AppendChild(GenerateNode(entryNode, doc)));
+                floor.GuideNodes.ForEach(entryNode => floorElement.AppendChild(GenerateNode(entryNode, doc)));
                 floor.WallNodes.ForEach(wallNode => floorElement.AppendChild(GenerateNode(wallNode, doc)));
                 floor.Links.ForEach(link => floorElement.AppendChild(GenerateLink(link, doc)));
 

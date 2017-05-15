@@ -459,7 +459,7 @@
             Debug.Assert(floor != null);
             var width = 0d;
             var height = 0d;
-            floor.EntryNodes.ForEach(entryNode =>
+            floor.GuideNodes.ForEach(entryNode =>
             {
                 if (entryNode.X > width) width = entryNode.X;
                 if (entryNode.Y > height) height = entryNode.Y;
