@@ -117,16 +117,16 @@
 
         public Image Background
         {
-            get { return _canvas.BackgroundImage; }
-            set { _canvas.BackgroundImage = value; }
+            get => _canvas.BackgroundImage;
+            set => _canvas.BackgroundImage = value;
         }
 
         public int CurrentFloorIndex => _parent?.CurrentFloorIndex ?? Constant.NoSelectedFloor;
 
         public Size CanvasSize
         {
-            get { return _canvas.Size; }
-            set { _canvas.Size = value; }
+            get => _canvas.Size;
+            set => _canvas.Size = value;
         }
 
         public List<RenderTarget> Targets { get; } = new List<RenderTarget>();

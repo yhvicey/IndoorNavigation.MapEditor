@@ -73,7 +73,6 @@
             Debug.Assert(link != null);
             Debug.Assert(floorIndex >= 0);
 
-
             _designerView.Targets[floorIndex].Targets[Constant.LinksIndex].Targets.Add(
                 new DesignerView.RenderTarget(_designerView, link));
         }

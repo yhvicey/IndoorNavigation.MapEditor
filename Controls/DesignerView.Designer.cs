@@ -16,6 +16,8 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                _entryNodeBrush.Dispose();
+                _wallNodeBrush.Dispose();
             }
             base.Dispose(disposing);
         }
